@@ -2,9 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 // import './index.css';
 import App from './App';
-// import Login from './components/Login';
-// import News from './components/News';
-// import Profile from './components/Profile';
 
 import * as serviceWorker from './serviceWorker';
 
