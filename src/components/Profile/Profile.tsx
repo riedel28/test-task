@@ -1,19 +1,18 @@
 import React from 'react';
-import {
-  IonPage,
-  IonHeader,
-  IonToolbar,
-  IonContent,
-  IonItem,
-  IonLabel,
-  IonList,
-  IonTitle,
-} from '@ionic/react';
+import { IonPage, IonGrid, IonRow, IonCol, IonContent } from '@ionic/react';
 
 export default () => (
   <IonPage>
     <IonContent>
-      <div className="ion-padding">Form</div>
+      <IonGrid>
+        <IonRow>
+          <IonCol size="4" offsetMd="4">
+            <div className="ion-padding">
+              <h2>Profile</h2>
+            </div>
+          </IonCol>
+        </IonRow>
+      </IonGrid>
     </IonContent>
   </IonPage>
 );
