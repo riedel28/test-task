@@ -1,17 +1,5 @@
 import React from 'react';
-import {
-  IonPage,
-  IonGrid,
-  IonRow,
-  IonCol,
-  IonToolbar,
-  IonContent,
-  IonItem,
-  IonLabel,
-  IonList,
-  IonTitle,
-  IonItemGroup,
-} from '@ionic/react';
+import { IonPage, IonGrid, IonRow, IonCol, IonContent } from '@ionic/react';
 
 export default () => (
   <IonPage>
