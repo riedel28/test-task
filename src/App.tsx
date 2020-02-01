@@ -12,7 +12,7 @@ import Profile from './components/Profile/Profile';
 import '@ionic/react/css/core.css';
 import '@ionic/react/css/ionic.bundle.css';
 
-const App: React.FC = () => {
+const App: React.FC = props => {
   return (
     <IonApp>
       <IonReactRouter>
