@@ -1,10 +1,20 @@
 import { checkCredentials } from '../helpers';
 
-export const LOG_IN = 'LOG_IN';
+export const SIGN_IN = 'SIGN_IN';
+export const SIGN_OUT = 'SIGN_OUT';
 
-export const logIn = (username, password) => {
+export const signIn = (username, password) => {
   return {
-    type: LOG_IN,
-    payload: checkCredentials(username, password),
+    type: SIGN_IN,
+    payload: {
+      isLoggedIn: checkCredentials(username, password),
+      user: username,
+    },
+  };
+};
+
+export const signOut = () => {
+  return {
+    type: SIGN_OUT,
   };
 };

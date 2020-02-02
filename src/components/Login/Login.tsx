@@ -12,19 +12,24 @@ import {
   IonButton,
 } from '@ionic/react';
 import { connect } from 'react-redux';
-import { logIn } from '../../actions';
+import { signIn } from '../../actions';
+import { Redirect } from 'react-router-dom';
 
-const Login = ({ logIn, error }: any) => {
+const Login = ({ signIn, error, isLoggedIn }: any) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    logIn(username, password);
+    signIn(username, password);
 
     setUsername('');
     setPassword('');
   };
+
+  if (isLoggedIn) {
+    return <Redirect to="/profile" />;
+  }
 
   return (
     <IonPage>
@@ -42,26 +47,30 @@ const Login = ({ logIn, error }: any) => {
               <div className="ion-padding-horizontal ion-padding-bottom">
                 <h1>Login</h1>
                 {error && (
-                  <IonLabel color="danger">Логин или пароль неверные</IonLabel>
+                  <IonLabel color="danger">
+                    Имя пользователя или пароль введены не верно
+                  </IonLabel>
                 )}
               </div>
               <IonCard>
                 <div className="ion-padding">
                   <form onSubmit={handleSubmit}>
-                    <IonItem>
-                      <IonLabel position="floating">Username</IonLabel>
-                      <IonInput
-                        value={username}
-                        onIonChange={(e: any) => setUsername(e.target.value)}
-                      />
-                    </IonItem>
-                    <IonItem>
-                      <IonLabel position="floating">Password</IonLabel>
-                      <IonInput
-                        value={password}
-                        onIonChange={(e: any) => setPassword(e.target.value)}
-                      />
-                    </IonItem>
+                    <div className="ion-padding-bottom">
+                      <IonItem>
+                        <IonLabel position="floating">Username</IonLabel>
+                        <IonInput
+                          value={username}
+                          onIonChange={(e: any) => setUsername(e.target.value)}
+                        />
+                      </IonItem>
+                      <IonItem>
+                        <IonLabel position="floating">Password</IonLabel>
+                        <IonInput
+                          value={password}
+                          onIonChange={(e: any) => setPassword(e.target.value)}
+                        />
+                      </IonItem>
+                    </div>
 
                     <div className="ion-padding-top">
                       <IonButton
@@ -93,12 +102,9 @@ const mapStateToProps = (state: any) => {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    logIn: (username: any, password: any) =>
-      dispatch(logIn(username, password)),
+    signIn: (username: any, password: any) =>
+      dispatch(signIn(username, password)),
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
