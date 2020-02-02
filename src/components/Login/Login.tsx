@@ -66,6 +66,7 @@ const Login = ({ signIn, error, isLoggedIn }: any) => {
                       <IonItem>
                         <IonLabel position="floating">Password</IonLabel>
                         <IonInput
+                          type="password"
                           value={password}
                           onIonChange={(e: any) => setPassword(e.target.value)}
                         />

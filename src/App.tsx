@@ -1,17 +1,18 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
-import { IonApp, IonRouterOutlet, IonContent } from '@ionic/react';
+import { Route, Switch } from 'react-router-dom';
+import { IonApp, IonContent } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import { connect } from 'react-redux';
+
+import '@ionic/react/css/core.css';
+import '@ionic/react/css/ionic.bundle.css';
 
 import Header from './components/Header/Header';
 import Home from './components/Home/Home';
 import News from './components/News/News';
 import Login from './components/Login/Login';
 import Profile from './components/Profile/Profile';
-
-import '@ionic/react/css/core.css';
-import '@ionic/react/css/ionic.bundle.css';
+import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 
 const App: React.FC = ({ isLoggedIn }: any) => {
   return (
@@ -19,12 +20,12 @@ const App: React.FC = ({ isLoggedIn }: any) => {
       <IonReactRouter>
         <Header />
         <IonContent>
-          <IonRouterOutlet>
-            <Route path="/" component={Home} exact={true} />
+          <Switch>
+            <Route path="/" component={Home} exact />
             <Route path="/news" component={News} />
             <Route path="/login" component={Login} />
-            <Route path={'/profile'} component={isLoggedIn ? Profile : Login} />
-          </IonRouterOutlet>
+            <PrivateRoute path="/profile" component={Profile} />
+          </Switch>
         </IonContent>
       </IonReactRouter>
     </IonApp>

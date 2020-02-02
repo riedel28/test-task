@@ -8,7 +8,7 @@ const Profile = ({ user }: any) => {
       <IonContent>
         <IonGrid>
           <IonRow>
-            <div className="ion-padding">
+            <div className="ion-padding-horizontal">
               <h1>Profile</h1>
               <p>{user}</p>
             </div>

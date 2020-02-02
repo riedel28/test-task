@@ -1,28 +1,31 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router';
+import { connect } from 'react-redux';
 
-interface PrivateRouteProps {
-  component: React.ReactType;
-  isLoggedIn: boolean;
-  path: string | string[];
-}
-
-const PrivateRoute: React.FC<PrivateRouteProps> = ({
-  component: Component,
-  ...props
-}) => {
+const PrivateRoute: React.FC<any> = ({ component: Component, ...rest }) => {
   return (
     <Route
-      {...props}
-      render={(props: any) =>
-        props.isLoggedIn === true ? (
-          <Component {...props} />
+      {...rest}
+      render={({ location }: any) => {
+        return rest.isLoggedIn === true ? (
+          <Component {...rest} />
         ) : (
-          <Redirect to="/login" />
-        )
-      }
+          <Redirect
+            to={{
+              pathname: '/login',
+              state: { from: location },
+            }}
+          />
+        );
+      }}
     />
   );
 };
 
-export default PrivateRoute;
+const mapStateToProps = (state: any) => {
+  return {
+    isLoggedIn: state.isLoggedIn,
+  };
+};
+
+export default connect(mapStateToProps)(PrivateRoute);

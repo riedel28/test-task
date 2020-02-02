@@ -1,3 +1,3 @@
 export const checkCredentials = (username, password) => {
-  return username === 'Admin' && password === '12345';
+  return username.trim() === 'Admin' && password.trim() === '12345';
 };
