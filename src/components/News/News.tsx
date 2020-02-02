@@ -1,7 +1,7 @@
 import React from 'react';
 import { IonPage, IonGrid, IonRow, IonCol, IonContent } from '@ionic/react';
 
-export default () => (
+const News = () => (
   <IonPage>
     <IonContent>
       <IonGrid>
@@ -48,3 +48,5 @@ export default () => (
     </IonContent>
   </IonPage>
 );
+
+export default News;

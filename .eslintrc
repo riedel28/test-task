@@ -7,9 +7,11 @@
     "jsx-quotes": [
       1,
       "prefer-double"
-    ]
+    ],
+    "@typescript-eslint/no-unused-expressions": "off"
   },
   "plugins": [
-    "prettier"
+    "prettier",
+    "react"
   ]
 }
