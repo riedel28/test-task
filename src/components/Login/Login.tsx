@@ -12,20 +12,21 @@ import {
   IonButton,
 } from '@ionic/react';
 import { connect } from 'react-redux';
-import { signIn } from '../../actions';
+import { handleLogin } from '../../actions';
 import { Redirect } from 'react-router-dom';
 
-const Login = ({ signIn, error, isLoggedIn }: any) => {
-  const [username, setUsername] = useState('');
+const Login = ({ handleLogin, error, isLoggedIn, user }: any) => {
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    signIn(username, password);
+    handleLogin(email, password);
 
-    setUsername('');
     setPassword('');
   };
+
+  console.log(user);
 
   if (isLoggedIn) {
     return <Redirect to="/profile" />;
@@ -46,11 +47,7 @@ const Login = ({ signIn, error, isLoggedIn }: any) => {
             >
               <div className="ion-padding-horizontal ion-padding-bottom">
                 <h1>Login</h1>
-                {error && (
-                  <IonLabel color="danger">
-                    Имя пользователя или пароль введены не верно
-                  </IonLabel>
-                )}
+                {error && <IonLabel color="danger">{error}</IonLabel>}
               </div>
               <IonCard>
                 <div className="ion-padding">
@@ -59,8 +56,9 @@ const Login = ({ signIn, error, isLoggedIn }: any) => {
                       <IonItem>
                         <IonLabel position="floating">Username</IonLabel>
                         <IonInput
-                          value={username}
-                          onIonChange={(e: any) => setUsername(e.target.value)}
+                          type="email"
+                          value={email}
+                          onIonChange={(e: any) => setEmail(e.target.value)}
                         />
                       </IonItem>
                       <IonItem>
@@ -77,7 +75,7 @@ const Login = ({ signIn, error, isLoggedIn }: any) => {
                       <IonButton
                         expand="block"
                         onClick={handleSubmit}
-                        disabled={username === '' && password === ''}
+                        disabled={email === '' && password === ''}
                       >
                         Submit
                       </IonButton>
@@ -103,8 +101,8 @@ const mapStateToProps = (state: any) => {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    signIn: (username: any, password: any) =>
-      dispatch(signIn(username, password)),
+    handleLogin: (username: any, password: any) =>
+      dispatch(handleLogin(username, password)),
   };
 };
 
