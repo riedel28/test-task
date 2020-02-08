@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { IonPage, IonGrid, IonRow, IonContent } from '@ionic/react';
 import { connect } from 'react-redux';
+import { fetchUserData } from '../../actions';
 
-const Profile = ({ user }: any) => {
+const Profile = ({ user: userId, fetchUserData, userInfo, error }: any) => {
+  useEffect(() => {
+    fetchUserData(userId);
+  }, [fetchUserData, userId]);
+
   return (
     <IonPage>
       <IonContent>
@@ -10,7 +15,8 @@ const Profile = ({ user }: any) => {
           <IonRow>
             <div className="ion-padding-horizontal">
               <h1>Profile</h1>
-              <p>{user}</p>
+              {error && <p>{error}</p>}
+              <p>{userId}</p>
             </div>
           </IonRow>
         </IonGrid>
@@ -22,7 +28,14 @@ const Profile = ({ user }: any) => {
 const mapStateToProps = (state: any) => {
   return {
     user: state.user,
+    userInfo: state.userInfo,
   };
 };
 
-export default connect(mapStateToProps)(Profile);
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    fetchUserData: (id: any) => dispatch(fetchUserData(id)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);

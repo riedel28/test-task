@@ -12,8 +12,8 @@ import {
   IonButton,
 } from '@ionic/react';
 import { connect } from 'react-redux';
-import { handleLogin } from '../../actions';
 import { Redirect } from 'react-router-dom';
+import { handleLogin } from '../../actions';
 
 const Login = ({ handleLogin, error, isLoggedIn, user }: any) => {
   const [email, setEmail] = useState('');
@@ -25,8 +25,6 @@ const Login = ({ handleLogin, error, isLoggedIn, user }: any) => {
 
     setPassword('');
   };
-
-  console.log(user);
 
   if (isLoggedIn) {
     return <Redirect to="/profile" />;

@@ -3,6 +3,9 @@ import {
   SIGN_IN_SUCCESS,
   SIGN_IN_FAILURE,
   SIGN_OUT,
+  FETCH_USER_INFO_REQUEST,
+  FETCH_USER_INFO_SUCCESS,
+  FETCH_USER_INFO_FAILURE,
 } from '../actions';
 
 export const initialState = {
@@ -10,6 +13,7 @@ export const initialState = {
   isLoggedIn: false,
   error: null,
   isLoading: false,
+  userInfo: null,
 };
 
 export const rootReducer = (state = initialState, action) => {
@@ -42,6 +46,27 @@ export const rootReducer = (state = initialState, action) => {
         isLoggedIn: false,
         error: null,
         user: null,
+        userInfo: null,
+      };
+
+    case FETCH_USER_INFO_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      };
+
+    case FETCH_USER_INFO_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        userInfo: action.payload,
+      };
+
+    case FETCH_USER_INFO_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload,
       };
 
     default:
