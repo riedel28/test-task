@@ -10,12 +10,13 @@ import {
   IonInput,
   IonLabel,
   IonButton,
+  IonSpinner,
 } from '@ionic/react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { handleLogin } from '../../actions';
 
-const Login = ({ handleLogin, error, isLoggedIn, user }: any) => {
+const Login = ({ handleLogin, error, isLoggedIn, isLoading }: any) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -75,7 +76,7 @@ const Login = ({ handleLogin, error, isLoggedIn, user }: any) => {
                         onClick={handleSubmit}
                         disabled={email === '' && password === ''}
                       >
-                        Submit
+                        {isLoading ? <IonSpinner /> : 'Submit'}
                       </IonButton>
                     </div>
                   </form>
@@ -94,6 +95,7 @@ const mapStateToProps = (state: any) => {
     user: state.user,
     isLoggedIn: state.isLoggedIn,
     error: state.error,
+    isLoading: state.isLoading,
   };
 };
 

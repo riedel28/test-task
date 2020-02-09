@@ -1,23 +1,20 @@
-import React, { useEffect } from 'react';
-import { IonPage, IonGrid, IonRow, IonContent } from '@ionic/react';
-import { connect } from 'react-redux';
-import { fetchUserData } from '../../actions';
+import React from 'react';
+import { IonPage, IonGrid, IonRow, IonCol, IonContent } from '@ionic/react';
 
-const Profile = ({ user: userId, fetchUserData, userInfo, error }: any) => {
-  useEffect(() => {
-    fetchUserData(userId);
-  }, [fetchUserData, userId]);
+import UserInfo from './UserInfo';
 
+const Profile = () => {
   return (
     <IonPage>
       <IonContent>
         <IonGrid>
           <IonRow>
-            <div className="ion-padding-horizontal">
-              <h1>Profile</h1>
-              {error && <p>{error}</p>}
-              <p>{userId}</p>
-            </div>
+            <IonCol sizeSm="4">
+              <div className="ion-padding-horizontal">
+                <h1>Profile</h1>
+                <UserInfo />
+              </div>
+            </IonCol>
           </IonRow>
         </IonGrid>
       </IonContent>
@@ -25,17 +22,4 @@ const Profile = ({ user: userId, fetchUserData, userInfo, error }: any) => {
   );
 };
 
-const mapStateToProps = (state: any) => {
-  return {
-    user: state.user,
-    userInfo: state.userInfo,
-  };
-};
-
-const mapDispatchToProps = (dispatch: any) => {
-  return {
-    fetchUserData: (id: any) => dispatch(fetchUserData(id)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Profile);
+export default Profile;
