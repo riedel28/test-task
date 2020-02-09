@@ -58,6 +58,7 @@ const Login = ({ handleLogin, error, isLoggedIn, isLoading }: any) => {
                           type="email"
                           value={email}
                           onIonChange={(e: any) => setEmail(e.target.value)}
+                          required
                         />
                       </IonItem>
                       <IonItem>
@@ -66,6 +67,7 @@ const Login = ({ handleLogin, error, isLoggedIn, isLoading }: any) => {
                           type="password"
                           value={password}
                           onIonChange={(e: any) => setPassword(e.target.value)}
+                          required
                         />
                       </IonItem>
                     </div>

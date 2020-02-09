@@ -1,32 +1,34 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { IonHeader, IonToolbar, IonTitle } from '@ionic/react';
+import { IonHeader, IonToolbar, IonTitle, IonRow, IonCol } from '@ionic/react';
 import { connect } from 'react-redux';
 import { signOut } from '../../actions';
 
 const Header: React.FC = ({ isLoggedIn, signOut }: any) => {
   return (
     <IonHeader>
-      <IonToolbar>
-        <IonTitle>
-          <h1>Test Task</h1>
-        </IonTitle>
-      </IonToolbar>
+      <IonRow className="ion-align-items-center">
+        <IonCol sizeXs="12" sizeMd="8">
+          <IonToolbar>
+            <IonTitle>
+              <h3>Test Task</h3>
+            </IonTitle>
+          </IonToolbar>
+        </IonCol>
+        <IonCol sizeXs="12" sizeMd="4">
+          <nav>
+            <NavLink to="/">Home</NavLink>
+            <NavLink to="/news">News</NavLink>
+            <NavLink to="/profile">Profile</NavLink>
 
-      <div className="ion-padding-bottom">
-        <div className="ion-padding-horizontal">
-          <NavLink to="/">Home</NavLink>
-          <NavLink to="/news">News</NavLink>
-          <NavLink to="/profile">Profile</NavLink>
-          {isLoggedIn ? (
-            <div className="ion-float-right">
+            {isLoggedIn ? (
               <NavLink to="/" onClick={signOut}>
                 Log Out
               </NavLink>
-            </div>
-          ) : null}
-        </div>
-      </div>
+            ) : null}
+          </nav>
+        </IonCol>
+      </IonRow>
     </IonHeader>
   );
 };
