@@ -6,6 +6,9 @@ import {
   FETCH_USER_INFO_REQUEST,
   FETCH_USER_INFO_SUCCESS,
   FETCH_USER_INFO_FAILURE,
+  FETCH_NEWS_REQUEST,
+  FETCH_NEWS_SUCCESS,
+  FETCH_NEWS_FAILURE,
 } from '../actions';
 
 export const initialState = {
@@ -14,6 +17,7 @@ export const initialState = {
   error: null,
   isLoading: false,
   userInfo: null,
+  news: [],
 };
 
 export const rootReducer = (state = initialState, action) => {
@@ -63,6 +67,26 @@ export const rootReducer = (state = initialState, action) => {
       };
 
     case FETCH_USER_INFO_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload,
+      };
+
+    case FETCH_NEWS_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      };
+
+    case FETCH_NEWS_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        news: action.payload,
+      };
+
+    case FETCH_NEWS_FAILURE:
       return {
         ...state,
         isLoading: false,

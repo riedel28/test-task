@@ -1,60 +1,59 @@
-import React from 'react';
-import { IonPage, IonGrid, IonRow, IonCol, IonContent } from '@ionic/react';
+import React, { useEffect } from 'react';
+import {
+  IonPage,
+  IonGrid,
+  IonRow,
+  IonCol,
+  IonContent,
+  IonSpinner,
+} from '@ionic/react';
+import { connect } from 'react-redux';
+
 import NewsItem from './NewsItem';
+import { fetchNews } from '../../actions';
 
-const news = [
-  {
-    id: 1,
-    heading: 'Heading #1',
-    text: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis
-            excepturi error, reiciendis placeat tenetur ratione velit, optio
-            fugit assumenda sit laboriosam repellendus quod. Illo impedit
-            officia incidunt deleniti delectus minus qui est provident odit,
-            magnam ducimus distinctio quis, fugit hic nobis ipsum enim fuga
-            aperiam commodi amet laborum. In dolores rerum odit unde, cumque
-            obcaecati aliquid nihil tenetur natus dolor quo nemo. Atque vel in
-            laudantium, repudiandae magnam illum quibusdam omnis debitis
-            commodi nemo, fugit odio accusamus vero facilis cumque voluptatum
-            consequatur doloribus incidunt nostrum mollitia ipsam maiores
-            corporis. Nisi placeat libero amet accusamus, quae saepe natus
-            dignissimos quisquam dolorem?`,
-  },
-  {
-    id: 2,
-    heading: 'Heading #2',
-    text: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis
-            excepturi error, reiciendis placeat tenetur ratione velit, optio
-            fugit assumenda sit laboriosam repellendus quod. Illo impedit
-            officia incidunt deleniti delectus minus qui est provident odit,
-            magnam ducimus distinctio quis, fugit hic nobis ipsum enim fuga
-            aperiam commodi amet laborum. In dolores rerum odit unde, cumque
-            obcaecati aliquid nihil tenetur natus dolor quo nemo. Atque vel in
-            laudantium, repudiandae magnam illum quibusdam omnis debitis
-            commodi nemo, fugit odio accusamus vero facilis cumque voluptatum
-            consequatur doloribus incidunt nostrum mollitia ipsam maiores
-            corporis. Nisi placeat libero amet accusamus, quae saepe natus
-            dignissimos quisquam dolorem?`,
-  },
-];
+const News = ({ news, isLoading, error, fetchNews }: any) => {
+  useEffect(() => {
+    fetchNews();
+  }, [fetchNews]);
 
-const News = () => (
-  <IonPage>
-    <IonContent>
-      <IonGrid>
-        <IonRow>
-          <IonCol sizeMd="8" offsetMd="2" sizeLg="6" offsetLg="3">
-            {news.map(({ id, heading, text }) => {
-              return (
-                <NewsItem key={id} heading={heading}>
-                  {text}
-                </NewsItem>
-              );
-            })}
-          </IonCol>
-        </IonRow>
-      </IonGrid>
-    </IonContent>
-  </IonPage>
-);
+  return (
+    <IonPage>
+      <IonContent>
+        <IonGrid>
+          <IonRow>
+            <IonCol sizeMd="8" offsetMd="2" sizeLg="6" offsetLg="3">
+              {isLoading ? (
+                <IonSpinner />
+              ) : (
+                news.map(({ id, title, text }: any) => {
+                  return (
+                    <NewsItem key={id} title={title}>
+                      {text}
+                    </NewsItem>
+                  );
+                })
+              )}
+            </IonCol>
+          </IonRow>
+        </IonGrid>
+      </IonContent>
+    </IonPage>
+  );
+};
 
-export default News;
+const mapStateToProps = (state: any) => {
+  return {
+    news: state.news,
+    isLoading: state.isLoading,
+    error: state.error,
+  };
+};
+
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    fetchNews: () => dispatch(fetchNews()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(News);

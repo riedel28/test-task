@@ -1,9 +1,9 @@
 import React from 'react';
 
-const NewsItem = ({ heading, children }: { heading: any, children: any }) => {
+const NewsItem = ({ title, children }: { title: any, children: any }) => {
   return (
     <div>
-      <h2>{heading}</h2>
+      <h2>{title}</h2>
       <p>{children}</p>
     </div>
   );
