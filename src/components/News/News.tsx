@@ -34,6 +34,9 @@ const News = ({ news, isLoading, error, fetchNews }: any) => {
                   );
                 })
               )}
+              <div className="ion-text-end">
+                <em>Всего новостей: </em> {news.length}
+              </div>
             </IonCol>
           </IonRow>
         </IonGrid>
