@@ -33,7 +33,7 @@ const App: React.FC = ({ isLoggedIn }: any) => {
 
 const mapStateToProps = (state: any) => {
   return {
-    isLoggedIn: state.isLoggedIn,
+    isLoggedIn: state.login.isLoggedIn,
   };
 };
 

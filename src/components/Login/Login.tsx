@@ -22,6 +22,7 @@ const Login = ({ handleLogin, error, isLoggedIn, isLoading }: any) => {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
+
     handleLogin(email, password);
 
     setPassword('');
@@ -94,10 +95,10 @@ const Login = ({ handleLogin, error, isLoggedIn, isLoading }: any) => {
 
 const mapStateToProps = (state: any) => {
   return {
-    user: state.user,
-    isLoggedIn: state.isLoggedIn,
-    error: state.error,
-    isLoading: state.isLoading,
+    user: state.login.user,
+    isLoggedIn: state.login.isLoggedIn,
+    error: state.login.error,
+    isLoading: state.login.isLoading,
   };
 };
 

@@ -1,8 +1,8 @@
-export const SIGN_IN_REQUEST = 'SIGN_IN_REQUEST';
-export const SIGN_IN_SUCCESS = 'SIGN_IN_SUCCESS';
-export const SIGN_IN_FAILURE = 'SIGN_IN_FAILURE';
+export const LOG_IN_REQUEST = 'SIGN_IN_REQUEST';
+export const LOG_IN_SUCCESS = 'SIGN_IN_SUCCESS';
+export const LOG_IN_FAILURE = 'SIGN_IN_FAILURE';
 
-export const SIGN_OUT = 'SIGN_OUT';
+export const LOG_OUT = 'SIGN_OUT';
 
 export const FETCH_USER_INFO_REQUEST = 'FETCH_USER_INFO_REQUEST';
 export const FETCH_USER_INFO_SUCCESS = 'FETCH_USER_INFO_SUCCESS';
@@ -15,7 +15,7 @@ export const FETCH_NEWS_FAILURE = 'FETCH_NEWS_FAILURE';
 export const handleLogin = (email, password) => {
   return (dispatch) => {
     dispatch({
-      type: SIGN_IN_REQUEST,
+      type: LOG_IN_REQUEST,
     });
 
     fetch('https://mysterious-reef-29460.herokuapp.com/api/v1/validate', {
@@ -32,12 +32,12 @@ export const handleLogin = (email, password) => {
       .then((body) => {
         if (body.status === 'ok') {
           dispatch({
-            type: SIGN_IN_SUCCESS,
+            type: LOG_IN_SUCCESS,
             payload: body.data.id,
           });
         } else {
           dispatch({
-            type: SIGN_IN_FAILURE,
+            type: LOG_IN_FAILURE,
             payload: body.message,
           });
         }
@@ -48,7 +48,7 @@ export const handleLogin = (email, password) => {
 
 export const signOut = () => {
   return {
-    type: SIGN_OUT,
+    type: LOG_OUT,
   };
 };
 

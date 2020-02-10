@@ -4,12 +4,7 @@ import { connect } from 'react-redux';
 
 import { fetchUserData } from '../../actions';
 
-const UserInfo = ({
-  userId,
-
-  userInfo,
-  fetchUserData,
-}: any) => {
+const UserInfo = ({ userId, userInfo, fetchUserData, isLoading }: any) => {
   useEffect(() => {
     fetchUserData(userId);
   }, [fetchUserData, userId]);
@@ -79,10 +74,10 @@ const UserInfo = ({
 
 const mapStateToProps = (state: any) => {
   return {
-    error: state.error,
-    userId: state.user,
-    userInfo: state.userInfo,
-    isLoading: state.isLoading,
+    userId: state.login.user,
+    error: state.fetchUserInfo.error,
+    userInfo: state.fetchUserInfo.userInfo,
+    isLoading: state.fetchUserInfo.isLoading,
   };
 };
 

@@ -47,9 +47,9 @@ const News = ({ news, isLoading, error, fetchNews }: any) => {
 
 const mapStateToProps = (state: any) => {
   return {
-    news: state.news,
-    isLoading: state.isLoading,
-    error: state.error,
+    news: state.fetchNews.news,
+    isLoading: state.fetchNews.isLoading,
+    error: state.fetchNews.error,
   };
 };
 

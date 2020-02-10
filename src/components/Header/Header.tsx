@@ -35,7 +35,7 @@ const Header: React.FC = ({ isLoggedIn, signOut }: any) => {
 
 const mapStateToProps = (state: any) => {
   return {
-    isLoggedIn: state.isLoggedIn,
+    isLoggedIn: state.logout.isLoggedIn,
   };
 };
 
