@@ -1,7 +1,7 @@
 import React from 'react';
 import { IonPage, IonGrid, IonRow, IonCol, IonContent } from '@ionic/react';
 
-import UserInfo from './UserInfo';
+import ProfileInfo from './ProfileInfo';
 
 const Profile = () => {
   return (
@@ -12,7 +12,7 @@ const Profile = () => {
             <IonCol sizeSm="4">
               <div className="ion-padding-horizontal">
                 <h1>Profile</h1>
-                <UserInfo />
+                <ProfileInfo />
               </div>
             </IonCol>
           </IonRow>
