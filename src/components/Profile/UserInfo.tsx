@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { IonSpinner } from '@ionic/react';
 import { connect } from 'react-redux';
 
-import { fetchUserData } from '../../actions';
+import { fetchUserData } from '../../actions/fetchUserData';
 
 const UserInfo = ({ userId, userInfo, fetchUserData, isLoading }: any) => {
   useEffect(() => {

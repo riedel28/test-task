@@ -2,7 +2,7 @@ import {
   FETCH_USER_INFO_REQUEST,
   FETCH_USER_INFO_SUCCESS,
   FETCH_USER_INFO_FAILURE,
-} from '../actions';
+} from '../actions/fetchUserData';
 
 export const initialState = {
   user: null,

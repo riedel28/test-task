@@ -10,7 +10,7 @@ import {
 import { connect } from 'react-redux';
 
 import NewsItem from './NewsItem';
-import { fetchNews } from '../../actions';
+import { fetchNews } from '../../actions/fetchNews';
 
 const News = ({ news, isLoading, error, fetchNews }: any) => {
   useEffect(() => {

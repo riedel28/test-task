@@ -2,7 +2,6 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { IonApp, IonContent } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import { connect } from 'react-redux';
 
 import '@ionic/react/css/core.css';
 import '@ionic/react/css/ionic.bundle.css';
@@ -13,7 +12,7 @@ import Login from './components/Login/Login';
 import Profile from './components/Profile/Profile';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 
-const App: React.FC = ({ isLoggedIn }: any) => {
+const App: React.FC = () => {
   return (
     <IonApp>
       <IonReactRouter>
@@ -31,10 +30,4 @@ const App: React.FC = ({ isLoggedIn }: any) => {
   );
 };
 
-const mapStateToProps = (state: any) => {
-  return {
-    isLoggedIn: state.login.isLoggedIn,
-  };
-};
-
-export default connect(mapStateToProps)(App);
+export default App;

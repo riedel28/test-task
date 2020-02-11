@@ -2,9 +2,9 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { IonHeader, IonToolbar, IonTitle, IonRow, IonCol } from '@ionic/react';
 import { connect } from 'react-redux';
-import { signOut } from '../../actions';
+import { handleLogout } from '../../actions/handleLogout';
 
-const Header: React.FC = ({ isLoggedIn, signOut }: any) => {
+const Header: React.FC = ({ isLoggedIn, handleLogout }: any) => {
   return (
     <IonHeader>
       <IonRow className="ion-align-items-center">
@@ -22,7 +22,7 @@ const Header: React.FC = ({ isLoggedIn, signOut }: any) => {
             <NavLink to="/profile">Profile</NavLink>
 
             {isLoggedIn ? (
-              <NavLink to="/" onClick={signOut}>
+              <NavLink to="/" onClick={handleLogout}>
                 Log Out
               </NavLink>
             ) : null}
@@ -41,7 +41,7 @@ const mapStateToProps = (state: any) => {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    signOut: () => dispatch(signOut()),
+    handleLogout: () => dispatch(handleLogout()),
   };
 };
 

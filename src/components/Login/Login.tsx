@@ -14,7 +14,7 @@ import {
 } from '@ionic/react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { handleLogin } from '../../actions';
+import { handleLogin } from '../../actions/handleLogin';
 
 const Login = ({ handleLogin, error, isLoggedIn, isLoading }: any) => {
   const [email, setEmail] = useState('');

@@ -1,4 +1,4 @@
-import { LOG_OUT } from '../actions';
+import { LOG_OUT } from '../actions/handleLogout';
 
 export const initialState = {
   isLoggedIn: false,

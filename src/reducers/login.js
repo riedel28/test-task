@@ -1,4 +1,8 @@
-import { LOG_IN_REQUEST, LOG_IN_SUCCESS, LOG_IN_FAILURE } from '../actions';
+import {
+  LOG_IN_REQUEST,
+  LOG_IN_SUCCESS,
+  LOG_IN_FAILURE,
+} from '../actions/handleLogin';
 
 export const initialState = {
   user: null,
