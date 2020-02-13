@@ -37,6 +37,18 @@ nav {
   justify-content: flex-end;
 }
 
+@media only screen and (max-device-width: 575px) {
+	h3 {
+    text-align: center;
+  }
+
+  nav {
+    width: 80%;
+    margin: 0 auto;
+    justify-content: space-around;
+  }
+}
+
 li {
   list-style: none;
 }

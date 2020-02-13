@@ -8,14 +8,14 @@ const Header: React.FC = ({ isLoggedIn, handleLogout }: any) => {
   return (
     <IonHeader>
       <IonRow className="ion-align-items-center">
-        <IonCol sizeXs="12" sizeMd="8">
+        <IonCol sizeXs="12" sizeSm="6">
           <IonToolbar>
             <IonTitle>
               <h3>Test Task</h3>
             </IonTitle>
           </IonToolbar>
         </IonCol>
-        <IonCol sizeXs="12" sizeMd="4">
+        <IonCol sizeXs="12" sizeSm="6">
           <nav>
             <NavLink to="/">Home</NavLink>
             <NavLink to="/news">News</NavLink>
