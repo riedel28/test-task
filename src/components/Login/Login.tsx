@@ -15,6 +15,7 @@ import {
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { handleLogin } from '../../actions/handleLogin';
+import dictionary from '../../dictionary';
 
 const Login = ({ handleLogin, error, isLoggedIn, isLoading }: any) => {
   const [email, setEmail] = useState('');
@@ -47,7 +48,9 @@ const Login = ({ handleLogin, error, isLoggedIn, isLoading }: any) => {
             >
               <div className="ion-padding-horizontal ion-padding-bottom">
                 <h1>Login</h1>
-                {error && <IonLabel color="danger">{error}</IonLabel>}
+                {error && (
+                  <IonLabel color="danger">{dictionary[error]}</IonLabel>
+                )}
               </div>
               <IonCard>
                 <div className="ion-padding">
