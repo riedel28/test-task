@@ -6,17 +6,26 @@ export const FETCH_PROFILE_INFO_FAILURE = 'FETCH_USER_INFO_FAILURE';
 
 export const fetchUserData = (id) => {
   return async (dispatch) => {
-    dispatch({ type: FETCH_PROFILE_INFO_REQUEST });
+    try {
+      dispatch({ type: FETCH_PROFILE_INFO_REQUEST });
 
-    const response = await fetch(`${rootApiUrl}/user-info/${id}`);
-    const json = await response.json();
+      const response = await fetch(`${rootApiUrl}/user-info/${id}`);
+      const json = await response.json();
 
-    if (json.status === 'ok') {
-      dispatch({ type: FETCH_PROFILE_INFO_SUCCESS, payload: json.data });
-    }
+      if (json.status === 'ok') {
+        console.log(json);
 
-    if (json.status === 'err') {
-      dispatch({ type: FETCH_PROFILE_INFO_FAILURE, payload: json.message });
+        dispatch({ type: FETCH_PROFILE_INFO_SUCCESS, payload: json.data });
+      }
+
+      if (json.status === 'err') {
+        dispatch({ type: FETCH_PROFILE_INFO_FAILURE, payload: json.message });
+      }
+    } catch (error) {
+      dispatch({
+        type: FETCH_PROFILE_INFO_FAILURE,
+        payload: error.message || 'Something went wrong',
+      });
     }
   };
 };
