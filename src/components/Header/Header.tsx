@@ -1,45 +1,47 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { IonHeader, IonToolbar, IonTitle } from '@ionic/react';
+import { IonHeader, IonToolbar, IonTitle, IonRow, IonCol } from '@ionic/react';
 import { connect } from 'react-redux';
-import { signOut } from '../../actions';
+import { handleLogout } from '../../actions/handleLogout';
 
-const Header: React.FC = ({ isLoggedIn, signOut }: any) => {
+const Header: React.FC = ({ isLoggedIn, handleLogout }: any) => {
   return (
     <IonHeader>
-      <IonToolbar>
-        <IonTitle>
-          <h1>Test Task</h1>
-        </IonTitle>
-      </IonToolbar>
+      <IonRow className="ion-align-items-center">
+        <IonCol sizeXs="12" sizeSm="6">
+          <IonToolbar>
+            <IonTitle>
+              <h3>Test Task</h3>
+            </IonTitle>
+          </IonToolbar>
+        </IonCol>
+        <IonCol sizeXs="12" sizeSm="6">
+          <nav>
+            <NavLink to="/">Home</NavLink>
+            <NavLink to="/news">News</NavLink>
+            <NavLink to="/profile">Profile</NavLink>
 
-      <div className="ion-padding-bottom">
-        <div className="ion-padding-horizontal">
-          <NavLink to="/">Home</NavLink>
-          <NavLink to="/news">News</NavLink>
-          <NavLink to="/profile">Profile</NavLink>
-          {isLoggedIn ? (
-            <div className="ion-float-right">
-              <NavLink to="/" onClick={signOut}>
+            {isLoggedIn ? (
+              <NavLink to="/" onClick={handleLogout}>
                 Log Out
               </NavLink>
-            </div>
-          ) : null}
-        </div>
-      </div>
+            ) : null}
+          </nav>
+        </IonCol>
+      </IonRow>
     </IonHeader>
   );
 };
 
 const mapStateToProps = (state: any) => {
   return {
-    isLoggedIn: state.isLoggedIn,
+    isLoggedIn: state.logout.isLoggedIn,
   };
 };
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    signOut: () => dispatch(signOut()),
+    handleLogout: () => dispatch(handleLogout()),
   };
 };
 

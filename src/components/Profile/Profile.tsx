@@ -1,17 +1,20 @@
 import React from 'react';
-import { IonPage, IonGrid, IonRow, IonContent } from '@ionic/react';
-import { connect } from 'react-redux';
+import { IonPage, IonGrid, IonRow, IonCol, IonContent } from '@ionic/react';
 
-const Profile = ({ user }: any) => {
+import ProfileInfo from './ProfileInfo';
+
+const Profile = () => {
   return (
     <IonPage>
       <IonContent>
         <IonGrid>
           <IonRow>
-            <div className="ion-padding-horizontal">
-              <h1>Profile</h1>
-              <p>{user}</p>
-            </div>
+            <IonCol sizeSm="6">
+              <div className="ion-padding-horizontal">
+                <h1>Profile</h1>
+                <ProfileInfo />
+              </div>
+            </IonCol>
           </IonRow>
         </IonGrid>
       </IonContent>
@@ -19,10 +22,4 @@ const Profile = ({ user }: any) => {
   );
 };
 
-const mapStateToProps = (state: any) => {
-  return {
-    user: state.user,
-  };
-};
-
-export default connect(mapStateToProps)(Profile);
+export default Profile;

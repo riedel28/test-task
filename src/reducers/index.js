@@ -1,31 +1,15 @@
-import { SIGN_IN, SIGN_OUT } from '../actions';
+import { combineReducers } from 'redux';
 
-export const initialState = {
-  user: null,
-  isLoggedIn: false,
-  error: null,
-};
+import login from './login';
+import logout from './logout';
+import fetchNews from './fetchNews';
+import fetchProfileInfo from './fetchProfileInfo';
 
-export const rootReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case SIGN_IN:
-      return action.payload.isLoggedIn === true
-        ? {
-            ...state,
-            isLoggedIn: true,
-            error: false,
-            user: action.payload.user,
-          }
-        : { ...state, isLoggedIn: false, error: true };
+const rootReducer = combineReducers({
+  login,
+  logout,
+  fetchProfileInfo,
+  fetchNews,
+});
 
-    case SIGN_OUT:
-      return {
-        ...state,
-        isLoggedIn: false,
-        error: null,
-      };
-
-    default:
-      return state;
-  }
-};
+export default rootReducer;

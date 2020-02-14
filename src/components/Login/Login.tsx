@@ -10,20 +10,22 @@ import {
   IonInput,
   IonLabel,
   IonButton,
+  IonSpinner,
 } from '@ionic/react';
 import { connect } from 'react-redux';
-import { signIn } from '../../actions';
 import { Redirect } from 'react-router-dom';
+import { handleLogin } from '../../actions/handleLogin';
+import dictionary from '../../dictionary';
 
-const Login = ({ signIn, error, isLoggedIn }: any) => {
-  const [username, setUsername] = useState('');
+const Login = ({ handleLogin, error, isLoggedIn, isLoading }: any) => {
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    signIn(username, password);
 
-    setUsername('');
+    handleLogin(email, password);
+
     setPassword('');
   };
 
@@ -47,9 +49,7 @@ const Login = ({ signIn, error, isLoggedIn }: any) => {
               <div className="ion-padding-horizontal ion-padding-bottom">
                 <h1>Login</h1>
                 {error && (
-                  <IonLabel color="danger">
-                    Имя пользователя или пароль введены не верно
-                  </IonLabel>
+                  <IonLabel color="danger">{dictionary[error]}</IonLabel>
                 )}
               </div>
               <IonCard>
@@ -59,8 +59,10 @@ const Login = ({ signIn, error, isLoggedIn }: any) => {
                       <IonItem>
                         <IonLabel position="floating">Username</IonLabel>
                         <IonInput
-                          value={username}
-                          onIonChange={(e: any) => setUsername(e.target.value)}
+                          type="email"
+                          value={email}
+                          onIonChange={(e: any) => setEmail(e.target.value)}
+                          required
                         />
                       </IonItem>
                       <IonItem>
@@ -69,6 +71,7 @@ const Login = ({ signIn, error, isLoggedIn }: any) => {
                           type="password"
                           value={password}
                           onIonChange={(e: any) => setPassword(e.target.value)}
+                          required
                         />
                       </IonItem>
                     </div>
@@ -77,9 +80,9 @@ const Login = ({ signIn, error, isLoggedIn }: any) => {
                       <IonButton
                         expand="block"
                         onClick={handleSubmit}
-                        disabled={username === '' && password === ''}
+                        disabled={email === '' && password === ''}
                       >
-                        Submit
+                        {isLoading ? <IonSpinner /> : 'Submit'}
                       </IonButton>
                     </div>
                   </form>
@@ -95,16 +98,17 @@ const Login = ({ signIn, error, isLoggedIn }: any) => {
 
 const mapStateToProps = (state: any) => {
   return {
-    user: state.user,
-    isLoggedIn: state.isLoggedIn,
-    error: state.error,
+    user: state.login.user,
+    isLoggedIn: state.login.isLoggedIn,
+    error: state.login.error,
+    isLoading: state.login.isLoading,
   };
 };
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    signIn: (username: any, password: any) =>
-      dispatch(signIn(username, password)),
+    handleLogin: (username: any, password: any) =>
+      dispatch(handleLogin(username, password)),
   };
 };
 
