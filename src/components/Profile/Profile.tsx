@@ -9,7 +9,7 @@ const Profile = () => {
       <IonContent>
         <IonGrid>
           <IonRow>
-            <IonCol sizeSm="4">
+            <IonCol sizeSm="6">
               <div className="ion-padding-horizontal">
                 <h1>Profile</h1>
                 <ProfileInfo />

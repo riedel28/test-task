@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
-import { IonSpinner } from '@ionic/react';
+import { IonSpinner, IonLabel } from '@ionic/react';
 import { connect } from 'react-redux';
 
 import { fetchUserData } from '../../actions/fetchUserData';
+import dictionary from '../../dictionary';
 import capitalize from './../../helpers/capitalize';
 
 const ProfileInfo = ({
@@ -10,16 +11,21 @@ const ProfileInfo = ({
   profileInfo,
   fetchUserData,
   isLoading,
+  error,
 }: any) => {
   useEffect(() => {
     fetchUserData(userId);
   }, [fetchUserData, userId]);
 
-  if (!profileInfo) {
-    return <IonSpinner />;
+  if (error) {
+    return <IonLabel color="danger">{dictionary[error]}</IonLabel>;
   }
 
-  return (
+  return !profileInfo ? (
+    <div className="ion-justify-content-center ion-align-items-center ion-padding">
+      <IonSpinner />
+    </div>
+  ) : (
     <div className="user-info">
       <p>
         <strong>Город: </strong>
@@ -68,6 +74,8 @@ const ProfileInfo = ({
 };
 
 const mapStateToProps = (state: any) => {
+  console.log(state);
+
   return {
     userId: state.login.user,
     error: state.fetchProfileInfo.error,

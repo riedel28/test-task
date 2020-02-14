@@ -6,6 +6,7 @@ import {
   IonCol,
   IonContent,
   IonSpinner,
+  IonLabel,
 } from '@ionic/react';
 import { connect } from 'react-redux';
 
@@ -17,28 +18,40 @@ const News = ({ news, isLoading, error, fetchNews }: any) => {
     fetchNews();
   }, [fetchNews]);
 
+  if (error) {
+    return <IonLabel color="danger">{error}</IonLabel>;
+  }
+
   return (
     <IonPage>
       <IonContent>
         <IonGrid>
-          <IonRow>
-            <IonCol sizeMd="8" offsetMd="2" sizeLg="6" offsetLg="3">
-              {isLoading ? (
-                <IonSpinner />
-              ) : (
-                news.map(({ id, title, text }: any) => {
-                  return (
-                    <NewsItem key={id} title={title}>
-                      {text}
-                    </NewsItem>
-                  );
-                })
-              )}
-              <div className="ion-text-end">
-                <em>Всего новостей: </em> {news.length}
-              </div>
-            </IonCol>
-          </IonRow>
+          {isLoading ? (
+            <IonRow className="ion-justify-content-center ion-align-items-center ion-padding">
+              <IonSpinner />
+            </IonRow>
+          ) : (
+            <IonRow>
+              <IonCol sizeMd="8" offsetMd="2" sizeLg="6" offsetLg="3">
+                {isLoading ? (
+                  <div className="ion-justify-content-center ion-align-items-center">
+                    <IonSpinner />
+                  </div>
+                ) : (
+                  news.map(({ id, title, text }: any) => {
+                    return (
+                      <NewsItem key={id} title={title}>
+                        {text}
+                      </NewsItem>
+                    );
+                  })
+                )}
+                <div className="ion-text-end">
+                  <em>Всего новостей: </em> {news.length}
+                </div>
+              </IonCol>
+            </IonRow>
+          )}
         </IonGrid>
       </IonContent>
     </IonPage>
