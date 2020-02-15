@@ -5,6 +5,8 @@
   "dependencies": {
     "@ionic/react": "^5.0.0",
     "@ionic/react-router": "^5.0.0",
+    "@types/gapi": "0.0.39",
+    "@types/gapi.auth2": "0.0.51",
     "@types/jest": "^24.0.22",
     "@types/node": "^12.12.7",
     "@types/react": "^16.9.19",

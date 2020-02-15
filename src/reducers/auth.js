@@ -3,6 +3,7 @@ import {
   LOG_IN_SUCCESS,
   LOG_IN_FAILURE,
 } from '../actions/handleLogin';
+import { LOG_OUT } from '../actions/handleLogout';
 
 export const initialState = {
   user: null,
@@ -33,6 +34,15 @@ const login = (state = initialState, action) => {
         isLoading: false,
         isLoggedIn: false,
         error: action.payload,
+      };
+
+    case LOG_OUT:
+      return {
+        ...state,
+        isLoggedIn: false,
+        error: null,
+        user: null,
+        userInfo: null,
       };
 
     default:

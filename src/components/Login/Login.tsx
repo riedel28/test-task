@@ -98,10 +98,10 @@ const Login = ({ handleLogin, error, isLoggedIn, isLoading }: any) => {
 
 const mapStateToProps = (state: any) => {
   return {
-    user: state.login.user,
-    isLoggedIn: state.login.isLoggedIn,
-    error: state.login.error,
-    isLoading: state.login.isLoading,
+    user: state.auth.user,
+    isLoggedIn: state.auth.isLoggedIn,
+    error: state.auth.error,
+    isLoading: state.auth.isLoading,
   };
 };
 
