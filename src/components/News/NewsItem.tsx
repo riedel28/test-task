@@ -1,4 +1,7 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
+import { IonButton, IonIcon } from '@ionic/react';
+import { createOutline, trashOutline } from 'ionicons/icons';
 
 import displayDateTime from './../../helpers/displayDateTime';
 
@@ -16,8 +19,28 @@ const NewsItem = ({
   return (
     <>
       <h2>{title}</h2>
-      <span className="creator">{creator.displayName}</span> ·{' '}
-      <span className="created-at">{displayDateTime(createdAt)}</span>
+
+      <div className="post-description">
+        <div>
+          <span className="creator">{creator.displayName}</span> ·{' '}
+          <span className="created-at">{displayDateTime(createdAt)}</span>
+        </div>
+
+        <div>
+          <NavLink to="/">
+            <IonButton size="small" color="light">
+              <IonIcon icon={createOutline} />
+            </IonButton>
+          </NavLink>
+
+          {/* <NavLink to="/"> */}
+          <IonButton size="small" color="danger">
+            <IonIcon icon={trashOutline} />
+          </IonButton>
+          {/* </NavLink> */}
+        </div>
+      </div>
+
       <p>{children}</p>
     </>
   );

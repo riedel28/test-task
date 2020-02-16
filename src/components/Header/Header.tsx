@@ -9,7 +9,13 @@ import {
   IonButton,
   IonIcon,
 } from '@ionic/react';
-import { logoGoogle } from 'ionicons/icons';
+import {
+  homeOutline,
+  newspaperOutline,
+  personCircleOutline,
+  createOutline,
+  logoGoogle,
+} from 'ionicons/icons';
 
 import { connect } from 'react-redux';
 
@@ -44,16 +50,28 @@ const Header: React.FC = ({
           <nav>
             <div>
               <NavLink to="/">
-                <IonButton>Home</IonButton>
+                <IonButton>
+                  <IonIcon icon={homeOutline} slot="start" />
+                  Home
+                </IonButton>
               </NavLink>
               <NavLink to="/news">
-                <IonButton>News</IonButton>
+                <IonButton>
+                  <IonIcon icon={newspaperOutline} slot="start" />
+                  News
+                </IonButton>
               </NavLink>
               <NavLink to="/profile">
-                <IonButton>Profile</IonButton>
+                <IonButton>
+                  <IonIcon icon={personCircleOutline} slot="start" />
+                  Profile
+                </IonButton>
               </NavLink>
               <NavLink to="/news/new">
-                <IonButton>New Post</IonButton>
+                <IonButton>
+                  <IonIcon icon={createOutline} slot="start" />
+                  New Post
+                </IonButton>
               </NavLink>
             </div>
 

@@ -50,6 +50,11 @@ nav {
   }
 }
 
+.post-description {
+  display: flex;
+  justify-content: space-between;
+}
+
 .creator, .created-at {
   font-style: italic;
   font-size: 0.8rem;
