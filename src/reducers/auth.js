@@ -12,7 +12,7 @@ export const initialState = {
   isLoading: false,
 };
 
-const login = (state = initialState, action) => {
+const auth = (state = initialState, action) => {
   switch (action.type) {
     case LOG_IN_REQUEST:
       return {
@@ -50,4 +50,4 @@ const login = (state = initialState, action) => {
   }
 };
 
-export default login;
+export default auth;

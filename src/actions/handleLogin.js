@@ -12,10 +12,27 @@ export const handleLogin = (email, password) => {
     auth2.signIn().then((googleUser) => {
       const profile = googleUser.getBasicProfile();
 
-      dispatch({
-        type: LOG_IN_SUCCESS,
-        payload: profile.getName(),
-      });
+      const token = googleUser.getAuthResponse().id_token;
+
+      fetch('http://localhost:5000/api/v1/auth/google', {
+        method: 'POST',
+        token: token,
+        headers: {
+          accept: 'application/json',
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: 'token=' + token,
+      })
+        .then((res) => res.json())
+        .then((body) => {
+          dispatch({
+            type: LOG_IN_SUCCESS,
+            payload: {
+              name: profile.getName(),
+              token: token,
+            },
+          });
+        });
     });
   };
 };

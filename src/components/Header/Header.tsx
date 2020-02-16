@@ -55,7 +55,7 @@ const Header: React.FC = ({
             </div>
 
             <div className="login-info">
-              {user && <span className="user-name">{user}</span>}
+              {user && <span className="user-name">{user.name}</span>}
               <NavLink to="/">
                 <IonButton onClick={isLoggedIn ? handleLogout : handleLogin}>
                   {!isLoggedIn ? (
@@ -73,6 +73,8 @@ const Header: React.FC = ({
 };
 
 const mapStateToProps = (state: any) => {
+  console.log(state.auth.user);
+
   return {
     isLoggedIn: state.auth.isLoggedIn,
     user: state.auth.user,
