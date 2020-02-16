@@ -52,6 +52,9 @@ const Header: React.FC = ({
               <NavLink to="/profile">
                 <IonButton>Profile</IonButton>
               </NavLink>
+              <NavLink to="/news/new">
+                <IonButton>New Post</IonButton>
+              </NavLink>
             </div>
 
             <div className="login-info">
@@ -73,8 +76,6 @@ const Header: React.FC = ({
 };
 
 const mapStateToProps = (state: any) => {
-  console.log(state.auth.user);
-
   return {
     isLoggedIn: state.auth.isLoggedIn,
     user: state.auth.user,

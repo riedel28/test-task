@@ -1,3 +1,3 @@
-const rootApiUrl = 'https://mysterious-reef-29460.herokuapp.com/api/v1';
+const rootApiUrl = 'http://127.0.0.1:5000/api/v1';
 
 export default rootApiUrl;

@@ -50,6 +50,11 @@ nav {
   }
 }
 
+.creator, .created-at {
+  font-style: italic;
+  font-size: 0.8rem;
+}
+
 .login-info {
   display: flex;
   align-items: center;

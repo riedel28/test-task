@@ -24,7 +24,7 @@ const PrivateRoute: React.FC<any> = ({ component: Component, ...rest }) => {
 
 const mapStateToProps = (state: any) => {
   return {
-    isLoggedIn: state.login.isLoggedIn,
+    isLoggedIn: state.auth.isLoggedIn,
   };
 };
 

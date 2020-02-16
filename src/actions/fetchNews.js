@@ -10,19 +10,10 @@ export const fetchNews = () => {
     try {
       dispatch({ type: FETCH_NEWS_REQUEST });
 
-      const response = await fetch(`${rootApiUrl}/news`);
+      const response = await fetch(`${rootApiUrl}/feeds`);
       const json = await response.json();
 
-      if (json.status === 'ok') {
-        dispatch({ type: FETCH_NEWS_SUCCESS, payload: json.data });
-      }
-
-      if (json.status === 'err') {
-        dispatch({
-          type: FETCH_USER_INFO_FAILURE,
-          payload: json.message,
-        });
-      }
+      dispatch({ type: FETCH_NEWS_SUCCESS, payload: json.feeds });
     } catch (error) {
       dispatch({
         type: FETCH_USER_INFO_FAILURE,

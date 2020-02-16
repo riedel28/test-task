@@ -22,6 +22,10 @@ const News = ({ news, isLoading, error, fetchNews }: any) => {
     return <IonLabel color="danger">{error}</IonLabel>;
   }
 
+  if (news.length < 1) {
+    return <div>Новостей пока нет</div>;
+  }
+
   return (
     <IonPage>
       <IonContent>
@@ -33,18 +37,28 @@ const News = ({ news, isLoading, error, fetchNews }: any) => {
           ) : (
             <IonRow>
               <IonCol sizeMd="8" offsetMd="2" sizeLg="6" offsetLg="3">
+                <div className="ion-padding-bottom">
+                  <h1>Новости</h1>
+                </div>
                 {isLoading ? (
                   <div className="ion-justify-content-center ion-align-items-center">
                     <IonSpinner />
                   </div>
                 ) : (
-                  news.map(({ id, title, text }: any) => {
-                    return (
-                      <NewsItem key={id} title={title}>
-                        {text}
-                      </NewsItem>
-                    );
-                  })
+                  news.map(
+                    ({ _id, title, content, creator, createDate }: any) => {
+                      return (
+                        <NewsItem
+                          key={_id}
+                          title={title}
+                          creator={creator}
+                          createdAt={createDate}
+                        >
+                          {content}
+                        </NewsItem>
+                      );
+                    }
+                  )
                 )}
                 <div className="ion-text-end">
                   <em>Всего новостей: </em> {news.length}
@@ -60,9 +74,9 @@ const News = ({ news, isLoading, error, fetchNews }: any) => {
 
 const mapStateToProps = (state: any) => {
   return {
-    news: state.fetchNews.news,
-    isLoading: state.fetchNews.isLoading,
-    error: state.fetchNews.error,
+    news: state.news.news,
+    isLoading: state.news.isLoading,
+    error: state.news.error,
   };
 };
 

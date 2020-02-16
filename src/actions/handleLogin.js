@@ -16,7 +16,6 @@ export const handleLogin = (email, password) => {
 
       fetch('http://localhost:5000/api/v1/auth/google', {
         method: 'POST',
-        token: token,
         headers: {
           accept: 'application/json',
           'Content-Type': 'application/x-www-form-urlencoded',
@@ -29,7 +28,7 @@ export const handleLogin = (email, password) => {
             type: LOG_IN_SUCCESS,
             payload: {
               name: profile.getName(),
-              token: token,
+              token: body.token,
             },
           });
         });
