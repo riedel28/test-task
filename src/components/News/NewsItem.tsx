@@ -1,5 +1,7 @@
 import React from 'react';
 
+import displayDateTime from './../../helpers/displayDateTime';
+
 const NewsItem = ({
   title,
   children,
@@ -15,7 +17,7 @@ const NewsItem = ({
     <>
       <h2>{title}</h2>
       <span className="creator">{creator.displayName}</span> ·{' '}
-      <span className="created-at">{createdAt}</span>
+      <span className="created-at">{displayDateTime(createdAt)}</span>
       <p>{children}</p>
     </>
   );
