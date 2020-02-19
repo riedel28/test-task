@@ -67,12 +67,14 @@ const Header: React.FC = ({
                   Profile
                 </IonButton>
               </NavLink>
-              <NavLink to="/news/new">
-                <IonButton>
-                  <IonIcon icon={createOutline} slot="start" />
-                  New Post
-                </IonButton>
-              </NavLink>
+              {isLoggedIn && (
+                <NavLink to="/news/new">
+                  <IonButton>
+                    <IonIcon icon={createOutline} slot="start" />
+                    New Post
+                  </IonButton>
+                </NavLink>
+              )}
             </div>
 
             <div className="login-info">

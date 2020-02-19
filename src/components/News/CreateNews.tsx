@@ -47,7 +47,7 @@ const CreateNews = ({ createPost, news, isLoading, error }: any) => {
             >
               <div className="ion-padding-horizontal ion-padding-bottom">
                 <h1>Новый пост</h1>
-                {error && <p>{error}</p>}
+                {error && <p>{error.error}</p>}
               </div>
               <IonCard>
                 <div className="ion-padding">
@@ -95,7 +95,6 @@ const CreateNews = ({ createPost, news, isLoading, error }: any) => {
 };
 
 const mapStateToProps = (state: any) => {
-  console.log(state);
   return {
     news: state.news.news,
     isLoading: state.news.isLoading,
