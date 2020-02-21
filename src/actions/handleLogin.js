@@ -1,3 +1,5 @@
+import rootApiUrl from './../helpers/rootApiUrl.js';
+
 export const LOG_IN_REQUEST = 'LOG_IN_REQUEST';
 export const LOG_IN_SUCCESS = 'LOG_IN_SUCCESS';
 export const LOG_IN_FAILURE = 'LOG_IN_FAILURE';
@@ -14,7 +16,7 @@ export const handleLogin = (email, password) => {
 
       const token = googleUser.getAuthResponse().id_token;
 
-      fetch('http://localhost:5000/api/v1/auth/google', {
+      fetch(`${rootApiUrl}/auth/google`, {
         method: 'POST',
         headers: {
           accept: 'application/json',

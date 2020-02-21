@@ -5,18 +5,22 @@ import {
   IonRow,
   IonCol,
   IonContent,
-  IonSpinner,
   IonLabel,
 } from '@ionic/react';
 import { connect } from 'react-redux';
 
 import NewsItem from './NewsItem';
 import { fetchNews } from '../../actions/fetchNews';
+import { deletePost } from '../../actions/deletePost';
 
-const News = ({ news, isLoading, error, fetchNews }: any) => {
+const News = ({ news, isLoading, error, fetchNews, deletePost }: any) => {
   useEffect(() => {
     fetchNews();
-  }, [fetchNews]);
+  }, [fetchNews, news]);
+
+  const handleDelete = (id: any) => {
+    deletePost(id);
+  };
 
   if (error) {
     return <IonLabel color="danger">{error}</IonLabel>;
@@ -30,41 +34,31 @@ const News = ({ news, isLoading, error, fetchNews }: any) => {
     <IonPage>
       <IonContent>
         <IonGrid>
-          {isLoading ? (
-            <IonRow className="ion-justify-content-center ion-align-items-center ion-padding">
-              <IonSpinner />
-            </IonRow>
-          ) : (
-            <IonRow>
-              <IonCol sizeMd="8" offsetMd="2" sizeLg="6" offsetLg="3">
-                <div className="ion-padding-bottom">
-                  <h1>Новости</h1>
-                </div>
-                {isLoading ? (
-                  <div className="ion-justify-content-center ion-align-items-center">
-                    <IonSpinner />
-                  </div>
-                ) : (
-                  news.map(
-                    ({ _id, title, content, creator, createDate }: any) => {
-                      return (
-                        <NewsItem
-                          key={_id}
-                          title={title}
-                          creator={creator}
-                          createdAt={createDate}
-                        >
-                          {content}
-                        </NewsItem>
-                      );
-                    }
-                  )
-                )}
-                <div className="ion-text-end">
-                  <em>Всего новостей: </em> {news.length}
-                </div>
-              </IonCol>
-            </IonRow>
+          <IonRow>
+            <IonCol sizeMd="8" offsetMd="2" sizeLg="6" offsetLg="3">
+              <div className="ion-padding-bottom">
+                <h1>Новости</h1>
+              </div>
+              {news.map(({ _id, title, content, creator, createDate }: any) => {
+                return (
+                  <NewsItem
+                    key={_id}
+                    id={_id}
+                    title={title}
+                    creator={creator}
+                    createdAt={createDate}
+                    onDelete={handleDelete}
+                  >
+                    {content}
+                  </NewsItem>
+                );
+              })}
+
+              <div className="ion-text-end">
+                <em>Всего новостей: </em> {news.length}
+              </div>
+            </IonCol>
+          </IonRow>
           )}
         </IonGrid>
       </IonContent>
@@ -83,6 +77,7 @@ const mapStateToProps = (state: any) => {
 const mapDispatchToProps = (dispatch: any) => {
   return {
     fetchNews: () => dispatch(fetchNews()),
+    deletePost: (id: any) => dispatch(deletePost(id)),
   };
 };
 

@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { IonButton, IonIcon } from '@ionic/react';
+import { IonButton, IonIcon, IonAlert } from '@ionic/react';
 import { createOutline, trashOutline } from 'ionicons/icons';
 
 import displayDateTime from './../../helpers/displayDateTime';
@@ -10,12 +10,11 @@ const NewsItem = ({
   children,
   creator,
   createdAt,
-}: {
-  title: any,
-  children: any,
-  creator: any,
-  createdAt: any,
-}) => {
+  id,
+  onDelete,
+}: any) => {
+  const [showAlert, setShowAlert] = useState(false);
+
   return (
     <>
       <h2>{title}</h2>
@@ -33,11 +32,35 @@ const NewsItem = ({
             </IonButton>
           </NavLink>
 
-          {/* <NavLink to="/"> */}
-          <IonButton size="small" color="danger">
+          <IonButton
+            size="small"
+            color="danger"
+            onClick={() => setShowAlert(true)}
+          >
             <IonIcon icon={trashOutline} />
           </IonButton>
-          {/* </NavLink> */}
+          <IonAlert
+            isOpen={showAlert}
+            onDidDismiss={() => setShowAlert(false)}
+            header={'Удаление новости'}
+            message={'Вы уверены, что хотите удалить новость?'}
+            buttons={[
+              {
+                text: 'Отмена',
+                role: 'cancel',
+                cssClass: 'secondary',
+                handler: () => {
+                  setShowAlert(false);
+                },
+              },
+              {
+                text: 'Да',
+                handler: () => {
+                  onDelete(id);
+                },
+              },
+            ]}
+          />
         </div>
       </div>
 

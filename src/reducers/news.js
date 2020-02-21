@@ -8,6 +8,11 @@ import {
   CREATE_POST_SUCCESS,
   CREATE_POST_FAILURE,
 } from '../actions/createPost';
+import {
+  DELETE_POST_REQUEST,
+  DELETE_POST_SUCCESS,
+  DELETE_POST_FAILURE,
+} from '../actions/deletePost';
 
 export const initialState = {
   error: null,
@@ -51,6 +56,26 @@ const news = (state = initialState, action) => {
       };
 
     case CREATE_POST_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload,
+      };
+
+    case DELETE_POST_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      };
+
+    case DELETE_POST_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        news: state.news.filter(({ id }) => id !== action.payload._id),
+      };
+
+    case DELETE_POST_FAILURE:
       return {
         ...state,
         isLoading: false,
