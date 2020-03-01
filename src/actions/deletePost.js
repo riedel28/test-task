@@ -30,9 +30,9 @@ export const deletePost = (id) => {
       //   .then((res) => {
       //     return res.json();
       //   })
-      .then((data) => {
-        console.log(data);
-        dispatch({ type: DELETE_POST_REQUEST, payload: data._id });
+      .then((response) => {
+        console.log(response.data);
+        dispatch({ type: DELETE_POST_SUCCESS, payload: response.data });
       })
       .catch((error) => {
         dispatch({ type: DELETE_POST_FAILURE, payload: error });

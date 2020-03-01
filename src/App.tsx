@@ -12,6 +12,7 @@ import CreateNews from './components/News/CreateNews';
 import Login from './components/Login/Login';
 import Profile from './components/Profile/Profile';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
+import EditNewsItem from './components/News/EditNewsItem';
 
 const App: React.FC = () => {
   return (
@@ -23,6 +24,7 @@ const App: React.FC = () => {
             <Route path="/" component={News} exact />
             <Route path="/news" component={News} exact />
             <Route path="/news/new" component={CreateNews} />
+            <Route path="/news/edit/:id" component={EditNewsItem} />
             <Route path="/login" component={Login} />
             <PrivateRoute path="/profile" component={Profile} />
           </Switch>

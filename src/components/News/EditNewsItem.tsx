@@ -15,17 +15,17 @@ import {
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router';
 
-import { createPost } from './../../actions/createPost';
+import { editPost } from '../../actions/editPost';
 
-const CreateNews = ({ createPost, news, isLoading, error }: any) => {
-  const [heading, setHeading] = useState('');
-  const [postContent, setPostContent] = useState('');
+const EditNewsItem = ({ news, isLoading, error, post, editPost }: any) => {
+  const [heading, setHeading] = useState(post.title);
+  const [postContent, setPostContent] = useState(post.content);
   const history = useHistory();
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
 
-    createPost({
+    editPost(post._id, {
       title: heading,
       content: postContent,
     });
@@ -50,7 +50,7 @@ const CreateNews = ({ createPost, news, isLoading, error }: any) => {
               offsetLg="3"
             >
               <div className="ion-padding-horizontal ion-padding-bottom">
-                <h1>Новый пост</h1>
+                <h1>Редактировать пост</h1>
                 {error && <p>{error.error}</p>}
               </div>
               <IonCard>
@@ -98,18 +98,18 @@ const CreateNews = ({ createPost, news, isLoading, error }: any) => {
   );
 };
 
-const mapStateToProps = (state: any) => {
+const mapStateToProps = (state: any, ownProps: any) => {
+  const postId = ownProps.match.params.id;
+
   return {
-    news: state.news.news,
-    isLoading: state.news.isLoading,
-    error: state.news.error,
+    post: state.news.news.find((post: any) => post._id === postId),
   };
 };
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    createPost: (post: any) => dispatch(createPost(post)),
+    editPost: (id: any, post: any) => dispatch(editPost(id, post)),
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CreateNews);
+export default connect(mapStateToProps, mapDispatchToProps)(EditNewsItem);

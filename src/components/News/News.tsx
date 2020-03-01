@@ -13,10 +13,17 @@ import NewsItem from './NewsItem';
 import { fetchNews } from '../../actions/fetchNews';
 import { deletePost } from '../../actions/deletePost';
 
-const News = ({ news, isLoading, error, fetchNews, deletePost }: any) => {
+const News = ({
+  news,
+  isLoading,
+  error,
+  fetchNews,
+  deletePost,
+  isLoggedIn,
+}: any) => {
   useEffect(() => {
     fetchNews();
-  }, [fetchNews, news]);
+  }, [fetchNews]);
 
   const handleDelete = (id: any) => {
     deletePost(id);
@@ -48,6 +55,7 @@ const News = ({ news, isLoading, error, fetchNews, deletePost }: any) => {
                     creator={creator}
                     createdAt={createDate}
                     onDelete={handleDelete}
+                    isLoggedIn={isLoggedIn}
                   >
                     {content}
                   </NewsItem>
@@ -59,7 +67,6 @@ const News = ({ news, isLoading, error, fetchNews, deletePost }: any) => {
               </div>
             </IonCol>
           </IonRow>
-          )}
         </IonGrid>
       </IonContent>
     </IonPage>
@@ -68,6 +75,7 @@ const News = ({ news, isLoading, error, fetchNews, deletePost }: any) => {
 
 const mapStateToProps = (state: any) => {
   return {
+    isLoggedIn: state.auth.isLoggedIn,
     news: state.news.news,
     isLoading: state.news.isLoading,
     error: state.news.error,

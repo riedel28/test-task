@@ -13,6 +13,11 @@ import {
   DELETE_POST_SUCCESS,
   DELETE_POST_FAILURE,
 } from '../actions/deletePost';
+import {
+  EDIT_POST_REQUEST,
+  EDIT_POST_SUCCESS,
+  EDIT_POST_FAILURE,
+} from '../actions/editPost';
 
 export const initialState = {
   error: null,
@@ -32,7 +37,7 @@ const news = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        news: action.payload,
+        news: [...action.payload],
       };
 
     case FETCH_NEWS_FAILURE:
@@ -62,6 +67,34 @@ const news = (state = initialState, action) => {
         error: action.payload,
       };
 
+    case EDIT_POST_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      };
+
+    case EDIT_POST_SUCCESS:
+      const { _id } = action.payload;
+
+      return {
+        ...state,
+        isLoading: false,
+        news: state.news.map((post) => {
+          if (post._id === _id) {
+            return action.payload;
+          }
+
+          return post;
+        }),
+      };
+
+    case EDIT_POST_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload,
+      };
+
     case DELETE_POST_REQUEST:
       return {
         ...state,
@@ -72,7 +105,7 @@ const news = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        news: state.news.filter(({ id }) => id !== action.payload._id),
+        news: state.news.filter((post) => post._id !== action.payload._id),
       };
 
     case DELETE_POST_FAILURE:

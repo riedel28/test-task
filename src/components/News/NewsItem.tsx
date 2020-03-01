@@ -12,6 +12,7 @@ const NewsItem = ({
   createdAt,
   id,
   onDelete,
+  isLoggedIn,
 }: any) => {
   const [showAlert, setShowAlert] = useState(false);
 
@@ -26,19 +27,22 @@ const NewsItem = ({
         </div>
 
         <div>
-          <NavLink to="/">
-            <IonButton size="small" color="light">
-              <IonIcon icon={createOutline} />
-            </IonButton>
-          </NavLink>
-
-          <IonButton
-            size="small"
-            color="danger"
-            onClick={() => setShowAlert(true)}
-          >
-            <IonIcon icon={trashOutline} />
-          </IonButton>
+          {isLoggedIn && (
+            <>
+              <NavLink to={`/news/edit/${id}`}>
+                <IonButton size="small" color="light">
+                  <IonIcon icon={createOutline} />
+                </IonButton>
+              </NavLink>
+              <IonButton
+                size="small"
+                color="danger"
+                onClick={() => setShowAlert(true)}
+              >
+                <IonIcon icon={trashOutline} />
+              </IonButton>
+            </>
+          )}
           <IonAlert
             isOpen={showAlert}
             onDidDismiss={() => setShowAlert(false)}
