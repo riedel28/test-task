@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { IonButton, IonIcon, IonAlert } from '@ionic/react';
+import { IonButton, IonIcon, IonAlert, IonItemDivider } from '@ionic/react';
 import { createOutline, trashOutline } from 'ionicons/icons';
 
 import displayDateTime from './../../helpers/displayDateTime';
@@ -69,6 +69,7 @@ const NewsItem = ({
       </div>
 
       <p>{children}</p>
+      <IonItemDivider />
     </>
   );
 };

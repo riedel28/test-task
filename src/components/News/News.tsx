@@ -12,6 +12,7 @@ import { connect } from 'react-redux';
 import NewsItem from './NewsItem';
 import { fetchNews } from '../../actions/fetchNews';
 import { deletePost } from '../../actions/deletePost';
+import shortenText from './../../helpers/shortenText';
 
 const News = ({
   news,
@@ -57,12 +58,12 @@ const News = ({
                     onDelete={handleDelete}
                     isLoggedIn={isLoggedIn}
                   >
-                    {content}
+                    {shortenText(content)}
                   </NewsItem>
                 );
               })}
 
-              <div className="ion-text-end">
+              <div className="ion-text-end ion-padding-top">
                 <em>Всего новостей: </em> {news.length}
               </div>
             </IonCol>
