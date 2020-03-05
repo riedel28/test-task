@@ -46,22 +46,6 @@ const NewsItem = ({
               </div>
 
               <div>
-                {isLoggedIn && (
-                  <>
-                    <NavLink to={`/news/edit/${id}`}>
-                      <IonButton size="small" color="light">
-                        <IonIcon icon={createOutline} />
-                      </IonButton>
-                    </NavLink>
-                    <IonButton
-                      size="small"
-                      color="danger"
-                      onClick={() => setShowAlert(true)}
-                    >
-                      <IonIcon icon={trashOutline} />
-                    </IonButton>
-                  </>
-                )}
                 <IonAlert
                   isOpen={showAlert}
                   onDidDismiss={() => setShowAlert(false)}
@@ -88,6 +72,19 @@ const NewsItem = ({
             </div>
 
             <p>{content}</p>
+            {isLoggedIn && (
+              <>
+                <NavLink to={`/news/edit/${id}`}>
+                  <IonButton color="light">
+                    <IonIcon icon={createOutline} slot="start" /> Edit
+                  </IonButton>
+                </NavLink>
+                <IonButton color="danger" onClick={() => setShowAlert(true)}>
+                  <IonIcon icon={trashOutline} slot="start" />
+                  Delete
+                </IonButton>
+              </>
+            )}
             <IonItemDivider />
           </IonCol>
         </IonRow>
