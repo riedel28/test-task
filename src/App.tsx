@@ -8,6 +8,7 @@ import '@ionic/react/css/ionic.bundle.css';
 
 import Header from './components/Header/Header';
 import News from './components/News/News';
+import NewsItemPage from './components/News/NewsItemPage';
 import CreateNews from './components/News/CreateNews';
 import Login from './components/Login/Login';
 import Profile from './components/Profile/Profile';
@@ -23,6 +24,7 @@ const App: React.FC = () => {
           <Switch>
             <Route path="/" component={News} exact />
             <Route path="/news" component={News} exact />
+            <Route path="/news/:id" component={NewsItemPage} />
             <Route path="/news/new" component={CreateNews} />
             <Route path="/news/edit/:id" component={EditNewsItem} />
             <Route path="/login" component={Login} />

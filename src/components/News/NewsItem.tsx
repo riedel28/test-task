@@ -18,7 +18,9 @@ const NewsItem = ({
 
   return (
     <>
-      <h2>{title}</h2>
+      <NavLink to={`/news/${id}`}>
+        <h2>{title}</h2>
+      </NavLink>
 
       <div className="post-description">
         <div>
