@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import {
   IonGrid,
@@ -11,7 +11,7 @@ import {
 } from '@ionic/react';
 import { createOutline, trashOutline } from 'ionicons/icons';
 import { connect } from 'react-redux';
-
+import { fetchNewsItem } from './../../actions/fetchNewsItem';
 import displayDateTime from './../../helpers/displayDateTime';
 
 const NewsItem = ({
@@ -22,8 +22,13 @@ const NewsItem = ({
   id,
   // onDelete,
   isLoggedIn,
+  fetchNewsItem,
 }: any) => {
   const [showAlert, setShowAlert] = useState(false);
+
+  useEffect(() => {
+    fetchNewsItem(id);
+  }, [fetchNewsItem, id]);
 
   return (
     <>
@@ -41,8 +46,8 @@ const NewsItem = ({
 
             <div className="post-description">
               <div>
-                <span className="creator">{creator}</span> ·{' '}
-                <span className="created-at">{displayDateTime(createdAt)}</span>
+                {/* <span className="creator">{creator}</span> ·{' '} */}
+                {/* <span className="created-at">{displayDateTime(createdAt)}</span> */}
               </div>
 
               <div>
@@ -96,16 +101,28 @@ const NewsItem = ({
 const mapStateToProps = (state: any, ownProps: any) => {
   const postId = ownProps.match.params.id;
 
-  const post = state.news.news.find((post: any) => post._id === postId);
+  // const post = state.news.news.find((post: any) => post._id === postId);
+
+  console.log(state.news.news);
+  console.log(postId);
 
   return {
     id: postId,
-    title: post.title,
-    content: post.content,
-    creator: post.creator.displayName,
-    createdAt: post.createDate,
+    // title: post.title,
+    // content: post.content,
+    // creator: post.creator.displayName,
+    // createdAt: post.createDate,
     isLoggedIn: state.auth.isLoggedIn,
+    isLoading: state.news.isLoading,
+    error: state.news.error,
   };
 };
 
-export default connect(mapStateToProps, null)(NewsItem);
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    fetchNewsItem: (id: any) => dispatch(fetchNewsItem(id)),
+    // deletePost: (id: any) => dispatch(deletePost(id)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewsItem);

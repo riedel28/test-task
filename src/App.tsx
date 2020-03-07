@@ -14,6 +14,7 @@ import Login from './components/Login/Login';
 import Profile from './components/Profile/Profile';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import EditNewsItem from './components/News/EditNewsItem';
+import Footer from './components/Footer/Footer';
 
 const App: React.FC = () => {
   return (
@@ -31,6 +32,7 @@ const App: React.FC = () => {
             <PrivateRoute path="/profile" component={Profile} />
           </Switch>
         </IonContent>
+        <Footer />
       </IonReactRouter>
     </IonApp>
   );

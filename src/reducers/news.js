@@ -4,6 +4,11 @@ import {
   FETCH_NEWS_FAILURE,
 } from '../actions/fetchNews';
 import {
+  FETCH_NEWS_ITEM_REQUEST,
+  FETCH_NEWS_ITEM_SUCCESS,
+  FETCH_NEWS_ITEM_FAILURE,
+} from '../actions/fetchNewsItem';
+import {
   CREATE_POST_REQUEST,
   CREATE_POST_SUCCESS,
   CREATE_POST_FAILURE,
@@ -47,6 +52,26 @@ const news = (state = initialState, action) => {
         error: action.payload,
       };
 
+    case FETCH_NEWS_ITEM_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      };
+
+    case FETCH_NEWS_ITEM_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        news: [...state.news, action.payload],
+      };
+
+    case FETCH_NEWS_ITEM_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload,
+      };
+
     case CREATE_POST_REQUEST:
       return {
         ...state,
@@ -57,7 +82,7 @@ const news = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        news: [...state.news, action.payload],
+        news: [...state.news, action.payload.feed],
       };
 
     case CREATE_POST_FAILURE:
