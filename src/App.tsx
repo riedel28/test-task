@@ -25,9 +25,9 @@ const App: React.FC = () => {
           <Switch>
             <Route path="/" component={News} exact />
             <Route path="/news" component={News} exact />
-            <Route path="/news/:id" component={NewsItemPage} />
-            <Route path="/news/new" component={CreateNews} />
-            <Route path="/news/edit/:id" component={EditNewsItem} />
+            <Route path="/news/new" component={CreateNews} exact />
+            <Route path="/news/:id" component={NewsItemPage} exact />
+            <Route path="/news/edit/:id" component={EditNewsItem} exact />
             <Route path="/login" component={Login} />
             <PrivateRoute path="/profile" component={Profile} />
           </Switch>

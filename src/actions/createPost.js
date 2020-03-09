@@ -29,7 +29,7 @@ export const createPost = (post) => {
         },
       })
       .then((response) => {
-        dispatch({ type: CREATE_POST_SUCCESS, payload: response.data.feed });
+        dispatch({ type: CREATE_POST_SUCCESS, payload: response.data });
       })
       .catch((error) => {
         dispatch({ type: CREATE_POST_FAILURE, payload: error });

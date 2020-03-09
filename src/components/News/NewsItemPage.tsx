@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
+import React, { useState } from 'react';
+import { NavLink, useParams, useHistory } from 'react-router-dom';
 import {
   IonGrid,
   IonRow,
@@ -11,7 +11,9 @@ import {
 } from '@ionic/react';
 import { createOutline, trashOutline } from 'ionicons/icons';
 import { connect } from 'react-redux';
+
 import { fetchNewsItem } from './../../actions/fetchNewsItem';
+import { deletePost } from './../../actions/deletePost';
 import displayDateTime from './../../helpers/displayDateTime';
 
 const NewsItem = ({
@@ -19,16 +21,18 @@ const NewsItem = ({
   content,
   creator,
   createdAt,
-  id,
-  // onDelete,
   isLoggedIn,
-  fetchNewsItem,
+  deletePost,
 }: any) => {
   const [showAlert, setShowAlert] = useState(false);
+  const { id } = useParams();
+  const history = useHistory();
 
-  useEffect(() => {
-    fetchNewsItem(id);
-  }, [fetchNewsItem, id]);
+  const onDelete = (id: any) => {
+    deletePost(id);
+
+    history.push('/');
+  };
 
   return (
     <>
@@ -42,12 +46,12 @@ const NewsItem = ({
             sizeLg="6"
             offsetLg="3"
           >
-            <h2>{title}</h2>
+            <h1>{title}</h1>
 
             <div className="post-description">
               <div>
-                {/* <span className="creator">{creator}</span> ·{' '} */}
-                {/* <span className="created-at">{displayDateTime(createdAt)}</span> */}
+                <span className="creator">{creator}</span> ·{' '}
+                <span className="created-at">{displayDateTime(createdAt)}</span>
               </div>
 
               <div>
@@ -68,7 +72,7 @@ const NewsItem = ({
                     {
                       text: 'Да',
                       handler: () => {
-                        // onDelete(id);
+                        onDelete(id);
                       },
                     },
                   ]}
@@ -77,20 +81,26 @@ const NewsItem = ({
             </div>
 
             <p>{content}</p>
-            {isLoggedIn && (
-              <>
-                <NavLink to={`/news/edit/${id}`}>
-                  <IonButton color="light">
-                    <IonIcon icon={createOutline} slot="start" /> Edit
-                  </IonButton>
-                </NavLink>
-                <IonButton color="danger" onClick={() => setShowAlert(true)}>
-                  <IonIcon icon={trashOutline} slot="start" />
-                  Delete
-                </IonButton>
-              </>
-            )}
             <IonItemDivider />
+            <div className="ion-padding-top">
+              {isLoggedIn && (
+                <>
+                  <NavLink to={`/news/edit/${id}`}>
+                    <IonButton color="light" size="small">
+                      <IonIcon icon={createOutline} slot="start" /> Edit
+                    </IonButton>
+                  </NavLink>
+                  <IonButton
+                    color="danger"
+                    onClick={() => setShowAlert(true)}
+                    size="small"
+                  >
+                    <IonIcon icon={trashOutline} slot="start" />
+                    Delete
+                  </IonButton>
+                </>
+              )}
+            </div>
           </IonCol>
         </IonRow>
       </IonGrid>
@@ -101,27 +111,22 @@ const NewsItem = ({
 const mapStateToProps = (state: any, ownProps: any) => {
   const postId = ownProps.match.params.id;
 
-  // const post = state.news.news.find((post: any) => post._id === postId);
-
-  console.log(state.news.news);
-  console.log(postId);
+  const post = state.news.news.find((post: any) => post._id === postId);
 
   return {
-    id: postId,
-    // title: post.title,
-    // content: post.content,
-    // creator: post.creator.displayName,
-    // createdAt: post.createDate,
+    id: post._id,
+    title: post.title,
+    content: post.content,
+    creator: post.creator.displayName,
+    createdAt: post.createDate,
     isLoggedIn: state.auth.isLoggedIn,
-    isLoading: state.news.isLoading,
-    error: state.news.error,
   };
 };
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
     fetchNewsItem: (id: any) => dispatch(fetchNewsItem(id)),
-    // deletePost: (id: any) => dispatch(deletePost(id)),
+    deletePost: (id: any) => dispatch(deletePost(id)),
   };
 };
 

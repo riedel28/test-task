@@ -62,7 +62,7 @@ const news = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        news: [...state.news, action.payload],
+        currentPost: action.payload.feed,
       };
 
     case FETCH_NEWS_ITEM_FAILURE:

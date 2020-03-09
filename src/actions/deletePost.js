@@ -31,7 +31,6 @@ export const deletePost = (id) => {
       //     return res.json();
       //   })
       .then((response) => {
-        console.log(response.data);
         dispatch({ type: DELETE_POST_SUCCESS, payload: response.data });
       })
       .catch((error) => {

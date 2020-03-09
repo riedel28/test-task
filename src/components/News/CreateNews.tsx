@@ -55,7 +55,7 @@ const CreateNews = ({ createPost, news, isLoading, error }: any) => {
               </div>
               <IonCard>
                 <div className="ion-padding">
-                  <form onSubmit={handleSubmit}>
+                  <form onSubmit={handleSubmit} className="ion-padding-bottom">
                     <div className="ion-padding-bottom">
                       <IonItem>
                         <IonLabel position="stacked">
@@ -82,7 +82,7 @@ const CreateNews = ({ createPost, news, isLoading, error }: any) => {
                       </IonItem>
                     </div>
 
-                    <div className="ion-padding-top">
+                    <div className="ion-padding-bottom">
                       <div className="ion-float-right">
                         <IonButton onClick={handleSubmit}>Отправить</IonButton>
                       </div>

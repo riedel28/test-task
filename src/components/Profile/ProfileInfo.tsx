@@ -74,8 +74,6 @@ const ProfileInfo = ({
 };
 
 const mapStateToProps = (state: any) => {
-  console.log(state);
-
   return {
     userId: state.login.user,
     error: state.fetchProfileInfo.error,

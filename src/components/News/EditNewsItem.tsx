@@ -16,6 +16,7 @@ import { connect } from 'react-redux';
 import { useHistory } from 'react-router';
 
 import { editPost } from '../../actions/editPost';
+import { fetchNewsItem } from '../../actions/fetchNewsItem';
 
 const EditNewsItem = ({ news, isLoading, error, post, editPost }: any) => {
   const [heading, setHeading] = useState(post.title);
