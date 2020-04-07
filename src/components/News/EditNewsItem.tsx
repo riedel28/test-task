@@ -83,10 +83,13 @@ const EditNewsItem = ({ news, isLoading, error, post, editPost }: any) => {
                       </IonItem>
                     </div>
 
-                    <div className="ion-padding-top">
-                      <div className="ion-float-right">
-                        <IonButton onClick={handleSubmit}>Отправить</IonButton>
-                      </div>
+                    <div className="ion-float-right">
+                      <IonButton
+                        onClick={handleSubmit}
+                        style={{ marginBottom: 20 }}
+                      >
+                        Отправить
+                      </IonButton>
                     </div>
                   </form>
                 </div>

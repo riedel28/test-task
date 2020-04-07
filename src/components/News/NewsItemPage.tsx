@@ -82,11 +82,15 @@ const NewsItem = ({
 
             <p>{content}</p>
             <IonItemDivider />
-            <div className="ion-padding-top">
+            <div className="ion-padding-top ion-float-right">
               {isLoggedIn && (
                 <>
                   <NavLink to={`/news/edit/${id}`}>
-                    <IonButton color="light" size="small">
+                    <IonButton
+                      color="light"
+                      size="small"
+                      style={{ marginRight: 10 }}
+                    >
                       <IonIcon icon={createOutline} slot="start" /> Edit
                     </IonButton>
                   </NavLink>
