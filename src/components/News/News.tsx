@@ -74,12 +74,14 @@ const News = ({
   );
 };
 
-const mapStateToProps = (state: any) => {
+const mapStateToProps = ({ auth, news }: any) => {
   return {
-    isLoggedIn: state.auth.isLoggedIn,
-    news: state.news.news,
-    isLoading: state.news.isLoading,
-    error: state.news.error,
+    isLoggedIn: auth.isLoggedIn,
+    news: news.news.sort((a: any, b: any) => {
+      return Number(new Date(b.createDate)) - Number(new Date(a.createDate));
+    }),
+    isLoading: news.isLoading,
+    error: news.error,
   };
 };
 
