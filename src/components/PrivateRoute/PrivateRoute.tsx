@@ -12,7 +12,7 @@ const PrivateRoute: React.FC<any> = ({ component: Component, ...rest }) => {
         ) : (
           <Redirect
             to={{
-              pathname: '/login',
+              pathname: '/news',
               state: { from: location },
             }}
           />

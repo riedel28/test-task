@@ -27,7 +27,11 @@ const App: React.FC = () => {
             <Route path="/news" component={News} exact />
             <Route path="/news/new" component={CreateNews} exact />
             <Route path="/news/:id" component={NewsItemPage} exact />
-            <Route path="/news/edit/:id" component={EditNewsItem} exact />
+            <PrivateRoute
+              path="/news/edit/:id"
+              component={EditNewsItem}
+              exact
+            />
             <Route path="/login" component={Login} />
             <PrivateRoute path="/profile" component={Profile} />
           </Switch>
