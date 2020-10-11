@@ -61,12 +61,14 @@ const Header: React.FC = ({
                   News
                 </IonButton>
               </NavLink>
-              <NavLink to="/profile">
-                <IonButton>
-                  <IonIcon icon={personCircleOutline} slot="start" />
-                  Profile
-                </IonButton>
-              </NavLink>
+              {isLoggedIn && (
+                <NavLink to="/profile">
+                  <IonButton>
+                    <IonIcon icon={personCircleOutline} slot="start" />
+                    Profile
+                  </IonButton>
+                </NavLink>
+              )}
               {isLoggedIn && (
                 <NavLink to="/news/new">
                   <IonButton>

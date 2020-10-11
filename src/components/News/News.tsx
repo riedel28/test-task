@@ -31,7 +31,7 @@ const News = ({
   };
 
   if (error) {
-    return <IonLabel color="danger">{error}</IonLabel>;
+    return <IonLabel color="danger">{error.message}</IonLabel>;
   }
 
   if (news.length < 1) {
