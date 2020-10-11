@@ -107,8 +107,7 @@ const mapStateToProps = (state: any) => {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    handleLogin: (username: any, password: any) =>
-      dispatch(handleLogin(username, password)),
+    handleLogin: () => dispatch(handleLogin()),
   };
 };
 

@@ -6,35 +6,22 @@ export const DELETE_POST_REQUEST = 'DELETE_POST_REQUEST';
 export const DELETE_POST_FAILURE = 'DELETE_POST_FAILURE';
 
 export const deletePost = (id) => {
-  return (dispatch, getState) => {
+  return async (dispatch, getState) => {
     dispatch({ type: DELETE_POST_REQUEST });
 
     const token = getState().auth.user.token;
 
-    // console.log(token);
-
-    axios
-      .delete(`${rootApiUrl}/feeds/${id}`, {
+    try {
+      const response = await axios.delete(`${rootApiUrl}/feeds/${id}`, {
         headers: {
           accept: 'application/json',
           'x-access-token': token,
         },
-      })
-      // fetch(`${rootApiUrl}/feeds/${id}`, {
-      //   method: 'DELETE',
-      //   headers: {
-      //     accept: 'application/json',
-      //     'x-access-token': token,
-      //   },
-      // })
-      //   .then((res) => {
-      //     return res.json();
-      //   })
-      .then((response) => {
-        dispatch({ type: DELETE_POST_SUCCESS, payload: response.data });
-      })
-      .catch((error) => {
-        dispatch({ type: DELETE_POST_FAILURE, payload: error });
       });
+
+      dispatch({ type: DELETE_POST_SUCCESS, payload: response.data });
+    } catch (error) {
+      dispatch({ type: DELETE_POST_FAILURE, payload: error });
+    }
   };
 };

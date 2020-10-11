@@ -1,3 +1,4 @@
+import axios from 'axios';
 import rootApiUrl from './../helpers/rootApiUrl.js';
 
 export const LOG_IN_REQUEST = 'LOG_IN_REQUEST';
@@ -11,29 +12,37 @@ export const handleLogin = (email, password) => {
     });
 
     const auth2 = await window.gapi.auth2.getAuthInstance();
-    auth2.signIn().then((googleUser) => {
-      const profile = googleUser.getBasicProfile();
 
+    auth2.signIn().then(async (googleUser) => {
+      const profile = googleUser.getBasicProfile();
       const token = googleUser.getAuthResponse().id_token;
 
-      fetch(`${rootApiUrl}/auth/google`, {
-        method: 'POST',
-        headers: {
-          accept: 'application/json',
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: 'token=' + token,
-      })
-        .then((res) => res.json())
-        .then((body) => {
-          dispatch({
-            type: LOG_IN_SUCCESS,
-            payload: {
-              name: profile.getName(),
-              token: body.token,
-            },
-          });
+      try {
+        const response = await axios.post(
+          `${rootApiUrl}/auth/google`,
+          { token },
+          {
+            accept: 'application/json',
+            'Content-Type': 'application/x-www-form-urlencoded',
+          }
+        );
+
+        dispatch({
+          type: LOG_IN_SUCCESS,
+          payload: {
+            name: profile.getName(),
+            token: response.data.token,
+          },
         });
+      } catch (error) {
+        dispatch({
+          type: LOG_IN_FAILURE,
+          payload: {
+            name: profile.getName(),
+            token: error,
+          },
+        });
+      }
     });
   };
 };
