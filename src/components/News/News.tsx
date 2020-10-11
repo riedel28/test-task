@@ -13,6 +13,7 @@ import NewsItem from './NewsItem';
 import { fetchNews } from '../../actions/fetchNews';
 import { deletePost } from '../../actions/deletePost';
 import shortenText from './../../helpers/shortenText';
+import dictionary from '../../dictionary';
 
 const News = ({
   news,
@@ -31,11 +32,19 @@ const News = ({
   };
 
   if (error) {
-    return <IonLabel color="danger">{error.message}</IonLabel>;
+    return (
+      <div className="ion-text-center">
+        <h2>{dictionary[error.message]}</h2>
+      </div>
+    );
   }
 
   if (news.length < 1) {
-    return <div>Новостей пока нет</div>;
+    return (
+      <div className="ion-text-center">
+        <h2>Новостей пока нет</h2>
+      </div>
+    );
   }
 
   return (
