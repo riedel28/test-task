@@ -15,6 +15,7 @@ import Profile from './components/Profile/Profile';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import EditNewsItem from './components/News/EditNewsItem';
 import Footer from './components/Footer/Footer';
+import NotFound from './components/NotFound/NotFound';
 
 const App: React.FC = () => {
   return (
@@ -34,6 +35,7 @@ const App: React.FC = () => {
             />
             <Route path="/login" component={Login} />
             <PrivateRoute path="/profile" component={Profile} />
+            <Route path="*" component={NotFound} />
           </Switch>
         </IonContent>
         <Footer />
