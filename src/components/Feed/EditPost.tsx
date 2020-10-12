@@ -16,9 +16,8 @@ import { connect } from 'react-redux';
 import { useHistory } from 'react-router';
 
 import { editPost } from '../../actions/editPost';
-import { fetchNewsItem } from '../../actions/fetchNewsItem';
 
-const EditNewsItem = ({ news, isLoading, error, post, editPost }: any) => {
+const EditPost = ({ news, isLoading, error, post, editPost }: any) => {
   const [heading, setHeading] = useState(post.title);
   const [postContent, setPostContent] = useState(post.content);
   const history = useHistory();
@@ -106,7 +105,7 @@ const mapStateToProps = (state: any, ownProps: any) => {
   const postId = ownProps.match.params.id;
 
   return {
-    post: state.news.news.find((post: any) => post._id === postId),
+    post: state.feed.posts.find((post: any) => post._id === postId),
   };
 };
 
@@ -116,4 +115,4 @@ const mapDispatchToProps = (dispatch: any) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditNewsItem);
+export default connect(mapStateToProps, mapDispatchToProps)(EditPost);

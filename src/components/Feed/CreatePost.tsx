@@ -15,7 +15,7 @@ import {
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router';
 
-import { createPost } from './../../actions/createPost';
+import { createPost } from '../../actions/createPost';
 
 const CreateNews = ({ createPost, news, isLoading, error }: any) => {
   const [heading, setHeading] = useState('');
@@ -100,9 +100,9 @@ const CreateNews = ({ createPost, news, isLoading, error }: any) => {
 
 const mapStateToProps = (state: any) => {
   return {
-    news: state.news.news,
-    isLoading: state.news.isLoading,
-    error: state.news.error,
+    news: state.feed.posts,
+    isLoading: state.feed.isLoading,
+    error: state.feed.error,
   };
 };
 

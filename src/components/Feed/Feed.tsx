@@ -1,21 +1,14 @@
 import React, { useEffect } from 'react';
-import {
-  IonPage,
-  IonGrid,
-  IonRow,
-  IonCol,
-  IonContent,
-  IonLabel,
-} from '@ionic/react';
+import { IonPage, IonGrid, IonRow, IonCol, IonContent } from '@ionic/react';
 import { connect } from 'react-redux';
 
-import NewsItem from './NewsItem';
-import { fetchNews } from '../../actions/fetchNews';
+import Post from './Post';
+import { fetchFeed } from '../../actions/fetchFeed';
 import { deletePost } from '../../actions/deletePost';
-import shortenText from './../../helpers/shortenText';
+import shortenText from '../../helpers/shortenText';
 import dictionary from '../../dictionary';
 
-const News = ({
+const Feed = ({
   news,
   isLoading,
   error,
@@ -58,7 +51,7 @@ const News = ({
               </div>
               {news.map(({ _id, title, content, creator, createDate }: any) => {
                 return (
-                  <NewsItem
+                  <Post
                     key={_id}
                     id={_id}
                     title={title}
@@ -68,7 +61,7 @@ const News = ({
                     isLoggedIn={isLoggedIn}
                   >
                     {shortenText(content)}
-                  </NewsItem>
+                  </Post>
                 );
               })}
 
@@ -83,22 +76,22 @@ const News = ({
   );
 };
 
-const mapStateToProps = ({ auth, news }: any) => {
+const mapStateToProps = (state: any) => {
   return {
-    isLoggedIn: auth.isLoggedIn,
-    news: news.news.sort((a: any, b: any) => {
+    isLoggedIn: state.auth.isLoggedIn,
+    news: state.feed.posts.sort((a: any, b: any) => {
       return Number(new Date(b.createDate)) - Number(new Date(a.createDate));
     }),
-    isLoading: news.isLoading,
-    error: news.error,
+    isLoading: state.feed.isLoading,
+    error: state.feed.error,
   };
 };
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    fetchNews: () => dispatch(fetchNews()),
+    fetchNews: () => dispatch(fetchFeed()),
     deletePost: (id: any) => dispatch(deletePost(id)),
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(News);
+export default connect(mapStateToProps, mapDispatchToProps)(Feed);

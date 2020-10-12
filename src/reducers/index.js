@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux';
 
 import auth from './auth';
-import news from './news';
+import feed from './feed';
 
 const rootReducer = combineReducers({
   auth,
-  news,
+  feed,
 });
 
 export default rootReducer;

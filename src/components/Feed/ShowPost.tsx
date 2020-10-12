@@ -12,9 +12,9 @@ import {
 import { createOutline, trashOutline } from 'ionicons/icons';
 import { connect } from 'react-redux';
 
-import { fetchNewsItem } from './../../actions/fetchNewsItem';
-import { deletePost } from './../../actions/deletePost';
-import displayDateTime from './../../helpers/displayDateTime';
+import { fetchPost } from '../../actions/fetchPost';
+import { deletePost } from '../../actions/deletePost';
+import displayDateTime from '../../helpers/displayDateTime';
 
 const NewsItem = ({
   title,
@@ -115,7 +115,7 @@ const NewsItem = ({
 const mapStateToProps = (state: any, ownProps: any) => {
   const postId = ownProps.match.params.id;
 
-  const post = state.news.news.find((post: any) => post._id === postId);
+  const post = state.feed.posts.find((post: any) => post._id === postId);
 
   return {
     id: post._id,
@@ -129,7 +129,7 @@ const mapStateToProps = (state: any, ownProps: any) => {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    fetchNewsItem: (id: any) => dispatch(fetchNewsItem(id)),
+    fetchNewsItem: (id: any) => dispatch(fetchPost(id)),
     deletePost: (id: any) => dispatch(deletePost(id)),
   };
 };

@@ -1,13 +1,13 @@
 import {
-  FETCH_NEWS_REQUEST,
-  FETCH_NEWS_SUCCESS,
-  FETCH_NEWS_FAILURE,
-} from '../actions/fetchNews';
+  FETCH_FEED_REQUEST,
+  FETCH_FEED_SUCCESS,
+  FETCH_FEED_FAILURE,
+} from '../actions/fetchFeed';
 import {
-  FETCH_NEWS_ITEM_REQUEST,
-  FETCH_NEWS_ITEM_SUCCESS,
-  FETCH_NEWS_ITEM_FAILURE,
-} from '../actions/fetchNewsItem';
+  FETCH_POST_REQUEST,
+  FETCH_POST_SUCCESS,
+  FETCH_POST_FAILURE,
+} from '../actions/fetchPost';
 import {
   CREATE_POST_REQUEST,
   CREATE_POST_SUCCESS,
@@ -27,45 +27,45 @@ import {
 export const initialState = {
   error: null,
   isLoading: false,
-  news: [],
+  posts: [],
 };
 
 const news = (state = initialState, action) => {
   switch (action.type) {
-    case FETCH_NEWS_REQUEST:
+    case FETCH_FEED_REQUEST:
       return {
         ...state,
         isLoading: true,
       };
 
-    case FETCH_NEWS_SUCCESS:
+    case FETCH_FEED_SUCCESS:
       return {
         ...state,
         isLoading: false,
-        news: [...action.payload],
+        posts: [...action.payload],
       };
 
-    case FETCH_NEWS_FAILURE:
+    case FETCH_FEED_FAILURE:
       return {
         ...state,
         isLoading: false,
         error: action.payload,
       };
 
-    case FETCH_NEWS_ITEM_REQUEST:
+    case FETCH_POST_REQUEST:
       return {
         ...state,
         isLoading: true,
       };
 
-    case FETCH_NEWS_ITEM_SUCCESS:
+    case FETCH_POST_SUCCESS:
       return {
         ...state,
         isLoading: false,
         currentPost: action.payload.feed,
       };
 
-    case FETCH_NEWS_ITEM_FAILURE:
+    case FETCH_POST_FAILURE:
       return {
         ...state,
         isLoading: false,
@@ -82,7 +82,7 @@ const news = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        news: [...state.news, action.payload.feed],
+        posts: [...state.posts, action.payload.feed],
       };
 
     case CREATE_POST_FAILURE:
@@ -104,7 +104,7 @@ const news = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        news: state.news.map((post) => {
+        posts: state.news.map((post) => {
           if (post._id === _id) {
             return action.payload;
           }
@@ -130,7 +130,7 @@ const news = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        news: state.news.filter((post) => post._id !== action.payload._id),
+        posts: state.posts.filter((post) => post._id !== action.payload._id),
       };
 
     case DELETE_POST_FAILURE:

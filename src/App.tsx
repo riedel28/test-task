@@ -7,13 +7,13 @@ import '@ionic/react/css/core.css';
 import '@ionic/react/css/ionic.bundle.css';
 
 import Header from './components/Header/Header';
-import News from './components/News/News';
-import NewsItemPage from './components/News/NewsItemPage';
-import CreateNews from './components/News/CreateNews';
+import Feed from './components/Feed/Feed';
+import ShowPost from './components/Feed/ShowPost';
+import CreatePost from './components/Feed/CreatePost';
 import Login from './components/Login/Login';
 import Profile from './components/Profile/Profile';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
-import EditNewsItem from './components/News/EditNewsItem';
+import EditPost from './components/Feed/EditPost';
 import Footer from './components/Footer/Footer';
 import NotFound from './components/NotFound/NotFound';
 
@@ -24,15 +24,11 @@ const App: React.FC = () => {
         <Header />
         <IonContent>
           <Switch>
-            <Route path="/" component={News} exact />
-            <Route path="/news" component={News} exact />
-            <Route path="/news/new" component={CreateNews} exact />
-            <Route path="/news/:id" component={NewsItemPage} exact />
-            <PrivateRoute
-              path="/news/edit/:id"
-              component={EditNewsItem}
-              exact
-            />
+            <Route path="/" component={Feed} exact />
+            <Route path="/news" component={Feed} exact />
+            <Route path="/news/new" component={CreatePost} exact />
+            <Route path="/news/:id" component={ShowPost} exact />
+            <PrivateRoute path="/news/edit/:id" component={EditPost} exact />
             <Route path="/login" component={Login} />
             <PrivateRoute path="/profile" component={Profile} />
             <Route path="*" component={NotFound} />

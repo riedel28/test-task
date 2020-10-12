@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { IonButton, IonIcon, IonAlert, IonItemDivider } from '@ionic/react';
 import { createOutline, trashOutline } from 'ionicons/icons';
 
-import displayDateTime from './../../helpers/displayDateTime';
+import displayDateTime from '../../helpers/displayDateTime';
 
 const NewsItem = ({
   title,
