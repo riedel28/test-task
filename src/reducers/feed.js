@@ -104,7 +104,7 @@ const news = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        posts: state.news.map((post) => {
+        posts: state.posts.map((post) => {
           if (post._id === _id) {
             return action.payload;
           }

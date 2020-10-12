@@ -17,7 +17,7 @@ import { useHistory } from 'react-router';
 
 import { createPost } from '../../actions/createPost';
 
-const CreateNews = ({ createPost, news, isLoading, error }: any) => {
+const CreatePost = ({ createPost, news, isLoading, error }: any) => {
   const [heading, setHeading] = useState('');
   const [postContent, setPostContent] = useState('');
   const history = useHistory();
@@ -112,4 +112,4 @@ const mapDispatchToProps = (dispatch: any) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CreateNews);
+export default connect(mapStateToProps, mapDispatchToProps)(CreatePost);

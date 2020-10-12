@@ -17,7 +17,7 @@ import { useHistory } from 'react-router';
 
 import { editPost } from '../../actions/editPost';
 
-const EditPost = ({ news, isLoading, error, post, editPost }: any) => {
+const EditPost = ({ error, post, editPost }: any) => {
   const [heading, setHeading] = useState(post.title);
   const [postContent, setPostContent] = useState(post.content);
   const history = useHistory();
@@ -102,7 +102,7 @@ const EditPost = ({ news, isLoading, error, post, editPost }: any) => {
 };
 
 const mapStateToProps = (state: any, ownProps: any) => {
-  const postId = ownProps.match.params.id;
+  const postId = ownProps.computedMatch.params.id;
 
   return {
     post: state.feed.posts.find((post: any) => post._id === postId),
