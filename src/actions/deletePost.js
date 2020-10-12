@@ -1,5 +1,4 @@
-import axios from 'axios';
-import rootApiUrl from './../helpers/rootApiUrl.js';
+import api from '../api';
 
 export const DELETE_POST_SUCCESS = 'DELETE_POST_SUCCESS';
 export const DELETE_POST_REQUEST = 'DELETE_POST_REQUEST';
@@ -12,9 +11,8 @@ export const deletePost = (id) => {
     const token = getState().auth.user.token;
 
     try {
-      const response = await axios.delete(`${rootApiUrl}/feeds/${id}`, {
+      const response = await api.delete(`/feeds/${id}`, {
         headers: {
-          accept: 'application/json',
           'x-access-token': token,
         },
       });

@@ -1,11 +1,10 @@
-import axios from 'axios';
-import rootApiUrl from './../helpers/rootApiUrl.js';
+import api from '../api';
 
 export const LOG_IN_REQUEST = 'LOG_IN_REQUEST';
 export const LOG_IN_SUCCESS = 'LOG_IN_SUCCESS';
 export const LOG_IN_FAILURE = 'LOG_IN_FAILURE';
 
-export const handleLogin = (email, password) => {
+export const handleLogin = () => {
   return async (dispatch) => {
     dispatch({
       type: LOG_IN_REQUEST,
@@ -18,11 +17,10 @@ export const handleLogin = (email, password) => {
       const token = googleUser.getAuthResponse().id_token;
 
       try {
-        const response = await axios.post(
-          `${rootApiUrl}/auth/google`,
+        const response = await api.post(
+          '/auth/google',
           { token },
           {
-            accept: 'application/json',
             'Content-Type': 'application/x-www-form-urlencoded',
           }
         );

@@ -1,5 +1,4 @@
-import axios from 'axios';
-import rootApiUrl from './../helpers/rootApiUrl.js';
+import api from '../api';
 
 export const CREATE_POST_REQUEST = 'CREATE_POST_REQUEST';
 export const CREATE_POST_SUCCESS = 'CREATE_POST_SUCCESS';
@@ -12,9 +11,8 @@ export const createPost = (post) => {
     const token = getState().auth.user.token;
 
     try {
-      const response = await axios.post(`${rootApiUrl}/feeds`, post, {
+      const response = await api.post('/feeds', post, {
         headers: {
-          accept: 'application/json',
           'x-access-token': token,
         },
       });

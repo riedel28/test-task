@@ -1,5 +1,4 @@
-import axios from 'axios';
-import rootApiUrl from './../helpers/rootApiUrl.js';
+import api from '../api';
 
 export const FETCH_NEWS_REQUEST = 'FETCH_NEWS_REQUEST';
 export const FETCH_NEWS_SUCCESS = 'FETCH_NEWS_SUCCESS';
@@ -11,7 +10,7 @@ export const fetchNews = () => {
     dispatch({ type: FETCH_NEWS_REQUEST });
 
     try {
-      const response = await axios.get(`${rootApiUrl}/feeds`);
+      const response = await api.get('/feeds');
 
       dispatch({ type: FETCH_NEWS_SUCCESS, payload: response.data.feeds });
     } catch (error) {

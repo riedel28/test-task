@@ -1,5 +1,4 @@
-import axios from 'axios';
-import rootApiUrl from './../helpers/rootApiUrl.js';
+import api from '../api';
 
 export const EDIT_POST_REQUEST = 'EDIT_POST_REQUEST';
 export const EDIT_POST_SUCCESS = 'EDIT_POST_SUCCESS';
@@ -12,9 +11,8 @@ export const editPost = (id, post) => {
     const token = getState().auth.user.token;
 
     try {
-      const response = await axios.put(`${rootApiUrl}/feeds/${id}`, post, {
+      const response = await api.put(`/feeds/${id}`, post, {
         headers: {
-          accept: 'application/json',
           'x-access-token': token,
         },
       });

@@ -1,5 +1,4 @@
-import axios from 'axios';
-import rootApiUrl from './../helpers/rootApiUrl.js';
+import api from '../api';
 
 export const FETCH_NEWS_ITEM_REQUEST = 'FETCH_NEWS_ITEM_REQUEST';
 export const FETCH_NEWS_ITEM_SUCCESS = 'FETCH_NEWS_ITEM_SUCCESS';
@@ -10,7 +9,7 @@ export const fetchNewsItem = (id) => {
     dispatch({ type: FETCH_NEWS_ITEM_REQUEST });
 
     try {
-      const response = axios.get(`${rootApiUrl}/feeds/${id}`);
+      const response = api.get(`/feeds/${id}`);
 
       dispatch({
         type: FETCH_NEWS_ITEM_SUCCESS,
