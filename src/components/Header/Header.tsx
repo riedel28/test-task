@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
 import {
   IonHeader,
@@ -28,14 +28,6 @@ const Header: React.FC = ({
   user,
   handleLogin,
 }: any) => {
-  useEffect(() => {
-    window.gapi.load('auth2', () => {
-      window.gapi.auth2.init({
-        client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
-      });
-    });
-  }, []);
-
   return (
     <IonHeader>
       <IonRow>

@@ -14,7 +14,7 @@ import {
   IonText,
 } from '@ionic/react';
 import { connect } from 'react-redux';
-import { Redirect, useHistory } from 'react-router';
+import { Link, useHistory } from 'react-router-dom';
 
 import { createPost } from '../../actions/createPost';
 import validate from '../../helpers/validateForm';
@@ -53,7 +53,12 @@ const CreatePost = ({ createPost, isLoggedIn, error }: any) => {
   };
 
   if (!isLoggedIn) {
-    return <Redirect to="/news" />;
+    return (
+      <div className="ion-text-center">
+        <h2>Для написания поста необходимо залогиниться</h2>
+        <Link to="/">Вернуться на главную</Link>
+      </div>
+    );
   }
 
   return (

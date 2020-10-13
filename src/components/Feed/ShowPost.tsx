@@ -15,8 +15,9 @@ import { connect } from 'react-redux';
 import { fetchPost } from '../../actions/fetchPost';
 import { deletePost } from '../../actions/deletePost';
 import displayDateTime from '../../helpers/displayDateTime';
+import dictionary from '../../dictionary';
 
-const ShowPost = ({ post, isLoggedIn, deletePost }: any) => {
+const ShowPost = ({ post, isLoggedIn, deletePost, error }: any) => {
   const [showAlert, setShowAlert] = useState(false);
   const history = useHistory();
 
@@ -25,6 +26,21 @@ const ShowPost = ({ post, isLoggedIn, deletePost }: any) => {
 
     history.push('/');
   };
+
+  if (!post) {
+    return (
+      <div className="ion-text-center">
+        {error ? (
+          <h2>{dictionary[error.message]}</h2>
+        ) : (
+          <>
+            <h2>Пост не найден</h2>
+            <NavLink to="/">Вернуться на главную</NavLink>
+          </>
+        )}
+      </div>
+    );
+  }
 
   return (
     <>
@@ -112,6 +128,7 @@ const mapStateToProps = (state: any, ownProps: any) => {
   return {
     post,
     isLoggedIn: state.auth.isLoggedIn,
+    error: state.feed.error,
   };
 };
 

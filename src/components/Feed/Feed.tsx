@@ -32,14 +32,6 @@ const Feed = ({
     );
   }
 
-  if (news.length < 1) {
-    return (
-      <div className="ion-text-center">
-        <h2>Новостей пока нет</h2>
-      </div>
-    );
-  }
-
   return (
     <IonPage>
       <IonContent>
@@ -49,21 +41,29 @@ const Feed = ({
               <div className="ion-padding-bottom">
                 <h1>Новости</h1>
               </div>
-              {news.map(({ _id, title, content, creator, createDate }: any) => {
-                return (
-                  <Post
-                    key={_id}
-                    id={_id}
-                    title={title}
-                    creator={creator}
-                    createdAt={createDate}
-                    onDelete={handleDelete}
-                    isLoggedIn={isLoggedIn}
-                  >
-                    {shortenText(content)}
-                  </Post>
-                );
-              })}
+              {news.length < 1 ? (
+                <div className="ion-text-center">
+                  <h2>Новостей пока нет</h2>
+                </div>
+              ) : (
+                news.map(
+                  ({ _id, title, content, creator, createDate }: any) => {
+                    return (
+                      <Post
+                        key={_id}
+                        id={_id}
+                        title={title}
+                        creator={creator}
+                        createdAt={createDate}
+                        onDelete={handleDelete}
+                        isLoggedIn={isLoggedIn}
+                      >
+                        {shortenText(content)}
+                      </Post>
+                    );
+                  }
+                )
+              )}
 
               <div className="ion-text-end ion-padding-top">
                 <em>Всего новостей: </em> {news.length}
