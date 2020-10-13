@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { NavLink, Link, useHistory } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import {
   IonGrid,
   IonRow,
@@ -16,7 +16,7 @@ import { fetchPost } from '../../actions/fetchPost';
 import { deletePost } from '../../actions/deletePost';
 import displayDateTime from '../../helpers/displayDateTime';
 
-const NewsItem = ({ post, isLoggedIn, deletePost }: any) => {
+const ShowPost = ({ post, isLoggedIn, deletePost }: any) => {
   const [showAlert, setShowAlert] = useState(false);
   const history = useHistory();
 
@@ -38,75 +38,65 @@ const NewsItem = ({ post, isLoggedIn, deletePost }: any) => {
             sizeLg="6"
             offsetLg="3"
           >
-            {!post ? (
-              <div className="ion-text-center">
-                <h2>Страница не найдена</h2>
-                <Link to="/news">Вернуться к списку новостей</Link>
+            <h1>{post.title}</h1>
+            <div className="post-description">
+              <div>
+                <span className="creator">{post.creator.displayName}</span> ·{' '}
+                <span className="created-at">
+                  {displayDateTime(post.createDate)}
+                </span>
               </div>
-            ) : (
-              <>
-                <h1>{post.title}</h1>
-                <div className="post-description">
-                  <div>
-                    <span className="creator">{post.creator.displayName}</span>{' '}
-                    ·{' '}
-                    <span className="created-at">
-                      {displayDateTime(post.createdAt)}
-                    </span>
-                  </div>
 
-                  <div>
-                    <IonAlert
-                      isOpen={showAlert}
-                      onDidDismiss={() => setShowAlert(false)}
-                      header={'Удаление новости'}
-                      message={'Вы уверены, что хотите удалить новость?'}
-                      buttons={[
-                        {
-                          text: 'Отмена',
-                          role: 'cancel',
-                          cssClass: 'secondary',
-                          handler: () => {
-                            setShowAlert(false);
-                          },
-                        },
-                        {
-                          text: 'Да',
-                          handler: () => {
-                            onDelete(post._id);
-                          },
-                        },
-                      ]}
-                    />
-                  </div>
-                </div>
-                <p>{post.content}</p>
-                <IonItemDivider />
-                <div className="ion-padding-top ion-float-right">
-                  {isLoggedIn && (
-                    <>
-                      <NavLink to={`/news/edit/${post._id}`}>
-                        <IonButton
-                          color="light"
-                          size="small"
-                          style={{ marginRight: 10 }}
-                        >
-                          <IonIcon icon={createOutline} slot="start" /> Edit
-                        </IonButton>
-                      </NavLink>
-                      <IonButton
-                        color="danger"
-                        onClick={() => setShowAlert(true)}
-                        size="small"
-                      >
-                        <IonIcon icon={trashOutline} slot="start" />
-                        Delete
-                      </IonButton>
-                    </>
-                  )}
-                </div>
-              </>
-            )}
+              <div>
+                <IonAlert
+                  isOpen={showAlert}
+                  onDidDismiss={() => setShowAlert(false)}
+                  header={'Удаление новости'}
+                  message={'Вы уверены, что хотите удалить новость?'}
+                  buttons={[
+                    {
+                      text: 'Отмена',
+                      role: 'cancel',
+                      cssClass: 'secondary',
+                      handler: () => {
+                        setShowAlert(false);
+                      },
+                    },
+                    {
+                      text: 'Да',
+                      handler: () => {
+                        onDelete(post._id);
+                      },
+                    },
+                  ]}
+                />
+              </div>
+            </div>
+            <p>{post.content}</p>
+            <IonItemDivider />
+            <div className="ion-padding-top ion-float-right">
+              {isLoggedIn && (
+                <>
+                  <NavLink to={`/news/edit/${post._id}`}>
+                    <IonButton
+                      color="light"
+                      size="small"
+                      style={{ marginRight: 10 }}
+                    >
+                      <IonIcon icon={createOutline} slot="start" /> Edit
+                    </IonButton>
+                  </NavLink>
+                  <IonButton
+                    color="danger"
+                    onClick={() => setShowAlert(true)}
+                    size="small"
+                  >
+                    <IonIcon icon={trashOutline} slot="start" />
+                    Delete
+                  </IonButton>
+                </>
+              )}
+            </div>
           </IonCol>
         </IonRow>
       </IonGrid>
@@ -132,4 +122,4 @@ const mapDispatchToProps = (dispatch: any) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewsItem);
+export default connect(mapStateToProps, mapDispatchToProps)(ShowPost);
