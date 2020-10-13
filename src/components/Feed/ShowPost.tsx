@@ -123,15 +123,6 @@ const mapStateToProps = (state: any, ownProps: any) => {
     post,
     isLoggedIn: state.auth.isLoggedIn,
   };
-
-  // return {
-  //   id: post._id,
-  //   title: post.title,
-  //   content: post.content,
-  //   creator: post.creator.displayName,
-  //   createdAt: post.createDate,
-  //   isLoggedIn: state.auth.isLoggedIn,
-  // };
 };
 
 const mapDispatchToProps = (dispatch: any) => {

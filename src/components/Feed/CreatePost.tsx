@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import {
   IonPage,
   IonContent,
@@ -11,30 +11,50 @@ import {
   IonTextarea,
   IonCard,
   IonButton,
+  IonText,
 } from '@ionic/react';
 import { connect } from 'react-redux';
-import { useHistory } from 'react-router';
+import { Redirect, useHistory } from 'react-router';
 
 import { createPost } from '../../actions/createPost';
+import validate from '../../helpers/validateForm';
 
-const CreatePost = ({ createPost, news, isLoading, error }: any) => {
+const CreatePost = ({ createPost, isLoggedIn, error }: any) => {
   const [heading, setHeading] = useState('');
   const [postContent, setPostContent] = useState('');
+  const [errors, setErrors] = useState({ heading: '', postContent: '' });
   const history = useHistory();
+
+  const handleChangeHeading = useCallback((e: any) => {
+    setHeading(e.target.value);
+  }, []);
+
+  const handleChangePostContent = useCallback((e: any) => {
+    setPostContent(e.target.value);
+  }, []);
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
 
-    createPost({
-      title: heading,
-      content: postContent,
-    });
+    const localErrors = validate({ heading, postContent });
+    setErrors(localErrors);
 
-    setHeading('');
-    setPostContent('');
+    if (Object.keys(localErrors).length === 0) {
+      createPost({
+        title: heading,
+        content: postContent,
+      });
 
-    history.push('/news');
+      setHeading('');
+      setPostContent('');
+
+      history.push('/news');
+    }
   };
+
+  if (!isLoggedIn) {
+    return <Redirect to="/news" />;
+  }
 
   return (
     <IonPage>
@@ -61,25 +81,34 @@ const CreatePost = ({ createPost, news, isLoading, error }: any) => {
                         <IonLabel position="stacked">
                           Заголовок новости
                         </IonLabel>
+
                         <IonInput
-                          type="email"
+                          type="text"
                           value={heading}
-                          onIonChange={(e: any) => setHeading(e.target.value)}
+                          onIonChange={handleChangeHeading}
                           required
                         />
                       </IonItem>
+                      {errors.heading && (
+                        <div className="ion-padding-top">
+                          <IonText color="danger">{errors.heading}</IonText>
+                        </div>
+                      )}
                     </div>
                     <div className="ion-padding-bottom">
                       <IonItem>
                         <IonLabel position="stacked">Текст</IonLabel>
                         <IonTextarea
-                          onIonChange={(e: any) =>
-                            setPostContent(e.target.value)
-                          }
+                          onIonChange={handleChangePostContent}
                           rows={6}
                           value={postContent}
-                        ></IonTextarea>
+                        />
                       </IonItem>
+                      {errors.postContent && (
+                        <div className="ion-padding-top">
+                          <IonText color="danger">{errors.postContent}</IonText>
+                        </div>
+                      )}
                     </div>
 
                     <div className="ion-padding-bottom">
@@ -101,8 +130,7 @@ const CreatePost = ({ createPost, news, isLoading, error }: any) => {
 const mapStateToProps = (state: any) => {
   return {
     news: state.feed.posts,
-    isLoading: state.feed.isLoading,
-    error: state.feed.error,
+    isLoggedIn: state.auth.isLoggedIn,
   };
 };
 
