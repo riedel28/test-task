@@ -42,7 +42,6 @@ const auth = (state = initialState, action) => {
         isLoggedIn: false,
         error: null,
         user: null,
-        userInfo: null,
       };
 
     default:
