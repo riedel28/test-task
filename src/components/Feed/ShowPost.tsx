@@ -12,7 +12,6 @@ import {
 import { createOutline, trashOutline } from 'ionicons/icons';
 import { connect } from 'react-redux';
 
-import { fetchPost } from '../../actions/fetchPost';
 import { deletePost } from '../../actions/deletePost';
 import displayDateTime from '../../helpers/displayDateTime';
 import dictionary from '../../dictionary';
@@ -134,7 +133,6 @@ const mapStateToProps = (state: any, ownProps: any) => {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    fetchNewsItem: (id: any) => dispatch(fetchPost(id)),
     deletePost: (id: any) => dispatch(deletePost(id)),
   };
 };
