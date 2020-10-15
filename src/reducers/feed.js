@@ -4,11 +4,6 @@ import {
   FETCH_FEED_FAILURE,
 } from '../actions/fetchFeed';
 import {
-  FETCH_POST_REQUEST,
-  FETCH_POST_SUCCESS,
-  FETCH_POST_FAILURE,
-} from '../actions/fetchPost';
-import {
   CREATE_POST_REQUEST,
   CREATE_POST_SUCCESS,
   CREATE_POST_FAILURE,
@@ -36,6 +31,7 @@ const news = (state = initialState, action) => {
       return {
         ...state,
         isLoading: true,
+        error: null,
       };
 
     case FETCH_FEED_SUCCESS:
@@ -46,26 +42,6 @@ const news = (state = initialState, action) => {
       };
 
     case FETCH_FEED_FAILURE:
-      return {
-        ...state,
-        isLoading: false,
-        error: action.payload,
-      };
-
-    case FETCH_POST_REQUEST:
-      return {
-        ...state,
-        isLoading: true,
-      };
-
-    case FETCH_POST_SUCCESS:
-      return {
-        ...state,
-        isLoading: false,
-        currentPost: action.payload.feed,
-      };
-
-    case FETCH_POST_FAILURE:
       return {
         ...state,
         isLoading: false,
