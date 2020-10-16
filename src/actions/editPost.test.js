@@ -30,18 +30,12 @@ describe('editPost action', () => {
   });
 
   test('dispatches EDIT_POST_SUCCESS', async () => {
-    fakeAxios.onPut(`/feeds/${30}`).reply(
-      200,
-      {
-        feed: {
-          title: 'New title',
-          content: 'New content',
-        },
+    fakeAxios.onPut(`/feeds/${30}`).reply(200, {
+      feed: {
+        title: 'New title',
+        content: 'New content',
       },
-      {
-        'x-access-token': 'abc12345',
-      }
-    );
+    });
 
     await store.dispatch(
       editPost('30', {
@@ -65,17 +59,11 @@ describe('editPost action', () => {
   });
 
   test('dispatches EDIT_POST_FAILURE', async () => {
-    fakeAxios.onPut(`/feeds/${30}`).reply(
-      400,
-      {
-        error: {
-          message: 'Request failed with status code 400',
-        },
+    fakeAxios.onPut(`/feeds/${30}`).reply(400, {
+      error: {
+        message: 'Request failed with status code 400',
       },
-      {
-        'x-access-token': 'abc12345',
-      }
-    );
+    });
 
     await store.dispatch(
       editPost('30', {

@@ -27,18 +27,12 @@ describe('createPost action', () => {
   });
 
   test('dispatches CREATE_POST_SUCCESS', async () => {
-    fakeAxios.onPost('/feeds').reply(
-      200,
-      {
-        feed: {
-          title: 'Some title',
-          content: 'Some content',
-        },
+    fakeAxios.onPost('/feeds').reply(200, {
+      feed: {
+        title: 'Some title',
+        content: 'Some content',
       },
-      {
-        'x-access-token': 'abc12345',
-      }
-    );
+    });
 
     await store.dispatch(
       createPost({
@@ -64,17 +58,11 @@ describe('createPost action', () => {
   });
 
   test('dispatches CREATE_POST_FAILURE', async () => {
-    fakeAxios.onPost(`/feeds`).reply(
-      400,
-      {
-        error: {
-          message: 'Request failed with status code 400',
-        },
+    fakeAxios.onPost(`/feeds`).reply(400, {
+      error: {
+        message: 'Request failed with status code 400',
       },
-      {
-        'x-access-token': 'abc12345',
-      }
-    );
+    });
 
     await store.dispatch(createPost());
 
