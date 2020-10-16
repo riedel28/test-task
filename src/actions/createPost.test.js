@@ -64,7 +64,7 @@ describe('createPost action', () => {
   });
 
   test('dispatches CREATE_POST_FAILURE', async () => {
-    fakeAxios.onPost('/feeds').reply(
+    fakeAxios.onPost(`/feeds`).reply(
       400,
       {
         error: {
