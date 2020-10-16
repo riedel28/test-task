@@ -1,4 +1,4 @@
-import api from '../api';
+import api from '../../api';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import MockAdapter from 'axios-mock-adapter';
@@ -8,7 +8,7 @@ import {
   FETCH_FEED_SUCCESS,
   FETCH_FEED_FAILURE,
   fetchFeed,
-} from './fetchFeed';
+} from '../fetchFeed';
 
 const middleWare = [thunk];
 const mockStore = configureMockStore(middleWare);

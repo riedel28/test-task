@@ -1,4 +1,4 @@
-import api from '../api';
+import api from '../../api';
 import configureMockstore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import MockAdapter from 'axios-mock-adapter';
@@ -8,7 +8,7 @@ import {
   DELETE_POST_SUCCESS,
   DELETE_POST_FAILURE,
   deletePost,
-} from './deletePost';
+} from '../deletePost';
 
 const middleware = [thunk];
 const mockStore = configureMockstore(middleware);

@@ -1,4 +1,4 @@
-import api from '../api';
+import api from '../../api';
 import configureMockstore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import MockAdapter from 'axios-mock-adapter';
@@ -8,7 +8,7 @@ import {
   EDIT_POST_SUCCESS,
   EDIT_POST_FAILURE,
   editPost,
-} from './editPost';
+} from '../editPost';
 
 const middleware = [thunk];
 const mockStore = configureMockstore(middleware);
