@@ -1,24 +1,24 @@
-import feed, { initialState } from './feed';
+import feed, { initialState } from '../feed';
 import {
   FETCH_FEED_REQUEST,
   FETCH_FEED_SUCCESS,
   FETCH_FEED_FAILURE,
-} from '../actions/fetchFeed';
+} from '../../actions/fetchFeed';
 import {
   CREATE_POST_REQUEST,
   CREATE_POST_SUCCESS,
   CREATE_POST_FAILURE,
-} from '../actions/createPost';
+} from '../../actions/createPost';
 import {
   EDIT_POST_REQUEST,
   EDIT_POST_SUCCESS,
   EDIT_POST_FAILURE,
-} from '../actions/editPost';
+} from '../../actions/editPost';
 import {
   DELETE_POST_REQUEST,
   DELETE_POST_SUCCESS,
   DELETE_POST_FAILURE,
-} from '../actions/deletePost';
+} from '../../actions/deletePost';
 
 describe('Feed reducer', () => {
   test('FETCH_FEED_REQUEST', () => {

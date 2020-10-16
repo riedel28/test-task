@@ -2,9 +2,9 @@ import {
   LOG_IN_REQUEST,
   LOG_IN_SUCCESS,
   LOG_IN_FAILURE,
-} from '../actions/handleLogin';
-import { LOG_OUT } from '../actions/handleLogout';
-import auth, { initialState } from '../reducers/auth';
+} from '../../actions/handleLogin';
+import { LOG_OUT } from '../../actions/handleLogout';
+import auth, { initialState } from '../auth';
 
 describe('Auth reducer', () => {
   test('LOG_IN_REQUEST', () => {
