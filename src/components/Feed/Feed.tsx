@@ -79,9 +79,7 @@ const Feed = ({
 const mapStateToProps = (state: any) => {
   return {
     isLoggedIn: state.auth.isLoggedIn,
-    news: state.feed.posts.sort((a: any, b: any) => {
-      return Number(new Date(b.createDate)) - Number(new Date(a.createDate));
-    }),
+    news: state.feed.posts,
     isLoading: state.feed.isLoading,
     error: state.feed.error,
   };

@@ -35,10 +35,14 @@ const news = (state = initialState, action) => {
       };
 
     case FETCH_FEED_SUCCESS:
+      const newPosts = action.payload.sort((a, b) => {
+        return Number(new Date(b.createDate)) - Number(new Date(a.createDate));
+      });
+
       return {
         ...state,
         isLoading: false,
-        posts: [...action.payload],
+        posts: newPosts,
       };
 
     case FETCH_FEED_FAILURE:
@@ -58,7 +62,7 @@ const news = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        posts: [...state.posts, action.payload.feed],
+        posts: [action.payload.feed, ...state.posts],
       };
 
     case CREATE_POST_FAILURE:
