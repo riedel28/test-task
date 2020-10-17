@@ -2,6 +2,8 @@ import React from 'react';
 import { Route, Redirect } from 'react-router';
 import { connect } from 'react-redux';
 
+import { getAuthStatus } from '../../selectors/authSelectors';
+
 const PrivateRoute: React.FC<any> = ({ component: Component, ...rest }) => {
   return (
     <Route
@@ -24,7 +26,7 @@ const PrivateRoute: React.FC<any> = ({ component: Component, ...rest }) => {
 
 const mapStateToProps = (state: any) => {
   return {
-    isLoggedIn: state.auth.isLoggedIn,
+    isLoggedIn: getAuthStatus(state),
   };
 };
 

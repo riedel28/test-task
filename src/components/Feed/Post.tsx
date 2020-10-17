@@ -5,6 +5,8 @@ import { IonButton, IonIcon, IonAlert, IonItemDivider } from '@ionic/react';
 import { createOutline, trashOutline } from 'ionicons/icons';
 
 import { deletePost } from '../../actions/deletePost';
+import { getAuthStatus } from '../../selectors/authSelectors';
+import { getFeedPosts } from '../../selectors/feedSelectors';
 import displayDateTime from '../../helpers/displayDateTime';
 import shortenText from '../../helpers/shortenText';
 
@@ -80,14 +82,16 @@ const NewsItem = ({
 };
 
 const mapStateToProps = (state: any, ownProps: any) => {
-  const post = state.feed.posts.find((post: any) => post._id === ownProps.id);
+  const post = getFeedPosts(state).find(
+    (post: any) => post._id === ownProps.id
+  );
 
   return {
     title: post.title,
     content: post.content,
     creator: post.creator,
     createdAt: post.createDate,
-    isLoggedIn: state.auth.isLoggedIn,
+    isLoggedIn: getAuthStatus(state),
   };
 };
 

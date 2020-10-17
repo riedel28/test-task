@@ -17,6 +17,7 @@ import { connect } from 'react-redux';
 import { useHistory } from 'react-router';
 
 import { editPost } from '../../actions/editPost';
+import { getFeedPosts } from '../../selectors/feedSelectors';
 import validate from '../../helpers/validateForm';
 
 const EditPost = ({ error, post, editPost }: any) => {
@@ -129,7 +130,7 @@ const mapStateToProps = (state: any, ownProps: any) => {
   const postId = ownProps.computedMatch.params.id;
 
   return {
-    post: state.feed.posts.find((post: any) => post._id === postId),
+    post: getFeedPosts(state).find((post: any) => post._id === postId),
   };
 };
 

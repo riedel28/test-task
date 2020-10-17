@@ -4,6 +4,12 @@ import { connect } from 'react-redux';
 
 import Post from './Post';
 import { fetchFeed } from '../../actions/fetchFeed';
+import { getAuthStatus } from '../../selectors/authSelectors';
+import {
+  getFeedPosts,
+  getFeedLoadingStatus,
+  getFeedError,
+} from '../../selectors/feedSelectors';
 import dictionary from '../../dictionary';
 
 const Feed = ({ news, isLoading, error, fetchNews }: any) => {
@@ -51,10 +57,10 @@ const Feed = ({ news, isLoading, error, fetchNews }: any) => {
 
 const mapStateToProps = (state: any) => {
   return {
-    isLoggedIn: state.auth.isLoggedIn,
-    news: state.feed.posts.map((post: any) => post._id),
-    isLoading: state.feed.isLoading,
-    error: state.feed.error,
+    isLoggedIn: getAuthStatus(state),
+    news: getFeedPosts(state).map((post: any) => post._id),
+    isLoading: getFeedLoadingStatus(state),
+    error: getFeedError(state),
   };
 };
 

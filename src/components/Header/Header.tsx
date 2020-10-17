@@ -21,6 +21,7 @@ import { connect } from 'react-redux';
 
 import { handleLogin } from '../../actions/handleLogin';
 import { handleLogout } from '../../actions/handleLogout';
+import { getAuthStatus, getUser } from '../../selectors/authSelectors';
 
 const Header: React.FC = ({
   isLoggedIn,
@@ -91,8 +92,8 @@ const Header: React.FC = ({
 
 const mapStateToProps = (state: any) => {
   return {
-    isLoggedIn: state.auth.isLoggedIn,
-    user: state.auth.user,
+    isLoggedIn: getAuthStatus(state),
+    user: getUser(state),
   };
 };
 

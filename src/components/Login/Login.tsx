@@ -16,6 +16,12 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { handleLogin } from '../../actions/handleLogin';
 import dictionary from '../../dictionary';
+import {
+  getAuthStatus,
+  getUser,
+  getAuthLoadingStatus,
+  getAuthError,
+} from '../../selectors/authSelectors';
 
 const Login = ({ handleLogin, error, isLoggedIn, isLoading }: any) => {
   const [email, setEmail] = useState('');
@@ -98,10 +104,10 @@ const Login = ({ handleLogin, error, isLoggedIn, isLoading }: any) => {
 
 const mapStateToProps = (state: any) => {
   return {
-    user: state.auth.user,
-    isLoggedIn: state.auth.isLoggedIn,
-    error: state.auth.error,
-    isLoading: state.auth.isLoading,
+    user: getUser(state),
+    isLoggedIn: getAuthStatus(state),
+    error: getAuthError(state),
+    isLoading: getAuthLoadingStatus(state),
   };
 };
 

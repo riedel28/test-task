@@ -2,9 +2,10 @@ import React from 'react';
 import { IonSpinner, IonLabel } from '@ionic/react';
 import { connect } from 'react-redux';
 
+import { getUser } from '../../selectors/authSelectors';
 import dictionary from '../../dictionary';
 
-const ProfileInfo = ({ userName, isLoading, error }: any) => {
+const ProfileInfo = ({ userName, error }: any) => {
   if (error) {
     return <IonLabel color="danger">{dictionary[error]}</IonLabel>;
   }
@@ -17,7 +18,6 @@ const ProfileInfo = ({ userName, isLoading, error }: any) => {
     <div className="user-info">
       <p>
         <strong>{userName}</strong>
-        {/* <span>{profileInfo.city}</span> */}
       </p>
     </div>
   );
@@ -25,7 +25,7 @@ const ProfileInfo = ({ userName, isLoading, error }: any) => {
 
 const mapStateToProps = (state: any) => {
   return {
-    userName: state.auth.user.name,
+    userName: getUser(state).name,
   };
 };
 

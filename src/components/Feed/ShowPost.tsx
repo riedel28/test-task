@@ -13,6 +13,8 @@ import { createOutline, trashOutline } from 'ionicons/icons';
 import { connect } from 'react-redux';
 
 import { deletePost } from '../../actions/deletePost';
+import { getAuthStatus } from '../../selectors/authSelectors';
+import { getFeedPosts, getFeedError } from '../../selectors/feedSelectors';
 import displayDateTime from '../../helpers/displayDateTime';
 import dictionary from '../../dictionary';
 
@@ -122,12 +124,12 @@ const ShowPost = ({ post, isLoggedIn, deletePost, error }: any) => {
 const mapStateToProps = (state: any, ownProps: any) => {
   const postId = ownProps.match.params.id;
 
-  const post = state.feed.posts.find((post: any) => post._id === postId);
+  const post = getFeedPosts(state).find((post: any) => post._id === postId);
 
   return {
     post,
-    isLoggedIn: state.auth.isLoggedIn,
-    error: state.feed.error,
+    isLoggedIn: getAuthStatus(state),
+    error: getFeedError(state),
   };
 };
 

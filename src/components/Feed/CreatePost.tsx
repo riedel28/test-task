@@ -18,6 +18,8 @@ import { Link, useHistory } from 'react-router-dom';
 
 import { createPost } from '../../actions/createPost';
 import validate from '../../helpers/validateForm';
+import { getAuthStatus } from '../../selectors/authSelectors';
+import { getFeedPosts } from '../../selectors/feedSelectors';
 
 const CreatePost = ({ createPost, isLoggedIn, error }: any) => {
   const [heading, setHeading] = useState('');
@@ -134,8 +136,8 @@ const CreatePost = ({ createPost, isLoggedIn, error }: any) => {
 
 const mapStateToProps = (state: any) => {
   return {
-    news: state.feed.posts,
-    isLoggedIn: state.auth.isLoggedIn,
+    news: getFeedPosts(state),
+    isLoggedIn: getAuthStatus(state),
   };
 };
 
