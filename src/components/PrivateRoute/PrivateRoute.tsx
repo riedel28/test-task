@@ -1,15 +1,17 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import { getAuthStatus } from '../../selectors/authSelectors';
 
 const PrivateRoute: React.FC<any> = ({ component: Component, ...rest }) => {
+  const isLoggedIn = useSelector(getAuthStatus);
+
   return (
     <Route
       {...rest}
       render={({ location }: any) => {
-        return rest.isLoggedIn === true ? (
+        return isLoggedIn === true ? (
           <Component {...rest} />
         ) : (
           <Redirect
@@ -24,10 +26,4 @@ const PrivateRoute: React.FC<any> = ({ component: Component, ...rest }) => {
   );
 };
 
-const mapStateToProps = (state: any) => {
-  return {
-    isLoggedIn: getAuthStatus(state),
-  };
-};
-
-export default connect(mapStateToProps)(PrivateRoute);
+export default PrivateRoute;

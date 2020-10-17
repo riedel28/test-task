@@ -13,19 +13,22 @@ import {
   IonButton,
   IonText,
 } from '@ionic/react';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 
 import { createPost } from '../../actions/createPost';
 import validate from '../../helpers/validateForm';
 import { getAuthStatus } from '../../selectors/authSelectors';
-import { getFeedPosts } from '../../selectors/feedSelectors';
 
-const CreatePost = ({ createPost, isLoggedIn, error }: any) => {
+const CreatePost = ({ error }: any) => {
   const [heading, setHeading] = useState('');
   const [postContent, setPostContent] = useState('');
   const [errors, setErrors] = useState({ heading: '', postContent: '' });
   const history = useHistory();
+  const isLoggedIn = useSelector(getAuthStatus);
+  const dispatch = useDispatch();
+
+  const onCreatePost = (post: any) => dispatch(createPost(post));
 
   const handleChangeHeading = useCallback((e: any) => {
     setHeading(e.target.value);
@@ -42,7 +45,7 @@ const CreatePost = ({ createPost, isLoggedIn, error }: any) => {
     setErrors(localErrors);
 
     if (Object.keys(localErrors).length === 0) {
-      createPost({
+      onCreatePost({
         title: heading,
         content: postContent,
       });
@@ -134,17 +137,4 @@ const CreatePost = ({ createPost, isLoggedIn, error }: any) => {
   );
 };
 
-const mapStateToProps = (state: any) => {
-  return {
-    news: getFeedPosts(state),
-    isLoggedIn: getAuthStatus(state),
-  };
-};
-
-const mapDispatchToProps = (dispatch: any) => {
-  return {
-    createPost: (post: any) => dispatch(createPost(post)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(CreatePost);
+export default CreatePost;

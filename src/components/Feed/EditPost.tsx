@@ -13,18 +13,34 @@ import {
   IonButton,
   IonText,
 } from '@ionic/react';
-import { connect } from 'react-redux';
-import { useHistory } from 'react-router';
+import { useSelector, useDispatch } from 'react-redux';
+import { useHistory, useParams } from 'react-router';
 
 import { editPost } from '../../actions/editPost';
 import { getFeedPosts } from '../../selectors/feedSelectors';
 import validate from '../../helpers/validateForm';
 
-const EditPost = ({ error, post, editPost }: any) => {
+type Params = {
+  id: string,
+};
+
+const EditPost = ({ error }: any) => {
+  const params = useParams<Params>();
+  const posts = useSelector(getFeedPosts);
+  const post = posts.find((post: any) => post._id === params.id);
+
   const [heading, setHeading] = useState(post.title);
   const [postContent, setPostContent] = useState(post.content);
+
   const [errors, setErrors] = useState({ heading: '', postContent: '' });
   const history = useHistory();
+
+  const dispatch = useDispatch();
+
+  const onEditPost = useCallback(
+    (id: any, post: any) => dispatch(editPost(id, post)),
+    [dispatch]
+  );
 
   const handleChangeHeading = useCallback((e: any) => {
     setHeading(e.target.value);
@@ -41,7 +57,7 @@ const EditPost = ({ error, post, editPost }: any) => {
     setErrors(localErrors);
 
     if (Object.keys(localErrors).length === 0) {
-      editPost(post._id, {
+      onEditPost(post._id, {
         title: heading,
         content: postContent,
       });
@@ -126,18 +142,4 @@ const EditPost = ({ error, post, editPost }: any) => {
   );
 };
 
-const mapStateToProps = (state: any, ownProps: any) => {
-  const postId = ownProps.computedMatch.params.id;
-
-  return {
-    post: getFeedPosts(state).find((post: any) => post._id === postId),
-  };
-};
-
-const mapDispatchToProps = (dispatch: any) => {
-  return {
-    editPost: (id: any, post: any) => dispatch(editPost(id, post)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(EditPost);
+export default EditPost;

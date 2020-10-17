@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { IonButton, IonIcon, IonAlert, IonItemDivider } from '@ionic/react';
 import { createOutline, trashOutline } from 'ionicons/icons';
@@ -10,16 +10,16 @@ import { getFeedPosts } from '../../selectors/feedSelectors';
 import displayDateTime from '../../helpers/displayDateTime';
 import shortenText from '../../helpers/shortenText';
 
-const NewsItem = ({
-  id,
-  title,
-  content,
-  creator,
-  createdAt,
-  isLoggedIn,
-  deletePost,
-}: any) => {
+const NewsItem = ({ id }: any) => {
   const [showAlert, setShowAlert] = useState(false);
+  const dispatch = useDispatch();
+  const posts = useSelector(getFeedPosts);
+  const isLoggedIn = useSelector(getAuthStatus);
+
+  const { title, content, creator, createDate } = posts.find(
+    (post: any) => post._id === id
+  );
+  const onDelete = (id: any) => dispatch(deletePost(id));
 
   return (
     <>
@@ -30,7 +30,7 @@ const NewsItem = ({
       <div className="post-description">
         <div>
           <span className="creator">{creator.displayName}</span> ·{' '}
-          <span className="created-at">{displayDateTime(createdAt)}</span>
+          <span className="created-at">{displayDateTime(createDate)}</span>
         </div>
 
         <div>
@@ -67,7 +67,7 @@ const NewsItem = ({
               {
                 text: 'Да',
                 handler: () => {
-                  deletePost(id);
+                  onDelete(id);
                 },
               },
             ]}
@@ -81,24 +81,4 @@ const NewsItem = ({
   );
 };
 
-const mapStateToProps = (state: any, ownProps: any) => {
-  const post = getFeedPosts(state).find(
-    (post: any) => post._id === ownProps.id
-  );
-
-  return {
-    title: post.title,
-    content: post.content,
-    creator: post.creator,
-    createdAt: post.createDate,
-    isLoggedIn: getAuthStatus(state),
-  };
-};
-
-const mapDispatchToProps = (dispatch: any) => {
-  return {
-    deletePost: (id: any) => dispatch(deletePost(id)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(NewsItem);
+export default NewsItem;

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { NavLink, useHistory } from 'react-router-dom';
+import React, { useState, useCallback } from 'react';
+import { NavLink, useHistory, useParams } from 'react-router-dom';
 import {
   IonGrid,
   IonRow,
@@ -10,7 +10,7 @@ import {
   IonItemDivider,
 } from '@ionic/react';
 import { createOutline, trashOutline } from 'ionicons/icons';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { deletePost } from '../../actions/deletePost';
 import { getAuthStatus } from '../../selectors/authSelectors';
@@ -18,15 +18,29 @@ import { getFeedPosts, getFeedError } from '../../selectors/feedSelectors';
 import displayDateTime from '../../helpers/displayDateTime';
 import dictionary from '../../dictionary';
 
-const ShowPost = ({ post, isLoggedIn, deletePost, error }: any) => {
+type Params = {
+  id: string,
+};
+
+const ShowPost = () => {
+  const params = useParams<Params>();
+  const posts = useSelector(getFeedPosts);
+  const isLoggedIn = useSelector(getAuthStatus);
+  const error = useSelector(getFeedError);
+  const post = posts.find((post: any) => post._id === params.id);
+  const dispatch = useDispatch();
+
   const [showAlert, setShowAlert] = useState(false);
   const history = useHistory();
 
-  const onDelete = (id: any) => {
-    deletePost(id);
+  const onDelete = useCallback(
+    (id: any) => {
+      dispatch(deletePost(id));
 
-    history.push('/');
-  };
+      history.push('/');
+    },
+    [dispatch, history]
+  );
 
   if (!post) {
     return (
@@ -121,22 +135,4 @@ const ShowPost = ({ post, isLoggedIn, deletePost, error }: any) => {
   );
 };
 
-const mapStateToProps = (state: any, ownProps: any) => {
-  const postId = ownProps.match.params.id;
-
-  const post = getFeedPosts(state).find((post: any) => post._id === postId);
-
-  return {
-    post,
-    isLoggedIn: getAuthStatus(state),
-    error: getFeedError(state),
-  };
-};
-
-const mapDispatchToProps = (dispatch: any) => {
-  return {
-    deletePost: (id: any) => dispatch(deletePost(id)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(ShowPost);
+export default ShowPost;

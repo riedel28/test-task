@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { NavLink } from 'react-router-dom';
 import {
   IonHeader,
@@ -17,18 +17,25 @@ import {
   logoGoogle,
 } from 'ionicons/icons';
 
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { handleLogin } from '../../actions/handleLogin';
 import { handleLogout } from '../../actions/handleLogout';
 import { getAuthStatus, getUser } from '../../selectors/authSelectors';
 
-const Header: React.FC = ({
-  isLoggedIn,
-  handleLogout,
-  user,
-  handleLogin,
-}: any) => {
+const Header: React.FC = () => {
+  const user = useSelector(getUser);
+  const isLoggedIn = useSelector(getAuthStatus);
+  const dispatch = useDispatch();
+
+  const onLogin = useCallback(() => {
+    dispatch(handleLogin());
+  }, [dispatch]);
+
+  const onLogout = useCallback(() => {
+    dispatch(handleLogout());
+  }, [dispatch]);
+
   return (
     <IonHeader>
       <IonRow>
@@ -75,7 +82,7 @@ const Header: React.FC = ({
             <div className="login-info">
               {user && <span className="user-name">{user.name}</span>}
               <NavLink to="/">
-                <IonButton onClick={isLoggedIn ? handleLogout : handleLogin}>
+                <IonButton onClick={isLoggedIn ? onLogout : onLogin}>
                   {!isLoggedIn ? (
                     <IonIcon icon={logoGoogle} slot="start" />
                   ) : null}
@@ -90,18 +97,4 @@ const Header: React.FC = ({
   );
 };
 
-const mapStateToProps = (state: any) => {
-  return {
-    isLoggedIn: getAuthStatus(state),
-    user: getUser(state),
-  };
-};
-
-const mapDispatchToProps = (dispatch: any) => {
-  return {
-    handleLogin: () => dispatch(handleLogin()),
-    handleLogout: () => dispatch(handleLogout()),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default Header;

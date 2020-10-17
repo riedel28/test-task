@@ -1,21 +1,23 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { IonPage, IonGrid, IonRow, IonCol, IonContent } from '@ionic/react';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import Post from './Post';
 import { fetchFeed } from '../../actions/fetchFeed';
-import { getAuthStatus } from '../../selectors/authSelectors';
-import {
-  getFeedPosts,
-  getFeedLoadingStatus,
-  getFeedError,
-} from '../../selectors/feedSelectors';
+import { getFeedPosts, getFeedError } from '../../selectors/feedSelectors';
 import dictionary from '../../dictionary';
 
-const Feed = ({ news, isLoading, error, fetchNews }: any) => {
+const Feed = () => {
+  const news = useSelector(getFeedPosts);
+  const newsIds = news.map((post: any) => post._id);
+  const error = useSelector(getFeedError);
+  const dispatch = useDispatch();
+
+  const fetchPosts = useCallback(() => dispatch(fetchFeed()), [dispatch]);
+
   useEffect(() => {
-    fetchNews();
-  }, [fetchNews]);
+    fetchPosts();
+  }, [fetchPosts]);
 
   if (error) {
     return (
@@ -39,7 +41,7 @@ const Feed = ({ news, isLoading, error, fetchNews }: any) => {
                   <h2>Новостей пока нет</h2>
                 </div>
               ) : (
-                news.map((id: any) => {
+                newsIds.map((id: any) => {
                   return <Post key={id} id={id} />;
                 })
               )}
@@ -55,19 +57,4 @@ const Feed = ({ news, isLoading, error, fetchNews }: any) => {
   );
 };
 
-const mapStateToProps = (state: any) => {
-  return {
-    isLoggedIn: getAuthStatus(state),
-    news: getFeedPosts(state).map((post: any) => post._id),
-    isLoading: getFeedLoadingStatus(state),
-    error: getFeedError(state),
-  };
-};
-
-const mapDispatchToProps = (dispatch: any) => {
-  return {
-    fetchNews: () => dispatch(fetchFeed()),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Feed);
+export default Feed;

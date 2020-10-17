@@ -12,25 +12,29 @@ import {
   IonButton,
   IonSpinner,
 } from '@ionic/react';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { handleLogin } from '../../actions/handleLogin';
 import dictionary from '../../dictionary';
 import {
   getAuthStatus,
-  getUser,
   getAuthLoadingStatus,
   getAuthError,
 } from '../../selectors/authSelectors';
 
-const Login = ({ handleLogin, error, isLoggedIn, isLoading }: any) => {
+const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const isLoggedIn = useSelector(getAuthStatus);
+  const isLoading = useSelector(getAuthLoadingStatus);
+  const error = useSelector(getAuthError);
+  const dispatch = useDispatch();
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
 
-    handleLogin(email, password);
+    dispatch(handleLogin(email, password));
 
     setPassword('');
   };
@@ -102,19 +106,4 @@ const Login = ({ handleLogin, error, isLoggedIn, isLoading }: any) => {
   );
 };
 
-const mapStateToProps = (state: any) => {
-  return {
-    user: getUser(state),
-    isLoggedIn: getAuthStatus(state),
-    error: getAuthError(state),
-    isLoading: getAuthLoadingStatus(state),
-  };
-};
-
-const mapDispatchToProps = (dispatch: any) => {
-  return {
-    handleLogin: () => dispatch(handleLogin()),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default Login;
