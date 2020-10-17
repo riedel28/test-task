@@ -4,25 +4,12 @@ import { connect } from 'react-redux';
 
 import Post from './Post';
 import { fetchFeed } from '../../actions/fetchFeed';
-import { deletePost } from '../../actions/deletePost';
-import shortenText from '../../helpers/shortenText';
 import dictionary from '../../dictionary';
 
-const Feed = ({
-  news,
-  isLoading,
-  error,
-  fetchNews,
-  deletePost,
-  isLoggedIn,
-}: any) => {
+const Feed = ({ news, isLoading, error, fetchNews }: any) => {
   useEffect(() => {
     fetchNews();
   }, [fetchNews]);
-
-  const handleDelete = (id: any) => {
-    deletePost(id);
-  };
 
   if (error) {
     return (
@@ -46,23 +33,9 @@ const Feed = ({
                   <h2>Новостей пока нет</h2>
                 </div>
               ) : (
-                news.map(
-                  ({ _id, title, content, creator, createDate }: any) => {
-                    return (
-                      <Post
-                        key={_id}
-                        id={_id}
-                        title={title}
-                        creator={creator}
-                        createdAt={createDate}
-                        onDelete={handleDelete}
-                        isLoggedIn={isLoggedIn}
-                      >
-                        {shortenText(content)}
-                      </Post>
-                    );
-                  }
-                )
+                news.map((id: any) => {
+                  return <Post key={id} id={id} />;
+                })
               )}
 
               <div className="ion-text-end ion-padding-top">
@@ -79,7 +52,7 @@ const Feed = ({
 const mapStateToProps = (state: any) => {
   return {
     isLoggedIn: state.auth.isLoggedIn,
-    news: state.feed.posts,
+    news: state.feed.posts.map((post: any) => post._id),
     isLoading: state.feed.isLoading,
     error: state.feed.error,
   };
@@ -88,7 +61,6 @@ const mapStateToProps = (state: any) => {
 const mapDispatchToProps = (dispatch: any) => {
   return {
     fetchNews: () => dispatch(fetchFeed()),
-    deletePost: (id: any) => dispatch(deletePost(id)),
   };
 };
 

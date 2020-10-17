@@ -1,18 +1,21 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { IonButton, IonIcon, IonAlert, IonItemDivider } from '@ionic/react';
 import { createOutline, trashOutline } from 'ionicons/icons';
 
+import { deletePost } from '../../actions/deletePost';
 import displayDateTime from '../../helpers/displayDateTime';
+import shortenText from '../../helpers/shortenText';
 
 const NewsItem = ({
+  id,
   title,
-  children,
+  content,
   creator,
   createdAt,
-  id,
-  onDelete,
   isLoggedIn,
+  deletePost,
 }: any) => {
   const [showAlert, setShowAlert] = useState(false);
 
@@ -62,7 +65,7 @@ const NewsItem = ({
               {
                 text: 'Да',
                 handler: () => {
-                  onDelete(id);
+                  deletePost(id);
                 },
               },
             ]}
@@ -70,10 +73,28 @@ const NewsItem = ({
         </div>
       </div>
 
-      <p>{children}</p>
+      <p>{shortenText(content)}</p>
       <IonItemDivider />
     </>
   );
 };
 
-export default NewsItem;
+const mapStateToProps = (state: any, ownProps: any) => {
+  const post = state.feed.posts.find((post: any) => post._id === ownProps.id);
+
+  return {
+    title: post.title,
+    content: post.content,
+    creator: post.creator,
+    createdAt: post.createDate,
+    isLoggedIn: state.auth.isLoggedIn,
+  };
+};
+
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    deletePost: (id: any) => dispatch(deletePost(id)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewsItem);
