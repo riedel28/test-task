@@ -5,7 +5,7 @@ export const FETCH_FEED_SUCCESS = 'FETCH_NEWS_SUCCESS';
 export const FETCH_FEED_FAILURE = 'FETCH_NEWS_FAILURE';
 
 export const fetchFeed = () => {
-  return async (dispatch) => {
+  return async (dispatch: any) => {
     dispatch({ type: FETCH_FEED_REQUEST });
 
     try {

@@ -1,7 +1,8 @@
 export const LOG_OUT = 'LOG_OUT';
 
 export const handleLogout = () => {
-  return async (dispatch) => {
+  return async (dispatch: any) => {
+    // @ts-ignore
     const auth2 = await window.gapi.auth2.getAuthInstance();
 
     auth2.signOut().then(() => {

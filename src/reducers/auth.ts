@@ -12,7 +12,7 @@ export const initialState = {
   isLoading: false,
 };
 
-const auth = (state = initialState, action) => {
+const auth = (state = initialState, action: any) => {
   switch (action.type) {
     case LOG_IN_REQUEST:
       return {

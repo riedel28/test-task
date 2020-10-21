@@ -34,7 +34,7 @@ const Login = () => {
   const handleSubmit = (e: any) => {
     e.preventDefault();
 
-    dispatch(handleLogin(email, password));
+    dispatch(handleLogin());
 
     setPassword('');
   };

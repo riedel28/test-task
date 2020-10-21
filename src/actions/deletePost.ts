@@ -4,8 +4,8 @@ export const DELETE_POST_SUCCESS = 'DELETE_POST_SUCCESS';
 export const DELETE_POST_REQUEST = 'DELETE_POST_REQUEST';
 export const DELETE_POST_FAILURE = 'DELETE_POST_FAILURE';
 
-export const deletePost = (id) => {
-  return async (dispatch, getState) => {
+export const deletePost = (id: any) => {
+  return async (dispatch: any, getState: any) => {
     dispatch({ type: DELETE_POST_REQUEST });
 
     const token = getState().auth.user.token;

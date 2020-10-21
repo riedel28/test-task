@@ -4,8 +4,8 @@ export const CREATE_POST_REQUEST = 'CREATE_POST_REQUEST';
 export const CREATE_POST_SUCCESS = 'CREATE_POST_SUCCESS';
 export const CREATE_POST_FAILURE = 'CREATE_POST_FAILURE';
 
-export const createPost = (post) => {
-  return async (dispatch, getState) => {
+export const createPost = (post: any) => {
+  return async (dispatch: any, getState: any) => {
     dispatch({ type: CREATE_POST_REQUEST });
 
     const token = getState().auth.user.token;

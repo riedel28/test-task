@@ -19,13 +19,19 @@ import {
   EDIT_POST_FAILURE,
 } from '../actions/editPost';
 
+type FeedState = {
+  error: any,
+  isLoading: any,
+  posts: any,
+};
+
 export const initialState = {
   error: null,
   isLoading: false,
   posts: [],
 };
 
-const news = (state = initialState, action) => {
+const news = (state: FeedState = initialState, action: any) => {
   switch (action.type) {
     case FETCH_FEED_REQUEST:
       return {
@@ -35,7 +41,7 @@ const news = (state = initialState, action) => {
       };
 
     case FETCH_FEED_SUCCESS:
-      const newPosts = action.payload.sort((a, b) => {
+      const newPosts = action.payload.sort((a: any, b: any) => {
         return Number(new Date(b.createDate)) - Number(new Date(a.createDate));
       });
 
@@ -84,7 +90,7 @@ const news = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        posts: state.posts.map((post) => {
+        posts: state.posts.map((post: any) => {
           if (post._id === _id) {
             return action.payload;
           }
@@ -110,7 +116,9 @@ const news = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        posts: state.posts.filter((post) => post._id !== action.payload._id),
+        posts: state.posts.filter(
+          (post: any) => post._id !== action.payload._id
+        ),
       };
 
     case DELETE_POST_FAILURE:

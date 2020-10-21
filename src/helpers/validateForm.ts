@@ -1,5 +1,10 @@
-const validate = ({ heading, postContent }) => {
-  const errors = {};
+type Errors = {
+  heading: string,
+  postContent: string,
+};
+
+const validate = ({ heading, postContent }: any) => {
+  const errors = {} as Errors;
 
   if (heading.length === 0) {
     errors.heading = 'Заголовок не должен быть пустым';
