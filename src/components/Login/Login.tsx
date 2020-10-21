@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 import {
   IonPage,
   IonGrid,
@@ -23,15 +23,15 @@ import {
 } from '../../selectors/authSelectors';
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
 
   const isLoggedIn = useSelector(getAuthStatus);
   const isLoading = useSelector(getAuthLoadingStatus);
   const error = useSelector(getAuthError);
   const dispatch = useDispatch();
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     dispatch(handleLogin());
@@ -91,7 +91,6 @@ const Login = () => {
                     <div className="ion-padding-top">
                       <IonButton
                         expand="block"
-                        onClick={handleSubmit}
                         disabled={email === '' && password === ''}
                       >
                         {isLoading ? <IonSpinner /> : 'Submit'}

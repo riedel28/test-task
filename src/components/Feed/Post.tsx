@@ -9,17 +9,18 @@ import { getAuthStatus } from '../../selectors/authSelectors';
 import { getFeedPosts } from '../../selectors/feedSelectors';
 import displayDateTime from '../../helpers/displayDateTime';
 import shortenText from '../../helpers/shortenText';
+import { Post as PostType } from '../../types';
 
-const NewsItem = ({ id }: any) => {
-  const [showAlert, setShowAlert] = useState(false);
+const NewsItem = ({ id }: { id: string }) => {
+  const [showAlert, setShowAlert] = useState<boolean>(false);
   const dispatch = useDispatch();
   const posts = useSelector(getFeedPosts);
   const isLoggedIn = useSelector(getAuthStatus);
 
   const { title, content, creator, createDate } = posts.find(
-    (post: any) => post._id === id
-  );
-  const onDelete = (id: any) => dispatch(deletePost(id));
+    (post: PostType) => post._id === id
+  ) as PostType;
+  const onDelete = (id: string) => dispatch(deletePost(id));
 
   return (
     <>

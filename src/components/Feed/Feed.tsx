@@ -6,10 +6,11 @@ import Post from './Post';
 import { fetchFeed } from '../../actions/fetchFeed';
 import { getFeedPosts, getFeedError } from '../../selectors/feedSelectors';
 import dictionary from '../../dictionary';
+import { Post as PostType } from '../../types';
 
 const Feed = () => {
   const news = useSelector(getFeedPosts);
-  const newsIds = news.map((post: any) => post._id);
+  const newsIds = news.map((post: PostType) => post._id);
   const error = useSelector(getFeedError);
   const dispatch = useDispatch();
 
@@ -41,7 +42,7 @@ const Feed = () => {
                   <h2>Новостей пока нет</h2>
                 </div>
               ) : (
-                newsIds.map((id: any) => {
+                newsIds.map((id: string) => {
                   return <Post key={id} id={id} />;
                 })
               )}

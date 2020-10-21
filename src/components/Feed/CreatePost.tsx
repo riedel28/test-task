@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, FormEvent } from 'react';
 import {
   IonPage,
   IonContent,
@@ -19,16 +19,23 @@ import { Link, useHistory } from 'react-router-dom';
 import { createPost } from '../../actions/createPost';
 import validate from '../../helpers/validateForm';
 import { getAuthStatus } from '../../selectors/authSelectors';
+import { getFeedError } from '../../selectors/feedSelectors';
+import { Post } from '../../types';
 
-const CreatePost = ({ error }: any) => {
-  const [heading, setHeading] = useState('');
-  const [postContent, setPostContent] = useState('');
-  const [errors, setErrors] = useState({ heading: '', postContent: '' });
+const CreatePost = () => {
+  const [heading, setHeading] = useState<string>('');
+  const [postContent, setPostContent] = useState<string>('');
+  const [errors, setErrors] = useState<{
+    heading: string,
+    postContent: string,
+  }>({ heading: '', postContent: '' });
   const history = useHistory();
   const isLoggedIn = useSelector(getAuthStatus);
+  const error = useSelector(getFeedError);
   const dispatch = useDispatch();
 
-  const onCreatePost = (post: any) => dispatch(createPost(post));
+  const onCreatePost = (post: Pick<Post, 'title' | 'content'>) =>
+    dispatch(createPost(post));
 
   const handleChangeHeading = useCallback((e: any) => {
     setHeading(e.target.value);
@@ -38,7 +45,7 @@ const CreatePost = ({ error }: any) => {
     setPostContent(e.target.value);
   }, []);
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const localErrors = validate({ heading, postContent });
@@ -81,7 +88,7 @@ const CreatePost = ({ error }: any) => {
             >
               <div className="ion-padding-horizontal ion-padding-bottom">
                 <h1>Новый пост</h1>
-                {error && <p>{error.error}</p>}
+                {error && <p>{error!.message}</p>}
               </div>
               <IonCard>
                 <div className="ion-padding">
@@ -123,7 +130,7 @@ const CreatePost = ({ error }: any) => {
 
                     <div className="ion-padding-bottom">
                       <div className="ion-float-right">
-                        <IonButton onClick={handleSubmit}>Отправить</IonButton>
+                        <IonButton type="submit">Отправить</IonButton>
                       </div>
                     </div>
                   </form>

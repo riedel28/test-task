@@ -113,7 +113,7 @@ const news = (state: FeedState = initialState, action: FeedAction) => {
       };
 
     case FETCH_FEED_SUCCESS:
-      const newPosts = action.payload.sort((a: any, b: any) => {
+      const newPosts = action.payload.sort((a: Post, b: Post) => {
         return Number(new Date(b.createDate)) - Number(new Date(a.createDate));
       });
 
@@ -162,7 +162,7 @@ const news = (state: FeedState = initialState, action: FeedAction) => {
       return {
         ...state,
         isLoading: false,
-        posts: state.posts.map((post: any) => {
+        posts: state.posts.map((post) => {
           if (post._id === _id) {
             return action.payload;
           }
@@ -188,9 +188,7 @@ const news = (state: FeedState = initialState, action: FeedAction) => {
       return {
         ...state,
         isLoading: false,
-        posts: state.posts.filter(
-          (post: any) => post._id !== action.payload._id
-        ),
+        posts: state.posts.filter((post) => post._id !== action.payload._id),
       };
 
     case DELETE_POST_FAILURE:

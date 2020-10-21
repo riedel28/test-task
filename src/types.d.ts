@@ -7,7 +7,7 @@ export type Post = {
     displayName: string,
   },
   __v: 0,
-  createDate: Date,
+  createDate: string,
 };
 
 export type User = { name: string, token: string };

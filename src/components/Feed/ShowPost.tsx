@@ -17,6 +17,7 @@ import { getAuthStatus } from '../../selectors/authSelectors';
 import { getFeedPosts, getFeedError } from '../../selectors/feedSelectors';
 import displayDateTime from '../../helpers/displayDateTime';
 import dictionary from '../../dictionary';
+import { Post } from '../../types';
 
 type Params = {
   id: string,
@@ -27,14 +28,14 @@ const ShowPost = () => {
   const posts = useSelector(getFeedPosts);
   const isLoggedIn = useSelector(getAuthStatus);
   const error = useSelector(getFeedError);
-  const post = posts.find((post: any) => post._id === params.id);
+  const post = posts.find((post: Post) => post._id === params.id);
   const dispatch = useDispatch();
 
-  const [showAlert, setShowAlert] = useState(false);
+  const [showAlert, setShowAlert] = useState<boolean>(false);
   const history = useHistory();
 
   const onDelete = useCallback(
-    (id: any) => {
+    (id: string) => {
       dispatch(deletePost(id));
 
       history.push('/');

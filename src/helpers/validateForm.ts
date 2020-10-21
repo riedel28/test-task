@@ -3,7 +3,7 @@ type Errors = {
   postContent: string,
 };
 
-const validate = ({ heading, postContent }: any) => {
+const validate = ({ heading, postContent }: Errors) => {
   const errors = {} as Errors;
 
   if (heading.length === 0) {

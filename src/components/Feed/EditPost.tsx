@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, FormEvent } from 'react';
 import {
   IonPage,
   IonContent,
@@ -17,47 +17,49 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, useParams } from 'react-router';
 
 import { editPost } from '../../actions/editPost';
-import { getFeedPosts } from '../../selectors/feedSelectors';
+import { getFeedError, getFeedPosts } from '../../selectors/feedSelectors';
 import validate from '../../helpers/validateForm';
+import { Post } from '../../types';
 
 type Params = {
   id: string,
 };
 
-const EditPost = ({ error }: any) => {
+const EditPost = () => {
   const params = useParams<Params>();
   const posts = useSelector(getFeedPosts);
-  const post = posts.find((post: any) => post._id === params.id);
+  const post = posts.find((post) => post._id === params.id);
 
-  const [heading, setHeading] = useState(post.title);
-  const [postContent, setPostContent] = useState(post.content);
+  const [heading, setHeading] = useState<string>(post!.title);
+  const [postContent, setPostContent] = useState<string>(post!.content);
 
-  const [errors, setErrors] = useState({ heading: '', postContent: '' });
+  const [errors, setErrors] = useState<{heading: string, postContent: string}>({ heading: '', postContent: '' });
   const history = useHistory();
+  const error = useSelector(getFeedError);
 
   const dispatch = useDispatch();
 
   const onEditPost = useCallback(
-    (id: any, post: any) => dispatch(editPost(id, post)),
+    (id: string, post: Pick<Post, 'title' | 'content'>) => dispatch(editPost(id, post)),
     [dispatch]
   );
 
-  const handleChangeHeading = useCallback((e: any) => {
+  const handleChangeHeading = useCallback((e) => {
     setHeading(e.target.value);
   }, []);
 
-  const handleChangePostContent = useCallback((e: any) => {
+  const handleChangePostContent = useCallback((e) => {
     setPostContent(e.target.value);
   }, []);
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const localErrors = validate({ heading, postContent });
     setErrors(localErrors);
 
     if (Object.keys(localErrors).length === 0) {
-      onEditPost(post._id, {
+      onEditPost(post!._id, {
         title: heading,
         content: postContent,
       });
@@ -84,18 +86,18 @@ const EditPost = ({ error }: any) => {
             >
               <div className="ion-padding-horizontal ion-padding-bottom">
                 <h1>Редактировать пост</h1>
-                {error && <p>{error.error}</p>}
+                {error && <p>{error!.message}</p>}
               </div>
               <IonCard>
                 <div className="ion-padding">
-                  <form onSubmit={handleSubmit}>
+                  <form onSubmit={handleSubmit} className="ion-padding-bottom">
                     <div className="ion-padding-bottom">
                       <IonItem>
                         <IonLabel position="stacked">
                           Заголовок новости
                         </IonLabel>
                         <IonInput
-                          type="email"
+                          type="text"
                           value={heading}
                           onIonChange={handleChangeHeading}
                           required
@@ -123,13 +125,10 @@ const EditPost = ({ error }: any) => {
                       )}
                     </div>
 
-                    <div className="ion-float-right">
-                      <IonButton
-                        onClick={handleSubmit}
-                        style={{ marginBottom: 20 }}
-                      >
-                        Отправить
-                      </IonButton>
+                    <div className="ion-padding-bottom">
+                      <div className="ion-float-right">
+                        <IonButton type="submit">Сохранить</IonButton>
+                      </div>
                     </div>
                   </form>
                 </div>

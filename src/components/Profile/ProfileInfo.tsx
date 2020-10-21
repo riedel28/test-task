@@ -2,14 +2,15 @@ import React from 'react';
 import { IonSpinner, IonLabel } from '@ionic/react';
 import { useSelector } from 'react-redux';
 
-import { getUser } from '../../selectors/authSelectors';
+import { getUser , getAuthError} from '../../selectors/authSelectors';
 import dictionary from '../../dictionary';
 
-const ProfileInfo = ({ error }: any) => {
+const ProfileInfo = () => {
   const user = useSelector(getUser);
+  const error = useSelector(getAuthError)
 
   if (error) {
-    return <IonLabel color="danger">{dictionary[error]}</IonLabel>;
+    return <IonLabel color="danger">{dictionary[error.message]}</IonLabel>;
   }
 
   return !user!.name ? (

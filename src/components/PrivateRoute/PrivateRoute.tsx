@@ -10,7 +10,7 @@ const PrivateRoute: React.FC<any> = ({ component: Component, ...rest }) => {
   return (
     <Route
       {...rest}
-      render={({ location }: any) => {
+      render={({ location }) => {
         return isLoggedIn === true ? (
           <Component {...rest} />
         ) : (
