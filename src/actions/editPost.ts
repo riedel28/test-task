@@ -1,11 +1,15 @@
 import api from '../api';
+import { Dispatch } from 'redux';
+import { RootState } from '../configureStore';
+import { Post } from '../types';
+import { FeedAction } from '../reducers/feed';
 
 export const EDIT_POST_REQUEST = 'EDIT_POST_REQUEST';
 export const EDIT_POST_SUCCESS = 'EDIT_POST_SUCCESS';
 export const EDIT_POST_FAILURE = 'EDIT_POST_FAILURE';
 
-export const editPost = (id: any, post: any) => {
-  return async (dispatch: any, getState: any) => {
+export const editPost = (id: string, post: Pick<Post, 'title' | 'content'>) => {
+  return async (dispatch: Dispatch<FeedAction>, getState: () => RootState) => {
     dispatch({ type: EDIT_POST_REQUEST });
 
     const token = getState().auth.user.token;

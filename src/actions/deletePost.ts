@@ -1,11 +1,14 @@
 import api from '../api';
+import { Dispatch } from 'redux';
+import { RootState } from '../configureStore';
+import { FeedAction } from '../reducers/feed';
 
 export const DELETE_POST_SUCCESS = 'DELETE_POST_SUCCESS';
 export const DELETE_POST_REQUEST = 'DELETE_POST_REQUEST';
 export const DELETE_POST_FAILURE = 'DELETE_POST_FAILURE';
 
-export const deletePost = (id: any) => {
-  return async (dispatch: any, getState: any) => {
+export const deletePost = (id: string) => {
+  return async (dispatch: Dispatch<FeedAction>, getState: () => RootState) => {
     dispatch({ type: DELETE_POST_REQUEST });
 
     const token = getState().auth.user.token;

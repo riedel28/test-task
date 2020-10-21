@@ -19,11 +19,83 @@ import {
   EDIT_POST_FAILURE,
 } from '../actions/editPost';
 
-type FeedState = {
-  error: any,
-  isLoading: any,
-  posts: any,
+import { Post, Error } from '../types';
+
+export type FeedState = {
+  posts: Array<Post>,
+  isLoading: boolean,
+  error?: Error | null,
 };
+
+export type FetchFeedRequestAction = {
+  type: typeof FETCH_FEED_REQUEST,
+};
+
+export type FetchFeedSuccessAction = {
+  type: typeof FETCH_FEED_SUCCESS,
+  payload: Array<Post>,
+};
+
+export type FetchFeedFailureAction = {
+  type: typeof FETCH_FEED_FAILURE,
+  payload: Error,
+};
+
+export type CreatePostRequestAction = {
+  type: typeof CREATE_POST_REQUEST,
+};
+
+export type CreatePostSuccessAction = {
+  type: typeof CREATE_POST_SUCCESS,
+  payload: { feed: Post },
+};
+
+export type CreatePostFailureAction = {
+  type: typeof CREATE_POST_FAILURE,
+  payload: Error,
+};
+
+export type EditPostRequestAction = {
+  type: typeof EDIT_POST_REQUEST,
+};
+
+export type EditPostSuccessAction = {
+  type: typeof EDIT_POST_SUCCESS,
+  payload: Post,
+};
+
+export type EditPostFailureAction = {
+  type: typeof EDIT_POST_FAILURE,
+  payload: Error,
+};
+
+export type DeletePostRequestAction = {
+  type: typeof DELETE_POST_REQUEST,
+};
+
+export type DeletePostSuccessAction = {
+  type: typeof DELETE_POST_SUCCESS,
+  payload: { _id: string },
+};
+
+export type DeletePostFailureAction = {
+  type: typeof DELETE_POST_FAILURE,
+  payload: Error,
+};
+
+export type FeedAction =
+  | FetchFeedRequestAction
+  | FetchFeedSuccessAction
+  | FetchFeedFailureAction
+  | CreatePostRequestAction
+  | CreatePostSuccessAction
+  | CreatePostFailureAction
+  | EditPostRequestAction
+  | EditPostSuccessAction
+  | EditPostFailureAction
+  | DeletePostRequestAction
+  | DeletePostSuccessAction
+  | DeletePostFailureAction;
 
 export const initialState = {
   error: null,
@@ -31,7 +103,7 @@ export const initialState = {
   posts: [],
 };
 
-const news = (state: FeedState = initialState, action: any) => {
+const news = (state: FeedState = initialState, action: FeedAction) => {
   switch (action.type) {
     case FETCH_FEED_REQUEST:
       return {
