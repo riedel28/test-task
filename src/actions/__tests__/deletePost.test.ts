@@ -1,6 +1,6 @@
 import api from '../../api';
-import configureMockstore from 'redux-mock-store';
-import thunk from 'redux-thunk';
+import configureMockStore from 'redux-mock-store';
+import thunk, { ThunkDispatch } from 'redux-thunk';
 import MockAdapter from 'axios-mock-adapter';
 
 import {
@@ -9,18 +9,26 @@ import {
   DELETE_POST_FAILURE,
   deletePost,
 } from '../deletePost';
+import { RootState } from '../../configureStore';
+import { FeedAction } from '../../reducers/feed';
+
+type DispatchExts = ThunkDispatch<RootState, void, FeedAction>;
 
 const middleware = [thunk];
-const mockStore = configureMockstore(middleware);
+const mockStore = configureMockStore<RootState, DispatchExts>(middleware);
 const fakeAxios = new MockAdapter(api);
 const store = mockStore({
   feed: {
     posts: [{ _id: '30', title: 'Some title', content: 'Some content' }],
+    isLoading: false,
   },
   auth: {
     user: {
+      name: 'John Doe',
       token: 'abc12345',
     },
+    isLoading: false,
+    isLoggedIn: false,
   },
 });
 

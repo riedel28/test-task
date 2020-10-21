@@ -1,6 +1,6 @@
 import api from '../../api';
 import configureMockStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
+import thunk, { ThunkDispatch } from 'redux-thunk';
 import MockAdapter from 'axios-mock-adapter';
 
 import {
@@ -9,9 +9,13 @@ import {
   FETCH_FEED_FAILURE,
   fetchFeed,
 } from '../fetchFeed';
+import { RootState } from '../../configureStore';
+import { FeedAction } from '../../reducers/feed';
 
-const middleWare = [thunk];
-const mockStore = configureMockStore(middleWare);
+type DispatchExts = ThunkDispatch<RootState, void, FeedAction>;
+
+const middleware = [thunk];
+const mockStore = configureMockStore<RootState, DispatchExts>(middleware);
 const fakeAxios = new MockAdapter(api);
 const store = mockStore();
 

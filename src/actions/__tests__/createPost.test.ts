@@ -1,6 +1,6 @@
 import api from '../../api';
 import configureMockStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
+import thunk, { ThunkDispatch } from 'redux-thunk';
 import MockAdapter from 'axios-mock-adapter';
 
 import {
@@ -9,15 +9,28 @@ import {
   CREATE_POST_FAILURE,
   createPost,
 } from '../createPost';
+import { RootState } from '../../configureStore';
+import { AuthAction } from '../../reducers/auth';
+
+type DispatchExts = ThunkDispatch<RootState, void, AuthAction>;
 
 const middleWare = [thunk];
-const mockStore = configureMockStore(middleWare);
+const mockStore = configureMockStore<RootState, DispatchExts>(middleWare);
 const fakeAxios = new MockAdapter(api);
+
 const store = mockStore({
   auth: {
     user: {
+      name: 'John Doe',
       token: 'abc12345',
     },
+    isLoggedIn: false,
+    isLoading: false,
+  },
+  feed: {
+    isLoading: false,
+    posts: [],
+    error: null,
   },
 });
 
@@ -64,7 +77,9 @@ describe('createPost action', () => {
       },
     });
 
-    await store.dispatch(createPost());
+    await store.dispatch(
+      createPost({ title: 'Some title', content: 'Some content' })
+    );
 
     const expectedActions = [
       { type: CREATE_POST_REQUEST },
