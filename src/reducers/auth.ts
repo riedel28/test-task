@@ -5,6 +5,39 @@ import {
 } from '../actions/handleLogin';
 import { LOG_OUT } from '../actions/handleLogout';
 
+import { User, Error } from '../types';
+
+export type AuthState = {
+  user: User | null,
+  isLoggedIn: boolean,
+  isLoading: boolean,
+  error?: Error | null,
+};
+
+export type LoginRequestAction = {
+  type: typeof LOG_IN_REQUEST,
+};
+
+export type LoginSuccessAction = {
+  type: typeof LOG_IN_SUCCESS,
+  payload: User,
+};
+
+export type LoginFailureAction = {
+  type: typeof LOG_IN_FAILURE,
+  payload: Error,
+};
+
+export type LogoutAction = {
+  type: typeof LOG_OUT,
+};
+
+export type AuthAction =
+  | LoginRequestAction
+  | LoginSuccessAction
+  | LoginFailureAction
+  | LogoutAction;
+
 export const initialState = {
   user: null,
   isLoggedIn: false,
@@ -12,7 +45,7 @@ export const initialState = {
   isLoading: false,
 };
 
-const auth = (state = initialState, action: any) => {
+const auth = (state: AuthState = initialState, action: AuthAction) => {
   switch (action.type) {
     case LOG_IN_REQUEST:
       return {

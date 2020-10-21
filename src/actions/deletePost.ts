@@ -11,7 +11,7 @@ export const deletePost = (id: string) => {
   return async (dispatch: Dispatch<FeedAction>, getState: () => RootState) => {
     dispatch({ type: DELETE_POST_REQUEST });
 
-    const token = getState().auth.user.token;
+    const token = getState().auth.user!.token;
 
     try {
       const response = await api.delete(`/feeds/${id}`, {

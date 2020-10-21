@@ -12,14 +12,14 @@ const ProfileInfo = ({ error }: any) => {
     return <IonLabel color="danger">{dictionary[error]}</IonLabel>;
   }
 
-  return !user.name ? (
+  return !user!.name ? (
     <div className="ion-justify-content-center ion-align-items-center ion-padding">
       <IonSpinner />
     </div>
   ) : (
     <div className="user-info">
       <p>
-        <strong>{user.name}</strong>
+        <strong>{user!.name}</strong>
       </p>
     </div>
   );

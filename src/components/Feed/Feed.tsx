@@ -46,9 +46,11 @@ const Feed = () => {
                 })
               )}
 
-              <div className="ion-text-end ion-padding-top">
-                <em>Всего новостей: </em> {news.length}
-              </div>
+              {news.length > 0 && (
+                <div className="ion-text-end ion-padding-top">
+                  <em>Всего новостей: </em> {news.length}
+                </div>
+              )}
             </IonCol>
           </IonRow>
         </IonGrid>

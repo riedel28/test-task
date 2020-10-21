@@ -59,7 +59,9 @@ const Login = () => {
               <div className="ion-padding-horizontal ion-padding-bottom">
                 <h1>Login</h1>
                 {error && (
-                  <IonLabel color="danger">{dictionary[error]}</IonLabel>
+                  <IonLabel color="danger">
+                    {dictionary[error.message]}
+                  </IonLabel>
                 )}
               </div>
               <IonCard>

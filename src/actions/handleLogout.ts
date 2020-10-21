@@ -1,12 +1,15 @@
+import { Dispatch } from 'redux';
+
+import { AuthAction } from '../reducers/auth';
 export const LOG_OUT = 'LOG_OUT';
 
 export const handleLogout = () => {
-  return async (dispatch: any) => {
-    // @ts-ignore
-    const auth2 = await window.gapi.auth2.getAuthInstance();
-
-    auth2.signOut().then(() => {
-      dispatch({ type: LOG_OUT });
-    });
+  return async (dispatch: Dispatch<AuthAction>) => {
+    window.gapi.auth2
+      .getAuthInstance()
+      .signOut()
+      .then(() => {
+        dispatch({ type: LOG_OUT });
+      });
   };
 };

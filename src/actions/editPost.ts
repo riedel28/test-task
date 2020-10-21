@@ -12,7 +12,7 @@ export const editPost = (id: string, post: Pick<Post, 'title' | 'content'>) => {
   return async (dispatch: Dispatch<FeedAction>, getState: () => RootState) => {
     dispatch({ type: EDIT_POST_REQUEST });
 
-    const token = getState().auth.user.token;
+    const token = getState().auth.user!.token;
 
     try {
       const response = await api.put(`/feeds/${id}`, post, {
