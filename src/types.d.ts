@@ -6,7 +6,7 @@ export type Post = {
     _id: string,
     displayName: string,
   },
-  __v: 0,
+  __v: string,
   createDate: string,
 };
 

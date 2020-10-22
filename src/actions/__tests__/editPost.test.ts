@@ -19,7 +19,19 @@ const mockStore = configureMockstore<RootState, DispatchExts>(middleware);
 const fakeAxios = new MockAdapter(api);
 const store = mockStore({
   feed: {
-    posts: [{ _id: 30, title: 'Some title', content: 'Some content' }],
+    posts: [
+      {
+        _id: '30',
+        title: 'Some title',
+        content: 'Some content',
+        creator: {
+          _id: '333',
+          displayName: 'Some user',
+        },
+        __v: '0',
+        createDate: '',
+      },
+    ],
     isLoading: false,
   },
   auth: {

@@ -1,6 +1,5 @@
 import api from '../api';
 import { Dispatch } from 'redux';
-
 import { AuthAction } from '../reducers/auth';
 
 export const LOG_IN_REQUEST = 'LOG_IN_REQUEST';

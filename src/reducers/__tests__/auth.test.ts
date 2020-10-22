@@ -4,13 +4,19 @@ import {
   LOG_IN_FAILURE,
 } from '../../actions/handleLogin';
 import { LOG_OUT } from '../../actions/handleLogout';
-import auth, { initialState } from '../auth';
+import auth, {
+  initialState,
+  LoginSuccessAction,
+  LoginRequestAction,
+  LoginFailureAction,
+  LogoutAction,
+} from '../auth';
 
 describe('Auth reducer', () => {
   test('LOG_IN_REQUEST', () => {
     const action = {
       type: LOG_IN_REQUEST,
-    };
+    } as LoginRequestAction;
 
     expect(auth(initialState, action)).toEqual({
       ...initialState,
@@ -22,18 +28,18 @@ describe('Auth reducer', () => {
     const action = {
       type: LOG_IN_SUCCESS,
       payload: {
-        _id: 12345,
         name: 'John Doe',
+        token: ''
       },
-    };
+    } as LoginSuccessAction;
 
     expect(auth(initialState, action)).toEqual({
       ...initialState,
       isLoading: false,
       isLoggedIn: true,
       user: {
-        _id: 12345,
         name: 'John Doe',
+        token: ''
       },
     });
   });
@@ -44,7 +50,7 @@ describe('Auth reducer', () => {
       payload: {
         message: 'Log in failure',
       },
-    };
+    } as LoginFailureAction;
 
     expect(auth(initialState, action)).toEqual({
       ...initialState,
@@ -62,7 +68,7 @@ describe('Auth reducer', () => {
       payload: {
         message: 'Log in failure',
       },
-    };
+    } as LogoutAction;
 
     expect(auth(initialState, action)).toEqual({
       ...initialState,

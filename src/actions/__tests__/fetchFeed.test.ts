@@ -27,8 +27,8 @@ describe('fetchFeed action', () => {
   test('dispatches FETCH_FEED_SUCCESS', async () => {
     fakeAxios.onGet('/feeds').reply(200, {
       feeds: [
-        { _id: 1, content: 'Some content' },
-        { _id: 2, content: 'Some more content' },
+        { _id: '1', content: 'Some content' },
+        { _id: '2', content: 'Some more content' },
       ],
     });
 
@@ -39,8 +39,8 @@ describe('fetchFeed action', () => {
       {
         type: FETCH_FEED_SUCCESS,
         payload: [
-          { _id: 1, content: 'Some content' },
-          { _id: 2, content: 'Some more content' },
+          { _id: '1', content: 'Some content' },
+          { _id: '2', content: 'Some more content' },
         ],
       },
     ];
