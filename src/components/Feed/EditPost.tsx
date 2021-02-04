@@ -85,7 +85,7 @@ const EditPost = () => {
               offsetLg="3"
             >
               <div className="ion-padding-horizontal ion-padding-bottom">
-                <h1>Редактировать пост</h1>
+                <h1>Edit post</h1>
                 {error && <p>{error!.message}</p>}
               </div>
               <IonCard>
@@ -94,7 +94,7 @@ const EditPost = () => {
                     <div className="ion-padding-bottom">
                       <IonItem>
                         <IonLabel position="stacked">
-                          Заголовок новости
+                          Post heading
                         </IonLabel>
                         <IonInput
                           type="text"
@@ -111,7 +111,7 @@ const EditPost = () => {
                     </div>
                     <div className="ion-padding-bottom">
                       <IonItem>
-                        <IonLabel position="stacked">Текст</IonLabel>
+                        <IonLabel position="stacked">Content</IonLabel>
                         <IonTextarea
                           onIonChange={handleChangePostContent}
                           rows={6}
@@ -127,7 +127,7 @@ const EditPost = () => {
 
                     <div className="ion-padding-bottom">
                       <div className="ion-float-right">
-                        <IonButton type="submit">Сохранить</IonButton>
+                        <IonButton type="submit">Save</IonButton>
                       </div>
                     </div>
                   </form>

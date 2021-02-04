@@ -1,14 +1,6 @@
 import React, { useCallback } from 'react';
 import { NavLink } from 'react-router-dom';
-import {
-  IonHeader,
-  IonToolbar,
-  IonTitle,
-  IonRow,
-  IonCol,
-  IonButton,
-  IonIcon,
-} from '@ionic/react';
+import { IonHeader, IonRow, IonCol, IonButton, IonIcon } from '@ionic/react';
 import {
   homeOutline,
   newspaperOutline,
@@ -39,13 +31,6 @@ const Header: React.FC = () => {
   return (
     <IonHeader>
       <IonRow>
-        <IonCol sizeXs="12" sizeSm="12">
-          <IonToolbar>
-            <IonTitle>
-              <h3>Test Task</h3>
-            </IonTitle>
-          </IonToolbar>
-        </IonCol>
         <IonCol sizeXs="12" sizeSm="12">
           <nav>
             <div>

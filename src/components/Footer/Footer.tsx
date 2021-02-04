@@ -11,9 +11,17 @@ const Footer = () => {
           rel="noopener noreferrer"
           className="user-info-link"
         >
-          Тестовое задание #3
+          Test task #3
         </a>{' '}
-        | sergey.riedel@gmail.com
+        |{' '}
+        <a
+          href="https://github.com/riedel28"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="user-info-link"
+        >
+          Github: riedel28
+        </a>
       </div>
     </IonFooter>
   );

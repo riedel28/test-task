@@ -67,8 +67,8 @@ const CreatePost = () => {
   if (!isLoggedIn) {
     return (
       <div className="ion-text-center">
-        <h2>Для написания поста необходимо залогиниться</h2>
-        <Link to="/">Вернуться на главную</Link>
+        <h2>You need to be logged in</h2>
+        <Link to="/">Go home</Link>
       </div>
     );
   }
@@ -87,7 +87,7 @@ const CreatePost = () => {
               offsetLg="3"
             >
               <div className="ion-padding-horizontal ion-padding-bottom">
-                <h1>Новый пост</h1>
+                <h1>New post</h1>
                 {error && <p>{error!.message}</p>}
               </div>
               <IonCard>
@@ -96,7 +96,7 @@ const CreatePost = () => {
                     <div className="ion-padding-bottom">
                       <IonItem>
                         <IonLabel position="stacked">
-                          Заголовок новости
+                          Heading
                         </IonLabel>
 
                         <IonInput
@@ -114,7 +114,7 @@ const CreatePost = () => {
                     </div>
                     <div className="ion-padding-bottom">
                       <IonItem>
-                        <IonLabel position="stacked">Текст</IonLabel>
+                        <IonLabel position="stacked">Content</IonLabel>
                         <IonTextarea
                           onIonChange={handleChangePostContent}
                           rows={6}
@@ -130,7 +130,7 @@ const CreatePost = () => {
 
                     <div className="ion-padding-bottom">
                       <div className="ion-float-right">
-                        <IonButton type="submit">Отправить</IonButton>
+                        <IonButton type="submit">Send</IonButton>
                       </div>
                     </div>
                   </form>

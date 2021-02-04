@@ -54,11 +54,11 @@ const NewsItem = ({ id }: { id: string }) => {
           <IonAlert
             isOpen={showAlert}
             onDidDismiss={() => setShowAlert(false)}
-            header={'Удаление новости'}
-            message={'Вы уверены, что хотите удалить новость?'}
+            header={'Delete post'}
+            message={'Are you sure you want to delete this post?'}
             buttons={[
               {
-                text: 'Отмена',
+                text: 'Cancel',
                 role: 'cancel',
                 cssClass: 'secondary',
                 handler: () => {
@@ -66,7 +66,7 @@ const NewsItem = ({ id }: { id: string }) => {
                 },
               },
               {
-                text: 'Да',
+                text: 'Yes',
                 handler: () => {
                   onDelete(id);
                 },

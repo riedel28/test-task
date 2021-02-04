@@ -35,11 +35,11 @@ const Feed = () => {
           <IonRow>
             <IonCol sizeMd="8" offsetMd="2" sizeLg="6" offsetLg="3">
               <div className="ion-padding-bottom">
-                <h1>Новости</h1>
+                <h1>News Feed</h1>
               </div>
               {news.length < 1 ? (
                 <div className="ion-text-center">
-                  <h2>Новостей пока нет</h2>
+                  <h2>No news yet</h2>
                 </div>
               ) : (
                 newsIds.map((id: string) => {
@@ -49,7 +49,7 @@ const Feed = () => {
 
               {news.length > 0 && (
                 <div className="ion-text-end ion-padding-top">
-                  <em>Всего новостей: </em> {news.length}
+                  <em>Total: </em> {news.length}
                 </div>
               )}
             </IonCol>

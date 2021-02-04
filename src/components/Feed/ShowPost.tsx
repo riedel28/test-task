@@ -50,8 +50,8 @@ const ShowPost = () => {
           <h2>{dictionary[error.message]}</h2>
         ) : (
           <>
-            <h2>Пост не найден</h2>
-            <NavLink to="/">Вернуться на главную</NavLink>
+            <h2>Post not found</h2>
+            <NavLink to="/">Go home</NavLink>
           </>
         )}
       </div>
@@ -83,11 +83,11 @@ const ShowPost = () => {
                 <IonAlert
                   isOpen={showAlert}
                   onDidDismiss={() => setShowAlert(false)}
-                  header={'Удаление новости'}
-                  message={'Вы уверены, что хотите удалить новость?'}
+                  header={'Delete post'}
+                  message={'Are you sure you want to delete this post?'}
                   buttons={[
                     {
-                      text: 'Отмена',
+                      text: 'Cancel',
                       role: 'cancel',
                       cssClass: 'secondary',
                       handler: () => {
@@ -95,7 +95,7 @@ const ShowPost = () => {
                       },
                     },
                     {
-                      text: 'Да',
+                      text: 'Yes',
                       handler: () => {
                         onDelete(post._id);
                       },

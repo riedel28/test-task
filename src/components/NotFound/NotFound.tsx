@@ -16,8 +16,8 @@ const NotFound = () => {
               className="ion-padding-top"
             >
               <div className="ion-text-center">
-                <h2>Страница не найдена</h2>
-                <Link to="/">Вернуться на главную</Link>
+                <h2>Page not found</h2>
+                <Link to="/">Go home</Link>
               </div>
             </IonCol>
           </IonRow>
