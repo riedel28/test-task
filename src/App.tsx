@@ -3,6 +3,8 @@ import { Route, Switch } from 'react-router-dom';
 import { IonApp, IonContent } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 
+import 'antd/dist/antd.css';
+
 import '@ionic/react/css/core.css';
 import '@ionic/react/css/ionic.bundle.css';
 
