@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { Button, Typography, Divider, Modal, Space } from 'antd';
+import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { useSelector, useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { IonButton, IonIcon, IonAlert, IonItemDivider } from '@ionic/react';
-import { createOutline, trashOutline } from 'ionicons/icons';
 
 import { deletePost } from '../../actions/deletePost';
 import { getAuthStatus } from '../../selectors/authSelectors';
@@ -11,74 +11,67 @@ import displayDateTime from '../../helpers/displayDateTime';
 import shortenText from '../../helpers/shortenText';
 import { Post as PostType } from '../../types';
 
+const { Title, Paragraph, Text } = Typography;
+const { confirm } = Modal;
+
 const NewsItem = ({ id }: { id: string }) => {
-  const [showAlert, setShowAlert] = useState<boolean>(false);
   const dispatch = useDispatch();
   const posts = useSelector(getFeedPosts);
   const isLoggedIn = useSelector(getAuthStatus);
 
   const { title, content, creator, createDate } = posts.find(
-    (post: PostType) => post._id === id
+    (post) => post._id === id
   ) as PostType;
+
   const onDelete = (id: string) => dispatch(deletePost(id));
 
+  const showConfirmDialog = () => {
+    confirm({
+      title: 'Delete post',
+      icon: <DeleteOutlined />,
+      content: 'Are you sure you want to delete this post?',
+      okText: 'Yes',
+      okType: 'danger',
+      cancelText: 'Cancel',
+      onOk() {
+        onDelete(id);
+      },
+      onCancel() {
+        return;
+      },
+    });
+  };
+
   return (
-    <>
+    <article>
       <NavLink to={`/news/${id}`}>
-        <h2>{title}</h2>
+        <Title level={3}>{title}</Title>
       </NavLink>
 
-      <div className="post-description">
-        <div>
-          <span className="creator">{creator.displayName}</span> ·{' '}
-          <span className="created-at">{displayDateTime(createDate)}</span>
+      <div className="post">
+        <div className="post-meta">
+          <Text>{creator.displayName}</Text> ·{' '}
+          <Text>{displayDateTime(createDate)}</Text>
         </div>
 
-        <div>
-          {isLoggedIn && (
-            <>
-              <NavLink to={`/news/edit/${id}`}>
-                <IonButton size="small" color="light">
-                  <IonIcon icon={createOutline} />
-                </IonButton>
-              </NavLink>
-              <IonButton
-                size="small"
-                color="danger"
-                onClick={() => setShowAlert(true)}
-              >
-                <IonIcon icon={trashOutline} />
-              </IonButton>
-            </>
-          )}
-          <IonAlert
-            isOpen={showAlert}
-            onDidDismiss={() => setShowAlert(false)}
-            header={'Delete post'}
-            message={'Are you sure you want to delete this post?'}
-            buttons={[
-              {
-                text: 'Cancel',
-                role: 'cancel',
-                cssClass: 'secondary',
-                handler: () => {
-                  setShowAlert(false);
-                },
-              },
-              {
-                text: 'Yes',
-                handler: () => {
-                  onDelete(id);
-                },
-              },
-            ]}
-          />
-        </div>
+        {isLoggedIn && (
+          <Space direction="horizontal">
+            <NavLink to={`/news/edit/${id}`} style={{ marginRight: '5px' }}>
+              <Button icon={<EditOutlined />}>Edit</Button>
+            </NavLink>
+            <Button
+              onClick={showConfirmDialog}
+              icon={<DeleteOutlined />}
+              danger
+            >
+              Delete
+            </Button>
+          </Space>
+        )}
       </div>
-
-      <p>{shortenText(content)}</p>
-      <IonItemDivider />
-    </>
+      <Paragraph>{shortenText(content)}</Paragraph>
+      <Divider />
+    </article>
   );
 };
 

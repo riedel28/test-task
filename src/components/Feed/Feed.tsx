@@ -1,12 +1,16 @@
 import React, { useEffect, useCallback } from 'react';
-import { IonPage, IonGrid, IonRow, IonCol, IonContent } from '@ionic/react';
+import { Row, Col, Typography, Space } from 'antd';
+import { EditOutlined } from '@ant-design/icons';
 import { useSelector, useDispatch } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 
 import Post from './Post';
 import { fetchFeed } from '../../actions/fetchFeed';
 import { getFeedPosts, getFeedError } from '../../selectors/feedSelectors';
 import dictionary from '../../dictionary';
 import { Post as PostType } from '../../types';
+
+const { Title, Paragraph } = Typography;
 
 const Feed = () => {
   const news = useSelector(getFeedPosts);
@@ -29,34 +33,34 @@ const Feed = () => {
   }
 
   return (
-    <IonPage>
-      <IonContent>
-        <IonGrid>
-          <IonRow>
-            <IonCol sizeMd="8" offsetMd="2" sizeLg="6" offsetLg="3">
-              <div className="ion-padding-bottom">
-                <h1>News Feed</h1>
-              </div>
-              {news.length < 1 ? (
-                <div className="ion-text-center">
-                  <h2>No news yet</h2>
-                </div>
-              ) : (
-                newsIds.map((id: string) => {
-                  return <Post key={id} id={id} />;
-                })
-              )}
+    <Row>
+      <Col span={12} offset={6}>
+        <Typography>
+          <Title>News Feed</Title>
+        </Typography>
+        {news.length < 1 ? (
+          <Row justify="center">
+            <div style={{ textAlign: 'center' }}>
+              <Title level={2}>No news yet</Title>
 
-              {news.length > 0 && (
-                <div className="ion-text-end ion-padding-top">
-                  <em>Total: </em> {news.length}
-                </div>
-              )}
-            </IonCol>
-          </IonRow>
-        </IonGrid>
-      </IonContent>
-    </IonPage>
+              <Title level={5}>
+                <NavLink to="/news/new">
+                  <Space>
+                    You can write a post yourself
+                    <EditOutlined />
+                  </Space>
+                </NavLink>
+              </Title>
+              <Paragraph>You need to be logged in for this.</Paragraph>
+            </div>
+          </Row>
+        ) : (
+          newsIds.map((id: string) => {
+            return <Post key={id} id={id} />;
+          })
+        )}
+      </Col>
+    </Row>
   );
 };
 
