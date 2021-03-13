@@ -1,13 +1,13 @@
-import React, { useCallback } from 'react';
-import { NavLink } from 'react-router-dom';
-import { IonHeader, IonRow, IonCol, IonButton, IonIcon } from '@ionic/react';
+import React, { useState, useCallback, useEffect } from 'react';
+import { Menu } from 'antd';
 import {
-  homeOutline,
-  newspaperOutline,
-  personCircleOutline,
-  createOutline,
-  logoGoogle,
-} from 'ionicons/icons';
+  HomeOutlined,
+  ReadOutlined,
+  ProfileOutlined,
+  FormOutlined,
+  GoogleOutlined,
+} from '@ant-design/icons';
+import { NavLink, useLocation } from 'react-router-dom';
 
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -16,9 +16,15 @@ import { handleLogout } from '../../actions/handleLogout';
 import { getAuthStatus, getUser } from '../../selectors/authSelectors';
 
 const Header: React.FC = () => {
+  const { pathname } = useLocation();
+  const [currentMenuItem, setCurrentMenuItem] = useState(pathname);
   const user = useSelector(getUser);
   const isLoggedIn = useSelector(getAuthStatus);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    setCurrentMenuItem(pathname);
+  }, [pathname]);
 
   const onLogin = useCallback(() => {
     dispatch(handleLogin());
@@ -29,56 +35,36 @@ const Header: React.FC = () => {
   }, [dispatch]);
 
   return (
-    <IonHeader>
-      <IonRow>
-        <IonCol sizeXs="12" sizeSm="12">
-          <nav>
-            <div>
-              <NavLink to="/">
-                <IonButton>
-                  <IonIcon icon={homeOutline} slot="start" />
-                  Home
-                </IonButton>
-              </NavLink>
-              <NavLink to="/news">
-                <IonButton>
-                  <IonIcon icon={newspaperOutline} slot="start" />
-                  News
-                </IonButton>
-              </NavLink>
-              {isLoggedIn && (
-                <NavLink to="/profile">
-                  <IonButton>
-                    <IonIcon icon={personCircleOutline} slot="start" />
-                    Profile
-                  </IonButton>
-                </NavLink>
-              )}
-              {isLoggedIn && (
-                <NavLink to="/news/new">
-                  <IonButton>
-                    <IonIcon icon={createOutline} slot="start" />
-                    New Post
-                  </IonButton>
-                </NavLink>
-              )}
-            </div>
+    <Menu mode="horizontal" selectedKeys={[currentMenuItem]}>
+      <Menu.Item key="/" icon={<HomeOutlined />}>
+        <NavLink to="/">Home</NavLink>
+      </Menu.Item>
+      <Menu.Item key="/news" icon={<ReadOutlined />}>
+        <NavLink to="/news">News</NavLink>
+      </Menu.Item>
+      {isLoggedIn && (
+        <Menu.Item key="/profile" icon={<ProfileOutlined />}>
+          <NavLink to="/profile">Profile</NavLink>
+        </Menu.Item>
+      )}
+      {isLoggedIn && (
+        <Menu.Item key="news/new" icon={<FormOutlined />}>
+          <NavLink to="/news/new">New post</NavLink>
+        </Menu.Item>
+      )}
 
-            <div className="login-info">
-              {user && <span className="user-name">{user.name}</span>}
-              <NavLink to="/">
-                <IonButton onClick={isLoggedIn ? onLogout : onLogin}>
-                  {!isLoggedIn ? (
-                    <IonIcon icon={logoGoogle} slot="start" />
-                  ) : null}
-                  {isLoggedIn ? 'Log Out' : 'Log In with Google'}
-                </IonButton>
-              </NavLink>
-            </div>
-          </nav>
-        </IonCol>
-      </IonRow>
-    </IonHeader>
+      {!isLoggedIn ? (
+        <Menu.Item
+          key="login"
+          onClick={onLogin}
+          icon={<GoogleOutlined style={{ marginLeft: 'auto' }} />}
+        >
+          Log in with Google
+        </Menu.Item>
+      ) : (
+        <Menu.Item onClick={onLogout}>{user && user.name} | Logout</Menu.Item>
+      )}
+    </Menu>
   );
 };
 
