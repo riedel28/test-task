@@ -8,10 +8,8 @@
     "react-app",
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:react/recommended",
-    // "prettier/@typescript-eslint",
-    // "prettier/react",
-    "plugin:prettier/recommended"
+    "prettier",
+    "plugin:react/recommended"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
@@ -19,10 +17,12 @@
     "ecmaFeatures": {
       "jsx": true
     },
-    "sourceType": "module"
+    "sourceType": "module",
+    "project": "./tsconfig.json"
   },
   "plugins": [
     "@typescript-eslint",
+    "prettier",
     "react"
   ],
   "settings": {
@@ -33,6 +33,7 @@
   "rules": {
     "react/prop-types": [
       "off"
-    ]
+    ],
+    "no-console": "error"
   }
 }

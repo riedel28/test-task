@@ -2,7 +2,7 @@
   "useTabs": false,
   "printWidth": 80,
   "singleQuote": true,
-  "trailingComma": "es5",
+  "trailingComma": "none",
   "jsxBracketSameLine": false,
   "semi": true,
   "arrowParens": "always"
