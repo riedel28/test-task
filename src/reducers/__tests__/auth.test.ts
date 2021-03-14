@@ -1,7 +1,7 @@
 import {
   LOG_IN_REQUEST,
   LOG_IN_SUCCESS,
-  LOG_IN_FAILURE,
+  LOG_IN_FAILURE
 } from '../../actions/handleLogin';
 import { LOG_OUT } from '../../actions/handleLogout';
 import auth, {
@@ -9,18 +9,18 @@ import auth, {
   LoginSuccessAction,
   LoginRequestAction,
   LoginFailureAction,
-  LogoutAction,
+  LogoutAction
 } from '../auth';
 
 describe('Auth reducer', () => {
   test('LOG_IN_REQUEST', () => {
     const action = {
-      type: LOG_IN_REQUEST,
+      type: LOG_IN_REQUEST
     } as LoginRequestAction;
 
     expect(auth(initialState, action)).toEqual({
       ...initialState,
-      isLoading: true,
+      isLoading: true
     });
   });
 
@@ -30,7 +30,7 @@ describe('Auth reducer', () => {
       payload: {
         name: 'John Doe',
         token: ''
-      },
+      }
     } as LoginSuccessAction;
 
     expect(auth(initialState, action)).toEqual({
@@ -40,7 +40,7 @@ describe('Auth reducer', () => {
       user: {
         name: 'John Doe',
         token: ''
-      },
+      }
     });
   });
 
@@ -48,8 +48,8 @@ describe('Auth reducer', () => {
     const action = {
       type: LOG_IN_FAILURE,
       payload: {
-        message: 'Log in failure',
-      },
+        message: 'Log in failure'
+      }
     } as LoginFailureAction;
 
     expect(auth(initialState, action)).toEqual({
@@ -57,8 +57,8 @@ describe('Auth reducer', () => {
       isLoading: false,
       isLoggedIn: false,
       error: {
-        message: 'Log in failure',
-      },
+        message: 'Log in failure'
+      }
     });
   });
 
@@ -66,15 +66,15 @@ describe('Auth reducer', () => {
     const action = {
       type: LOG_OUT,
       payload: {
-        message: 'Log in failure',
-      },
+        message: 'Log in failure'
+      }
     } as LogoutAction;
 
     expect(auth(initialState, action)).toEqual({
       ...initialState,
       isLoggedIn: false,
       error: null,
-      user: null,
+      user: null
     });
   });
 });

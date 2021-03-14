@@ -7,7 +7,7 @@ import {
   CREATE_POST_REQUEST,
   CREATE_POST_SUCCESS,
   CREATE_POST_FAILURE,
-  createPost,
+  createPost
 } from '../createPost';
 import { RootState } from '../../configureStore';
 import { AuthAction } from '../../reducers/auth';
@@ -22,16 +22,16 @@ const store = mockStore({
   auth: {
     user: {
       name: 'John Doe',
-      token: 'abc12345',
+      token: 'abc12345'
     },
     isLoggedIn: false,
-    isLoading: false,
+    isLoading: false
   },
   feed: {
     isLoading: false,
     posts: [],
-    error: null,
-  },
+    error: null
+  }
 });
 
 describe('createPost action', () => {
@@ -43,14 +43,14 @@ describe('createPost action', () => {
     fakeAxios.onPost('/feeds').reply(200, {
       feed: {
         title: 'Some title',
-        content: 'Some content',
-      },
+        content: 'Some content'
+      }
     });
 
     await store.dispatch(
       createPost({
         title: 'Some title',
-        content: 'Some content',
+        content: 'Some content'
       })
     );
 
@@ -61,10 +61,10 @@ describe('createPost action', () => {
         payload: {
           feed: {
             title: 'Some title',
-            content: 'Some content',
-          },
-        },
-      },
+            content: 'Some content'
+          }
+        }
+      }
     ];
 
     expect(store.getActions()).toEqual(expectedActions);
@@ -73,8 +73,8 @@ describe('createPost action', () => {
   test('dispatches CREATE_POST_FAILURE', async () => {
     fakeAxios.onPost(`/feeds`).reply(400, {
       error: {
-        message: 'Request failed with status code 400',
-      },
+        message: 'Request failed with status code 400'
+      }
     });
 
     await store.dispatch(
@@ -85,8 +85,8 @@ describe('createPost action', () => {
       { type: CREATE_POST_REQUEST },
       {
         type: CREATE_POST_FAILURE,
-        payload: new Error('Request failed with status code 400'),
-      },
+        payload: new Error('Request failed with status code 400')
+      }
     ];
 
     expect(store.getActions()).toEqual(expectedActions);

@@ -7,7 +7,7 @@ import {
   DELETE_POST_REQUEST,
   DELETE_POST_SUCCESS,
   DELETE_POST_FAILURE,
-  deletePost,
+  deletePost
 } from '../deletePost';
 import { RootState } from '../../configureStore';
 import { FeedAction } from '../../reducers/feed';
@@ -20,16 +20,16 @@ const fakeAxios = new MockAdapter(api);
 const store = mockStore({
   feed: {
     posts: [{ _id: '30', title: 'Some title', content: 'Some content' }],
-    isLoading: false,
+    isLoading: false
   },
   auth: {
     user: {
       name: 'John Doe',
-      token: 'abc12345',
+      token: 'abc12345'
     },
     isLoading: false,
-    isLoggedIn: false,
-  },
+    isLoggedIn: false
+  }
 });
 
 describe('deletePost action', () => {
@@ -39,7 +39,7 @@ describe('deletePost action', () => {
 
   test('dispatches DELETE_POST_SUCCESS', async () => {
     fakeAxios.onDelete(`/feeds/${30}`).reply(200, {
-      _id: '30',
+      _id: '30'
     });
 
     await store.dispatch(deletePost('30'));
@@ -49,9 +49,9 @@ describe('deletePost action', () => {
       {
         type: DELETE_POST_SUCCESS,
         payload: {
-          _id: '30',
-        },
-      },
+          _id: '30'
+        }
+      }
     ];
 
     expect(store.getActions()).toEqual(expectedActions);
@@ -60,8 +60,8 @@ describe('deletePost action', () => {
   test('dispatches DELETE_POST_FAILURE', async () => {
     fakeAxios.onDelete(`/feeds/${20}`).reply(404, {
       error: {
-        message: 'Request failed with status code 404',
-      },
+        message: 'Request failed with status code 404'
+      }
     });
 
     await store.dispatch(deletePost('20'));
@@ -70,8 +70,8 @@ describe('deletePost action', () => {
       { type: DELETE_POST_REQUEST },
       {
         type: DELETE_POST_FAILURE,
-        payload: new Error('Request failed with status code 404'),
-      },
+        payload: new Error('Request failed with status code 404')
+      }
     ];
 
     expect(store.getActions()).toEqual(expectedActions);

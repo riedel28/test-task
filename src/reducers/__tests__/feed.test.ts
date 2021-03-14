@@ -1,22 +1,22 @@
 import {
   FETCH_FEED_REQUEST,
   FETCH_FEED_SUCCESS,
-  FETCH_FEED_FAILURE,
+  FETCH_FEED_FAILURE
 } from '../../actions/fetchFeed';
 import {
   CREATE_POST_REQUEST,
   CREATE_POST_SUCCESS,
-  CREATE_POST_FAILURE,
+  CREATE_POST_FAILURE
 } from '../../actions/createPost';
 import {
   EDIT_POST_REQUEST,
   EDIT_POST_SUCCESS,
-  EDIT_POST_FAILURE,
+  EDIT_POST_FAILURE
 } from '../../actions/editPost';
 import {
   DELETE_POST_REQUEST,
   DELETE_POST_SUCCESS,
-  DELETE_POST_FAILURE,
+  DELETE_POST_FAILURE
 } from '../../actions/deletePost';
 import feed, {
   initialState,
@@ -37,12 +37,12 @@ import feed, {
 describe('Feed reducer', () => {
   test('FETCH_FEED_REQUEST', () => {
     const action = {
-      type: FETCH_FEED_REQUEST,
+      type: FETCH_FEED_REQUEST
     } as FetchFeedRequestAction;
 
     expect(feed(initialState, action)).toEqual({
       ...initialState,
-      isLoading: true,
+      isLoading: true
     });
   });
 
@@ -54,10 +54,10 @@ describe('Feed reducer', () => {
         content: 'Some content',
         creator: {
           _id: '22',
-          displayName: 'John Doe',
+          displayName: 'John Doe'
         },
         __v: '0',
-        createDate: '',
+        createDate: ''
       },
       {
         _id: '2',
@@ -65,21 +65,21 @@ describe('Feed reducer', () => {
         content: 'Some content',
         creator: {
           _id: '23',
-          displayName: 'Jane Doe',
+          displayName: 'Jane Doe'
         },
         __v: '0',
-        createDate: '',
-      },
+        createDate: ''
+      }
     ];
 
     const action = {
       type: FETCH_FEED_SUCCESS,
-      payload: posts,
+      payload: posts
     } as FetchFeedSuccessAction;
 
     expect(feed(initialState, action)).toEqual({
       ...initialState,
-      posts: posts,
+      posts: posts
     });
   });
 
@@ -90,14 +90,14 @@ describe('Feed reducer', () => {
       type: FETCH_FEED_FAILURE,
       payload: {
         message: errorMessage
-      },
+      }
     } as FetchFeedFailureAction;
 
     expect(feed(initialState, action)).toEqual({
       ...initialState,
       error: {
         message: errorMessage
-      },
+      }
     });
   });
 
@@ -105,28 +105,28 @@ describe('Feed reducer', () => {
     const initialStateWithError = {
       error: { message: 'Unknown error' },
       posts: [],
-      isLoading: false,
+      isLoading: false
     };
 
     const action = {
-      type: FETCH_FEED_REQUEST,
+      type: FETCH_FEED_REQUEST
     } as FetchFeedRequestAction;
 
     expect(feed(initialStateWithError, action)).toEqual({
       ...initialStateWithError,
       isLoading: true,
-      error: null,
+      error: null
     });
   });
 
   test('CREATE_POST_REQUEST', () => {
     const action = {
-      type: CREATE_POST_REQUEST,
+      type: CREATE_POST_REQUEST
     } as CreatePostRequestAction;
 
     expect(feed(initialState, action)).toEqual({
       ...initialState,
-      isLoading: true,
+      isLoading: true
     });
   });
 
@@ -137,46 +137,46 @@ describe('Feed reducer', () => {
       content: 'Some content',
       creator: {
         _id: '22',
-        displayName: 'John Doe',
+        displayName: 'John Doe'
       },
       __v: '0',
-      createDate: '',
-    }
+      createDate: ''
+    };
     const action = {
       type: CREATE_POST_SUCCESS,
       payload: {
         feed: post
-      },
+      }
     } as CreatePostSuccessAction;
 
     expect(feed(initialState, action)).toEqual({
       ...initialState,
       isLoading: false,
-      posts: [...initialState.posts, post],
+      posts: [...initialState.posts, post]
     });
   });
 
   test('CREATE_POST_FAILURE ', () => {
     const action = {
       type: CREATE_POST_FAILURE,
-      payload: { message: 'Error' },
+      payload: { message: 'Error' }
     } as CreatePostFailureAction;
 
     expect(feed(initialState, action)).toEqual({
       ...initialState,
       isLoading: false,
-      error: { message: 'Error' },
+      error: { message: 'Error' }
     });
   });
 
   test('EDIT_POST_REQUEST', () => {
     const action = {
-      type: EDIT_POST_REQUEST,
+      type: EDIT_POST_REQUEST
     } as EditPostRequestAction;
 
     expect(feed(initialState, action)).toEqual({
       ...initialState,
-      isLoading: true,
+      isLoading: true
     });
   });
 
@@ -188,10 +188,10 @@ describe('Feed reducer', () => {
         content: 'Some content',
         creator: {
           _id: '22',
-          displayName: 'John Doe',
+          displayName: 'John Doe'
         },
         __v: '0',
-        createDate: '',
+        createDate: ''
       },
       {
         _id: '2',
@@ -199,11 +199,11 @@ describe('Feed reducer', () => {
         content: 'Some content',
         creator: {
           _id: '23',
-          displayName: 'Jane Doe',
+          displayName: 'Jane Doe'
         },
         __v: '0',
-        createDate: '',
-      },
+        createDate: ''
+      }
     ];
 
     const initialStateWithPosts = {
@@ -213,17 +213,17 @@ describe('Feed reducer', () => {
 
     const action = {
       type: EDIT_POST_SUCCESS,
-      payload:  {
+      payload: {
         _id: '100',
         title: 'Some title',
         content: 'Some content',
         creator: {
           _id: '23',
-          displayName: 'Jane Doe',
+          displayName: 'Jane Doe'
         },
         __v: '0',
-        createDate: '',
-      },
+        createDate: ''
+      }
     } as EditPostSuccessAction;
 
     const actionsWithNewPostTitle = {
@@ -234,19 +234,19 @@ describe('Feed reducer', () => {
         content: 'Some content',
         creator: {
           _id: '22',
-          displayName: 'John Doe',
+          displayName: 'John Doe'
         },
         __v: '0',
-        createDate: '',
+        createDate: ''
       }
     } as EditPostSuccessAction;
 
     expect(feed(initialStateWithPosts, action)).toEqual({
       ...initialStateWithPosts,
-      isLoading: false,
+      isLoading: false
     });
 
-    expect(feed(initialStateWithPosts, actionsWithNewPostTitle )).toEqual({
+    expect(feed(initialStateWithPosts, actionsWithNewPostTitle)).toEqual({
       ...initialStateWithPosts,
       isLoading: false,
       posts: [
@@ -256,10 +256,10 @@ describe('Feed reducer', () => {
           content: 'Some content',
           creator: {
             _id: '22',
-            displayName: 'John Doe',
+            displayName: 'John Doe'
           },
           __v: '0',
-          createDate: '',
+          createDate: ''
         },
         {
           _id: '2',
@@ -267,36 +267,36 @@ describe('Feed reducer', () => {
           content: 'Some content',
           creator: {
             _id: '23',
-            displayName: 'Jane Doe',
+            displayName: 'Jane Doe'
           },
           __v: '0',
-          createDate: '',
-        },
-      ],
+          createDate: ''
+        }
+      ]
     });
   });
 
   test('EDIT_POST_FAILURE ', () => {
     const action = {
       type: EDIT_POST_FAILURE,
-      payload: { message: 'Error' },
+      payload: { message: 'Error' }
     } as EditPostFailureAction;
 
     expect(feed(initialState, action)).toEqual({
       ...initialState,
       isLoading: false,
-      error: { message: 'Error' },
+      error: { message: 'Error' }
     });
   });
 
   test('DELETE_POST_REQUEST', () => {
     const action = {
-      type: DELETE_POST_REQUEST,
+      type: DELETE_POST_REQUEST
     } as DeletePostRequestAction;
 
     expect(feed(initialState, action)).toEqual({
       ...initialState,
-      isLoading: true,
+      isLoading: true
     });
   });
 
@@ -310,10 +310,10 @@ describe('Feed reducer', () => {
           content: 'Some content',
           creator: {
             _id: '22',
-            displayName: 'John Doe',
+            displayName: 'John Doe'
           },
           __v: '0',
-          createDate: '',
+          createDate: ''
         },
         {
           _id: '2',
@@ -321,29 +321,27 @@ describe('Feed reducer', () => {
           content: 'Some content',
           creator: {
             _id: '23',
-            displayName: 'Jane Doe',
+            displayName: 'Jane Doe'
           },
           __v: '0',
-          createDate: '',
-        },
-      ],
+          createDate: ''
+        }
+      ]
     };
 
     const action = {
       type: DELETE_POST_SUCCESS,
-      payload: { _id: '1' },
+      payload: { _id: '1' }
     } as DeletePostSuccessAction;
 
     const actionWithWrondId = {
       type: DELETE_POST_SUCCESS,
-      payload: { _id: '100' },
+      payload: { _id: '100' }
     } as DeletePostSuccessAction;
 
-    expect(
-      feed(initialStateWithPosts, actionWithWrondId)
-    ).toEqual({
+    expect(feed(initialStateWithPosts, actionWithWrondId)).toEqual({
       ...initialStateWithPosts,
-      isLoading: false,
+      isLoading: false
     });
     expect(feed(initialStateWithPosts, action)).toEqual({
       ...initialStateWithPosts,
@@ -355,25 +353,25 @@ describe('Feed reducer', () => {
           content: 'Some content',
           creator: {
             _id: '23',
-            displayName: 'Jane Doe',
+            displayName: 'Jane Doe'
           },
           __v: '0',
-          createDate: '',
-        },
-      ],
+          createDate: ''
+        }
+      ]
     });
   });
 
   test('DELETE_POST_FAILURE', () => {
     const action = {
       type: DELETE_POST_FAILURE,
-      payload: { message: 'Error' },
+      payload: { message: 'Error' }
     } as DeletePostFailureAction;
 
     expect(feed(initialState, action)).toEqual({
       ...initialState,
       isLoading: false,
-      error: { message: 'Error' },
+      error: { message: 'Error' }
     });
   });
 });

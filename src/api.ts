@@ -5,9 +5,9 @@ const api = axios.create({
   headers: {
     accept: 'application/json',
     post: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-    },
-  },
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }
+  }
 });
 
 export default api;

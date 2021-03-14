@@ -7,7 +7,7 @@ import {
   FETCH_FEED_REQUEST,
   FETCH_FEED_SUCCESS,
   FETCH_FEED_FAILURE,
-  fetchFeed,
+  fetchFeed
 } from '../fetchFeed';
 import { RootState } from '../../configureStore';
 import { FeedAction } from '../../reducers/feed';
@@ -28,8 +28,8 @@ describe('fetchFeed action', () => {
     fakeAxios.onGet('/feeds').reply(200, {
       feeds: [
         { _id: '1', content: 'Some content' },
-        { _id: '2', content: 'Some more content' },
-      ],
+        { _id: '2', content: 'Some more content' }
+      ]
     });
 
     await store.dispatch(fetchFeed());
@@ -40,9 +40,9 @@ describe('fetchFeed action', () => {
         type: FETCH_FEED_SUCCESS,
         payload: [
           { _id: '1', content: 'Some content' },
-          { _id: '2', content: 'Some more content' },
-        ],
-      },
+          { _id: '2', content: 'Some more content' }
+        ]
+      }
     ];
 
     expect(store.getActions()).toEqual(expectedActions);
@@ -51,8 +51,8 @@ describe('fetchFeed action', () => {
   test('dispatches FETCH_FEED_FAILURE', async () => {
     fakeAxios.onGet('/feeds').reply(400, {
       error: {
-        message: 'Request failed with status code 400',
-      },
+        message: 'Request failed with status code 400'
+      }
     });
 
     await store.dispatch(fetchFeed());
@@ -61,8 +61,8 @@ describe('fetchFeed action', () => {
       { type: FETCH_FEED_REQUEST },
       {
         type: FETCH_FEED_FAILURE,
-        payload: new Error('Request failed with status code 400'),
-      },
+        payload: new Error('Request failed with status code 400')
+      }
     ];
 
     expect(store.getActions()).toEqual(expectedActions);

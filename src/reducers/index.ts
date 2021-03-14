@@ -5,7 +5,7 @@ import feed from './feed';
 
 const rootReducer = combineReducers({
   auth,
-  feed,
+  feed
 });
 
 export default rootReducer;

@@ -7,7 +7,7 @@ import {
   EDIT_POST_REQUEST,
   EDIT_POST_SUCCESS,
   EDIT_POST_FAILURE,
-  editPost,
+  editPost
 } from '../editPost';
 import { RootState } from '../../configureStore';
 import { FeedAction } from '../../reducers/feed';
@@ -26,22 +26,22 @@ const store = mockStore({
         content: 'Some content',
         creator: {
           _id: '333',
-          displayName: 'Some user',
+          displayName: 'Some user'
         },
         __v: '0',
-        createDate: '',
-      },
+        createDate: ''
+      }
     ],
-    isLoading: false,
+    isLoading: false
   },
   auth: {
     user: {
       name: 'John Doe',
-      token: 'abc12345',
+      token: 'abc12345'
     },
     isLoading: false,
-    isLoggedIn: false,
-  },
+    isLoggedIn: false
+  }
 });
 
 describe('editPost action', () => {
@@ -53,14 +53,14 @@ describe('editPost action', () => {
     fakeAxios.onPut(`/feeds/${30}`).reply(200, {
       feed: {
         title: 'New title',
-        content: 'New content',
-      },
+        content: 'New content'
+      }
     });
 
     await store.dispatch(
       editPost('30', {
         title: 'New title',
-        content: 'New content',
+        content: 'New content'
       })
     );
 
@@ -70,9 +70,9 @@ describe('editPost action', () => {
         type: EDIT_POST_SUCCESS,
         payload: {
           title: 'New title',
-          content: 'New content',
-        },
-      },
+          content: 'New content'
+        }
+      }
     ];
 
     expect(store.getActions()).toEqual(expectedActions);
@@ -81,14 +81,14 @@ describe('editPost action', () => {
   test('dispatches EDIT_POST_FAILURE', async () => {
     fakeAxios.onPut(`/feeds/${30}`).reply(400, {
       error: {
-        message: 'Request failed with status code 400',
-      },
+        message: 'Request failed with status code 400'
+      }
     });
 
     await store.dispatch(
       editPost('30', {
         title: 'New title',
-        content: 'New content',
+        content: 'New content'
       })
     );
 
@@ -96,8 +96,8 @@ describe('editPost action', () => {
       { type: EDIT_POST_REQUEST },
       {
         type: EDIT_POST_FAILURE,
-        payload: new Error('Request failed with status code 400'),
-      },
+        payload: new Error('Request failed with status code 400')
+      }
     ];
 
     expect(store.getActions()).toEqual(expectedActions);

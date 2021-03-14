@@ -1,19 +1,18 @@
-
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   --ion-color-primary: blue;
-  --ion-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+  --ion-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+    'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
 
@@ -34,7 +33,7 @@ nav {
 }
 
 @media only screen and (max-device-width: 575px) {
-	h3 {
+  h3 {
     text-align: center;
   }
 
@@ -50,7 +49,8 @@ nav {
   justify-content: space-between;
 }
 
-.creator, .created-at {
+.creator,
+.created-at {
   font-style: italic;
   font-size: 0.8rem;
 }
@@ -109,7 +109,3 @@ p {
   height: 1rem;
   vertical-align: middle;
 }
-
-
-
-

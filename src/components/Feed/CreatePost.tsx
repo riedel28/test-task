@@ -11,7 +11,7 @@ import {
   IonTextarea,
   IonCard,
   IonButton,
-  IonText,
+  IonText
 } from '@ionic/react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
@@ -22,12 +22,12 @@ import { getAuthStatus } from '../../selectors/authSelectors';
 import { getFeedError } from '../../selectors/feedSelectors';
 import { Post } from '../../types';
 
-const CreatePost = () => {
+const CreatePost: React.FC = () => {
   const [heading, setHeading] = useState<string>('');
   const [postContent, setPostContent] = useState<string>('');
   const [errors, setErrors] = useState<{
-    heading: string,
-    postContent: string,
+    heading: string;
+    postContent: string;
   }>({ heading: '', postContent: '' });
   const history = useHistory();
   const isLoggedIn = useSelector(getAuthStatus);
@@ -54,7 +54,7 @@ const CreatePost = () => {
     if (Object.keys(localErrors).length === 0) {
       onCreatePost({
         title: heading,
-        content: postContent,
+        content: postContent
       });
 
       setHeading('');
@@ -88,16 +88,14 @@ const CreatePost = () => {
             >
               <div className="ion-padding-horizontal ion-padding-bottom">
                 <h1>New post</h1>
-                {error && <p>{error!.message}</p>}
+                {error && <p>{error?.message}</p>}
               </div>
               <IonCard>
                 <div className="ion-padding">
                   <form onSubmit={handleSubmit} className="ion-padding-bottom">
                     <div className="ion-padding-bottom">
                       <IonItem>
-                        <IonLabel position="stacked">
-                          Heading
-                        </IonLabel>
+                        <IonLabel position="stacked">Heading</IonLabel>
 
                         <IonInput
                           type="text"
