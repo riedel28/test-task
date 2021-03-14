@@ -10,8 +10,9 @@ import {
   IonInput,
   IonLabel,
   IonButton,
-  IonSpinner,
+  IonSpinner
 } from '@ionic/react';
+
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { handleLogin } from '../../actions/handleLogin';
@@ -19,10 +20,10 @@ import dictionary from '../../dictionary';
 import {
   getAuthStatus,
   getAuthLoadingStatus,
-  getAuthError,
+  getAuthError
 } from '../../selectors/authSelectors';
 
-const Login = () => {
+const Login: React.FC = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 

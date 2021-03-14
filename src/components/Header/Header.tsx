@@ -5,7 +5,7 @@ import {
   ReadOutlined,
   ProfileOutlined,
   FormOutlined,
-  GoogleOutlined,
+  GoogleOutlined
 } from '@ant-design/icons';
 import { NavLink, useLocation } from 'react-router-dom';
 

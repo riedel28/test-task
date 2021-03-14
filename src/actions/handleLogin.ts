@@ -1,15 +1,19 @@
-import api from '../api';
 import { Dispatch } from 'redux';
-import { AuthAction } from '../reducers/auth';
+import { ThunkAction } from 'redux-thunk';
+
+import api from '../api';
+import { AuthAction, AuthState } from '../reducers/auth';
 
 export const LOG_IN_REQUEST = 'LOG_IN_REQUEST';
 export const LOG_IN_SUCCESS = 'LOG_IN_SUCCESS';
 export const LOG_IN_FAILURE = 'LOG_IN_FAILURE';
 
-export const handleLogin = () => {
-  return async (dispatch: Dispatch<AuthAction>) => {
+type ThunkResult<R> = ThunkAction<R, AuthState, undefined, AuthAction>;
+
+export const handleLogin = (): ThunkResult<void> => {
+  return async (dispatch: Dispatch) => {
     dispatch({
-      type: LOG_IN_REQUEST,
+      type: LOG_IN_REQUEST
     });
 
     window.gapi.auth2
@@ -26,13 +30,13 @@ export const handleLogin = () => {
             type: LOG_IN_SUCCESS,
             payload: {
               name: profile.getName(),
-              token: response.data.token,
-            },
+              token: response.data.token
+            }
           });
         } catch (error) {
           dispatch({
             type: LOG_IN_FAILURE,
-            payload: error,
+            payload: error
           });
         }
       });

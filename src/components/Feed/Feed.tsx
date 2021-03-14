@@ -12,7 +12,7 @@ import { Post as PostType } from '../../types';
 
 const { Title, Paragraph } = Typography;
 
-const Feed = () => {
+const Feed: React.FC = () => {
   const news = useSelector(getFeedPosts);
   const newsIds = news.map((post: PostType) => post._id);
   const error = useSelector(getFeedError);

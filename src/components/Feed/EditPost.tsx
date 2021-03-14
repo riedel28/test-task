@@ -11,7 +11,7 @@ import {
   IonTextarea,
   IonCard,
   IonButton,
-  IonText,
+  IonText
 } from '@ionic/react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, useParams } from 'react-router';
@@ -19,28 +19,32 @@ import { useHistory, useParams } from 'react-router';
 import { editPost } from '../../actions/editPost';
 import { getFeedError, getFeedPosts } from '../../selectors/feedSelectors';
 import validate from '../../helpers/validateForm';
-import { Post } from '../../types';
+import { Post as PostType } from '../../types';
 
 type Params = {
-  id: string,
+  id: string;
 };
 
-const EditPost = () => {
+const EditPost: React.FC = () => {
   const params = useParams<Params>();
   const posts = useSelector(getFeedPosts);
-  const post = posts.find((post) => post._id === params.id);
+  const post = posts.find((post) => post._id === params.id) as PostType;
 
-  const [heading, setHeading] = useState<string>(post!.title);
-  const [postContent, setPostContent] = useState<string>(post!.content);
+  const [heading, setHeading] = useState<string>(post?.title);
+  const [postContent, setPostContent] = useState<string>(post?.content);
 
-  const [errors, setErrors] = useState<{heading: string, postContent: string}>({ heading: '', postContent: '' });
+  const [errors, setErrors] = useState<{
+    heading: string;
+    postContent: string;
+  }>({ heading: '', postContent: '' });
   const history = useHistory();
   const error = useSelector(getFeedError);
 
   const dispatch = useDispatch();
 
   const onEditPost = useCallback(
-    (id: string, post: Pick<Post, 'title' | 'content'>) => dispatch(editPost(id, post)),
+    (id: string, post: Pick<PostType, 'title' | 'content'>) =>
+      dispatch(editPost(id, post)),
     [dispatch]
   );
 
@@ -59,9 +63,9 @@ const EditPost = () => {
     setErrors(localErrors);
 
     if (Object.keys(localErrors).length === 0) {
-      onEditPost(post!._id, {
+      onEditPost(post?._id, {
         title: heading,
-        content: postContent,
+        content: postContent
       });
 
       setHeading('');
@@ -86,16 +90,14 @@ const EditPost = () => {
             >
               <div className="ion-padding-horizontal ion-padding-bottom">
                 <h1>Edit post</h1>
-                {error && <p>{error!.message}</p>}
+                {error && <p>{error?.message}</p>}
               </div>
               <IonCard>
                 <div className="ion-padding">
                   <form onSubmit={handleSubmit} className="ion-padding-bottom">
                     <div className="ion-padding-bottom">
                       <IonItem>
-                        <IonLabel position="stacked">
-                          Post heading
-                        </IonLabel>
+                        <IonLabel position="stacked">Post heading</IonLabel>
                         <IonInput
                           type="text"
                           value={heading}

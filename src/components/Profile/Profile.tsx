@@ -3,7 +3,7 @@ import { IonPage, IonGrid, IonRow, IonCol, IonContent } from '@ionic/react';
 
 import ProfileInfo from './ProfileInfo';
 
-const Profile = () => {
+const Profile: React.FC = () => {
   return (
     <IonPage>
       <IonContent>

@@ -7,7 +7,7 @@ import {
   IonButton,
   IonIcon,
   IonAlert,
-  IonItemDivider,
+  IonItemDivider
 } from '@ionic/react';
 import { createOutline, trashOutline } from 'ionicons/icons';
 import { useSelector, useDispatch } from 'react-redux';
@@ -20,10 +20,10 @@ import dictionary from '../../dictionary';
 import { Post } from '../../types';
 
 type Params = {
-  id: string,
+  id: string;
 };
 
-const ShowPost = () => {
+const ShowPost: React.FC = () => {
   const params = useParams<Params>();
   const posts = useSelector(getFeedPosts);
   const isLoggedIn = useSelector(getAuthStatus);
@@ -92,14 +92,14 @@ const ShowPost = () => {
                       cssClass: 'secondary',
                       handler: () => {
                         setShowAlert(false);
-                      },
+                      }
                     },
                     {
                       text: 'Yes',
                       handler: () => {
                         onDelete(post._id);
-                      },
-                    },
+                      }
+                    }
                   ]}
                 />
               </div>

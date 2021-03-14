@@ -1,7 +1,7 @@
 import React from 'react';
 import { IonFooter } from '@ionic/react';
 
-const Footer = () => {
+const Footer: React.FC = () => {
   return (
     <IonFooter>
       <div className="ion-float-right ion-padding">

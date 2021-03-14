@@ -1,10 +1,17 @@
 import React from 'react';
-import { Route, Redirect } from 'react-router';
+import { Route, Redirect, RouteProps } from 'react-router';
 import { useSelector } from 'react-redux';
 
 import { getAuthStatus } from '../../selectors/authSelectors';
 
-const PrivateRoute: React.FC<any> = ({ component: Component, ...rest }) => {
+interface PrivateRouteProps extends RouteProps {
+  component: React.FC;
+}
+
+const PrivateRoute: React.FC<PrivateRouteProps> = ({
+  component: Component,
+  ...rest
+}) => {
   const isLoggedIn = useSelector(getAuthStatus);
 
   return (
@@ -17,7 +24,7 @@ const PrivateRoute: React.FC<any> = ({ component: Component, ...rest }) => {
           <Redirect
             to={{
               pathname: '/news',
-              state: { from: location },
+              state: { from: location }
             }}
           />
         );

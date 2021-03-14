@@ -14,7 +14,7 @@ import { Post as PostType } from '../../types';
 const { Title, Paragraph, Text } = Typography;
 const { confirm } = Modal;
 
-const NewsItem = ({ id }: { id: string }) => {
+const NewsItem: React.FC<{ id: string }> = ({ id }) => {
   const dispatch = useDispatch();
   const posts = useSelector(getFeedPosts);
   const isLoggedIn = useSelector(getAuthStatus);
@@ -38,7 +38,7 @@ const NewsItem = ({ id }: { id: string }) => {
       },
       onCancel() {
         return;
-      },
+      }
     });
   };
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { IonPage, IonContent, IonGrid, IonRow, IonCol } from '@ionic/react';
 import { Link } from 'react-router-dom';
 
-const NotFound = () => {
+const NotFound: React.FC = () => {
   return (
     <IonPage>
       <IonContent>
