@@ -1,29 +1,32 @@
 import React from 'react';
-import { IonPage, IonContent, IonGrid, IonRow, IonCol } from '@ionic/react';
-import { Link } from 'react-router-dom';
+import { Row, Col, Typography, Space } from 'antd';
+import { NavLink } from 'react-router-dom';
+import { HomeOutlined } from '@ant-design/icons';
+
+const { Title } = Typography;
 
 const NotFound: React.FC = () => {
   return (
-    <IonPage>
-      <IonContent>
-        <IonGrid>
-          <IonRow>
-            <IonCol
-              sizeMd="8"
-              offsetMd="2"
-              sizeLg="6"
-              offsetLg="3"
-              className="ion-padding-top"
-            >
-              <div className="ion-text-center">
-                <h2>Page not found</h2>
-                <Link to="/">Go home</Link>
-              </div>
-            </IonCol>
-          </IonRow>
-        </IonGrid>
-      </IonContent>
-    </IonPage>
+    <Row justify="center">
+      <Col>
+        <Typography>
+          <Title>Page not found</Title>
+        </Typography>
+
+        <Row justify="center">
+          <div style={{ textAlign: 'center' }}>
+            <Title level={5}>
+              <NavLink to="/news/new">
+                <Space>
+                  <HomeOutlined />
+                  Return to home page
+                </Space>
+              </NavLink>
+            </Title>
+          </div>
+        </Row>
+      </Col>
+    </Row>
   );
 };
 
