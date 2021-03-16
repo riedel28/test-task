@@ -1,11 +1,12 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { Menu } from 'antd';
+import { Row, Menu } from 'antd';
 import {
   HomeOutlined,
   ReadOutlined,
-  ProfileOutlined,
   FormOutlined,
-  GoogleOutlined
+  GoogleOutlined,
+  UserOutlined,
+  LogoutOutlined
 } from '@ant-design/icons';
 import { NavLink, useLocation } from 'react-router-dom';
 
@@ -35,36 +36,46 @@ const Header: React.FC = () => {
   }, [dispatch]);
 
   return (
-    <Menu mode="horizontal" selectedKeys={[currentMenuItem]}>
-      <Menu.Item key="/" icon={<HomeOutlined />}>
-        <NavLink to="/">Home</NavLink>
-      </Menu.Item>
-      <Menu.Item key="/news" icon={<ReadOutlined />}>
-        <NavLink to="/news">News</NavLink>
-      </Menu.Item>
-      {isLoggedIn && (
-        <Menu.Item key="/profile" icon={<ProfileOutlined />}>
-          <NavLink to="/profile">Profile</NavLink>
+    <Row justify="space-between" style={{ borderBottom: '1px solid #f0f0f0' }}>
+      <Menu
+        mode="horizontal"
+        selectedKeys={[currentMenuItem]}
+        style={{ border: 'none' }}
+      >
+        <Menu.Item key="/" icon={<HomeOutlined />}>
+          <NavLink to="/">Home</NavLink>
         </Menu.Item>
-      )}
-      {isLoggedIn && (
-        <Menu.Item key="news/new" icon={<FormOutlined />}>
-          <NavLink to="/news/new">New post</NavLink>
+        <Menu.Item key="/news" icon={<ReadOutlined />}>
+          <NavLink to="/news">News</NavLink>
         </Menu.Item>
-      )}
 
-      {!isLoggedIn ? (
-        <Menu.Item
-          key="login"
-          onClick={onLogin}
-          icon={<GoogleOutlined style={{ marginLeft: 'auto' }} />}
-        >
-          Log in with Google
-        </Menu.Item>
-      ) : (
-        <Menu.Item onClick={onLogout}>{user && user.name} | Logout</Menu.Item>
-      )}
-    </Menu>
+        {isLoggedIn && (
+          <Menu.Item key="news/new" icon={<FormOutlined />}>
+            <NavLink to="/news/new">New post</NavLink>
+          </Menu.Item>
+        )}
+      </Menu>
+      <Menu mode="horizontal" style={{ border: 'none' }}>
+        {!isLoggedIn ? (
+          <Menu.Item key="/login" onClick={onLogin} icon={<GoogleOutlined />}>
+            Log in with Google
+          </Menu.Item>
+        ) : (
+          <Menu.SubMenu title={user?.name}>
+            <Menu.Item key="/profile" icon={<UserOutlined />}>
+              <NavLink to="/profile">Profile</NavLink>
+            </Menu.Item>
+            <Menu.Item
+              key="/logout"
+              onClick={onLogout}
+              icon={<LogoutOutlined />}
+            >
+              Logout
+            </Menu.Item>
+          </Menu.SubMenu>
+        )}
+      </Menu>
+    </Row>
   );
 };
 
