@@ -1,45 +1,28 @@
-import React, { useState, useCallback, FormEvent } from 'react';
-import {
-  IonPage,
-  IonContent,
-  IonGrid,
-  IonRow,
-  IonCol,
-  IonLabel,
-  IonItem,
-  IonInput,
-  IonTextarea,
-  IonCard,
-  IonButton,
-  IonText
-} from '@ionic/react';
+import React, { useCallback } from 'react';
+import { Row, Col, Typography, Form, Input, Button, message } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, useParams } from 'react-router';
 
 import { editPost } from '../../actions/editPost';
-import { getFeedError, getFeedPosts } from '../../selectors/feedSelectors';
-import validate from '../../helpers/validateForm';
+import { getFeedPosts } from '../../selectors/feedSelectors';
+
 import { Post as PostType } from '../../types';
 
 type Params = {
   id: string;
 };
 
+const { Title } = Typography;
+const { TextArea } = Input;
+
 const EditPost: React.FC = () => {
+  const [form] = Form.useForm();
+
   const params = useParams<Params>();
   const posts = useSelector(getFeedPosts);
   const post = posts.find((post) => post._id === params.id) as PostType;
 
-  const [heading, setHeading] = useState<string>(post?.title);
-  const [postContent, setPostContent] = useState<string>(post?.content);
-
-  const [errors, setErrors] = useState<{
-    heading: string;
-    postContent: string;
-  }>({ heading: '', postContent: '' });
   const history = useHistory();
-  const error = useSelector(getFeedError);
-
   const dispatch = useDispatch();
 
   const onEditPost = useCallback(
@@ -48,98 +31,66 @@ const EditPost: React.FC = () => {
     [dispatch]
   );
 
-  const handleChangeHeading = useCallback((e) => {
-    setHeading(e.target.value);
-  }, []);
+  const handleSubmit = () => {
+    const { title, content } = form.getFieldsValue();
+    const key = 'updatable';
 
-  const handleChangePostContent = useCallback((e) => {
-    setPostContent(e.target.value);
-  }, []);
-
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    const localErrors = validate({ heading, postContent });
-    setErrors(localErrors);
-
-    if (Object.keys(localErrors).length === 0) {
+    message.loading({ content: 'Saving post...', key });
+    setTimeout(() => {
       onEditPost(post?._id, {
-        title: heading,
-        content: postContent
+        title,
+        content
       });
 
-      setHeading('');
-      setPostContent('');
+      message.success({ content: 'Post saved!', key, duration: 2 });
 
       history.push('/news');
-    }
+    }, 2000);
   };
 
   return (
-    <IonPage>
-      <IonContent>
-        <IonGrid>
-          <IonRow>
-            <IonCol
-              sizeSm="8"
-              offsetSm="2"
-              sizeMd="6"
-              offsetMd="3"
-              sizeLg="6"
-              offsetLg="3"
-            >
-              <div className="ion-padding-horizontal ion-padding-bottom">
-                <h1>Edit post</h1>
-                {error && <p>{error?.message}</p>}
-              </div>
-              <IonCard>
-                <div className="ion-padding">
-                  <form onSubmit={handleSubmit} className="ion-padding-bottom">
-                    <div className="ion-padding-bottom">
-                      <IonItem>
-                        <IonLabel position="stacked">Post heading</IonLabel>
-                        <IonInput
-                          type="text"
-                          value={heading}
-                          onIonChange={handleChangeHeading}
-                          required
-                        />
-                      </IonItem>
-                      {errors.heading && (
-                        <div className="ion-padding-top">
-                          <IonText color="danger">{errors.heading}</IonText>
-                        </div>
-                      )}
-                    </div>
-                    <div className="ion-padding-bottom">
-                      <IonItem>
-                        <IonLabel position="stacked">Content</IonLabel>
-                        <IonTextarea
-                          onIonChange={handleChangePostContent}
-                          rows={6}
-                          value={postContent}
-                        />
-                      </IonItem>
-                      {errors.postContent && (
-                        <div className="ion-padding-top">
-                          <IonText color="danger">{errors.postContent}</IonText>
-                        </div>
-                      )}
-                    </div>
+    <Row style={{ paddingBottom: '30px' }}>
+      <Col span={12} offset={6}>
+        <Typography>
+          <Title style={{ color: '#000033' }}>Edit post</Title>
+        </Typography>
+        <Form
+          form={form}
+          layout="vertical"
+          onFinish={handleSubmit}
+          initialValues={{
+            remember: true,
+            title: post?.title,
+            content: post?.content
+          }}
+        >
+          <Form.Item
+            label="Post heading"
+            name="title"
+            rules={[{ required: true, message: "Post title can't be empty" }]}
+          >
+            <Input size="large" type="text" required />
+          </Form.Item>
+          <Form.Item
+            label="Post content"
+            name="content"
+            rules={[
+              { required: true, message: 'You should provide some content' }
+            ]}
+          >
+            <TextArea rows={10} />
+          </Form.Item>
 
-                    <div className="ion-padding-bottom">
-                      <div className="ion-float-right">
-                        <IonButton type="submit">Save</IonButton>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-              </IonCard>
-            </IonCol>
-          </IonRow>
-        </IonGrid>
-      </IonContent>
-    </IonPage>
+          <Form.Item>
+            <Row justify="end">
+              <Button type="primary" htmlType="submit" size="large">
+                Save
+              </Button>
+            </Row>
+          </Form.Item>
+        </Form>
+      </Col>
+    </Row>
   );
 };
 
