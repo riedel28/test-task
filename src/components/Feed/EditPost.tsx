@@ -45,7 +45,7 @@ const EditPost: React.FC = () => {
       message.success({ content: 'Post saved!', key, duration: 2 });
 
       history.push('/news');
-    }, 2000);
+    }, 1000);
   };
 
   return (
@@ -65,7 +65,7 @@ const EditPost: React.FC = () => {
           }}
         >
           <Form.Item
-            label="Post heading"
+            label="Post title"
             name="title"
             rules={[{ required: true, message: "Post title can't be empty" }]}
           >
