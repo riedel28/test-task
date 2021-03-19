@@ -80,7 +80,7 @@ li {
 }
 
 p {
-  color: var(--ion-color-dark);
+  color: #000033 !important;
   line-height: 1.3;
 }
 

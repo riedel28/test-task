@@ -1,15 +1,6 @@
-import React, { useState, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { NavLink, useHistory, useParams } from 'react-router-dom';
-import {
-  IonGrid,
-  IonRow,
-  IonCol,
-  IonButton,
-  IonIcon,
-  IonAlert,
-  IonItemDivider
-} from '@ionic/react';
-import { createOutline, trashOutline } from 'ionicons/icons';
+import { Row, Col, Typography, Space, Modal, Button } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { deletePost } from '../../actions/deletePost';
@@ -17,21 +8,23 @@ import { getAuthStatus } from '../../selectors/authSelectors';
 import { getFeedPosts, getFeedError } from '../../selectors/feedSelectors';
 import displayDateTime from '../../helpers/displayDateTime';
 import dictionary from '../../dictionary';
-import { Post } from '../../types';
+import { Post as PostType } from '../../types';
+import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 
 type Params = {
   id: string;
 };
+
+const { Title, Paragraph } = Typography;
+const { confirm } = Modal;
 
 const ShowPost: React.FC = () => {
   const params = useParams<Params>();
   const posts = useSelector(getFeedPosts);
   const isLoggedIn = useSelector(getAuthStatus);
   const error = useSelector(getFeedError);
-  const post = posts.find((post: Post) => post._id === params.id);
+  const post = posts.find((post) => post._id === params.id) as PostType;
   const dispatch = useDispatch();
-
-  const [showAlert, setShowAlert] = useState<boolean>(false);
   const history = useHistory();
 
   const onDelete = useCallback(
@@ -42,6 +35,23 @@ const ShowPost: React.FC = () => {
     },
     [dispatch, history]
   );
+
+  const showConfirmDialog = () => {
+    confirm({
+      title: 'Delete post',
+      icon: <DeleteOutlined />,
+      content: 'Are you sure you want to delete this post?',
+      okText: 'Yes',
+      okType: 'danger',
+      cancelText: 'Cancel',
+      onOk() {
+        onDelete(post._id);
+      },
+      onCancel() {
+        return;
+      }
+    });
+  };
 
   if (!post) {
     return (
@@ -59,80 +69,51 @@ const ShowPost: React.FC = () => {
   }
 
   return (
-    <>
-      <IonGrid>
-        <IonRow>
-          <IonCol
-            sizeSm="8"
-            offsetSm="2"
-            sizeMd="6"
-            offsetMd="3"
-            sizeLg="6"
-            offsetLg="3"
-          >
-            <h1>{post.title}</h1>
-            <div className="post-description">
-              <div>
-                <span className="creator">{post.creator.displayName}</span> ·{' '}
-                <span className="created-at">
-                  {displayDateTime(post.createDate)}
-                </span>
-              </div>
+    <Row style={{ paddingBottom: '30px' }}>
+      <Col span={12} offset={6}>
+        <Typography>
+          <Title style={{ color: '#000033' }}>{post.title}</Title>
+        </Typography>
 
-              <div>
-                <IonAlert
-                  isOpen={showAlert}
-                  onDidDismiss={() => setShowAlert(false)}
-                  header={'Delete post'}
-                  message={'Are you sure you want to delete this post?'}
-                  buttons={[
-                    {
-                      text: 'Cancel',
-                      role: 'cancel',
-                      cssClass: 'secondary',
-                      handler: () => {
-                        setShowAlert(false);
-                      }
-                    },
-                    {
-                      text: 'Yes',
-                      handler: () => {
-                        onDelete(post._id);
-                      }
-                    }
-                  ]}
-                />
-              </div>
-            </div>
-            <p>{post.content}</p>
-            <IonItemDivider />
-            <div className="ion-padding-top ion-float-right">
-              {isLoggedIn && (
-                <>
-                  <NavLink to={`/news/edit/${post._id}`}>
-                    <IonButton
-                      color="light"
-                      size="small"
-                      style={{ marginRight: 10 }}
-                    >
-                      <IonIcon icon={createOutline} slot="start" /> Edit
-                    </IonButton>
-                  </NavLink>
-                  <IonButton
-                    color="danger"
-                    onClick={() => setShowAlert(true)}
-                    size="small"
-                  >
-                    <IonIcon icon={trashOutline} slot="start" />
-                    Delete
-                  </IonButton>
-                </>
-              )}
-            </div>
-          </IonCol>
-        </IonRow>
-      </IonGrid>
-    </>
+        <Row
+          justify="space-between"
+          align="middle"
+          style={{ margin: '-20px 0 20px' }}
+        >
+          <Space>
+            <Title level={5} style={{ color: '#000033' }}>
+              {post.creator.displayName}&nbsp;&nbsp;·
+            </Title>
+            <Title level={5} style={{ color: '#000033' }}>
+              {displayDateTime(post.createDate)}
+            </Title>
+          </Space>
+          {isLoggedIn && (
+            <Space>
+              <NavLink
+                to={`/news/edit/${post._id}`}
+                style={{ marginRight: '5px' }}
+              >
+                <Button icon={<EditOutlined />}>Edit</Button>
+              </NavLink>
+              <Button
+                onClick={showConfirmDialog}
+                icon={<DeleteOutlined />}
+                danger
+              >
+                Delete
+              </Button>
+            </Space>
+          )}
+        </Row>
+
+        <Paragraph
+          style={{ lineHeight: 1.7, fontSize: '1rem', color: '#000033' }}
+        >
+          {post.content}
+        </Paragraph>
+      </Col>
+    </Row>
   );
 };
 
