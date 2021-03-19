@@ -8,22 +8,20 @@ const { Title } = Typography;
 const NotFound: React.FC = () => {
   return (
     <Row justify="center">
-      <Col>
+      <Col style={{ textAlign: 'center' }}>
         <Typography>
           <Title>Page not found</Title>
         </Typography>
 
         <Row justify="center">
-          <div style={{ textAlign: 'center' }}>
-            <Title level={5}>
-              <NavLink to="/news/new">
-                <Space>
-                  <HomeOutlined />
-                  Return to home page
-                </Space>
-              </NavLink>
-            </Title>
-          </div>
+          <Title level={5}>
+            <NavLink to="/">
+              <Space>
+                <HomeOutlined />
+                Return to home page
+              </Space>
+            </NavLink>
+          </Title>
         </Row>
       </Col>
     </Row>
