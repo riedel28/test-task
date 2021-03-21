@@ -8,6 +8,8 @@ import { getFeedPosts } from '../../selectors/feedSelectors';
 
 import { Post as PostType } from '../../types';
 import PostForm from './PostForm';
+import AuthErrorMessage from '../AuthErrorMessage/AuthErrorMessage';
+import { getAuthStatus } from '../../selectors/authSelectors';
 
 type Params = {
   id: string;
@@ -19,6 +21,7 @@ const EditPost: React.FC = () => {
   const params = useParams<Params>();
   const posts = useSelector(getFeedPosts);
   const post = posts.find((post) => post._id === params.id) as PostType;
+  const isLoggedIn = useSelector(getAuthStatus);
 
   const history = useHistory();
   const dispatch = useDispatch();
@@ -46,6 +49,14 @@ const EditPost: React.FC = () => {
     }, 1000);
   };
 
+  if (!isLoggedIn) {
+    return (
+      <AuthErrorMessage>
+        You need to be logged in to edit this post
+      </AuthErrorMessage>
+    );
+  }
+
   return (
     <PostForm
       onSubmit={handleSubmit}
@@ -58,51 +69,6 @@ const EditPost: React.FC = () => {
       }}
     />
   );
-
-  // return (
-  //   <Row style={{ paddingBottom: '30px' }}>
-  //     <Col span={12} offset={6}>
-  //       <Typography>
-  //         <Title style={{ color: '#000033' }}>Edit post</Title>
-  //       </Typography>
-  //       <Form
-  //         form={form}
-  //         layout="vertical"
-  //         onFinish={handleSubmit}
-  //         initialValues={{
-  //           remember: true,
-  //           title: post?.title,
-  //           content: post?.content
-  //         }}
-  //       >
-  //         <Form.Item
-  //           label="Post title"
-  //           name="title"
-  //           rules={[{ required: true, message: "Post title can't be empty" }]}
-  //         >
-  //           <Input size="large" type="text" required />
-  //         </Form.Item>
-  //         <Form.Item
-  //           label="Post content"
-  //           name="content"
-  //           rules={[
-  //             { required: true, message: 'You should provide some content' }
-  //           ]}
-  //         >
-  //           <TextArea rows={10} />
-  //         </Form.Item>
-
-  //         <Form.Item>
-  //           <Row justify="end">
-  //             <Button type="primary" htmlType="submit" size="large">
-  //               Save
-  //             </Button>
-  //           </Row>
-  //         </Form.Item>
-  //       </Form>
-  //     </Col>
-  //   </Row>
-  // );
 };
 
 export default EditPost;

@@ -8,6 +8,7 @@ import { createPost } from '../../actions/createPost';
 import { getAuthStatus } from '../../selectors/authSelectors';
 import { Post } from '../../types';
 import PostForm from './PostForm';
+import AuthErrorMessage from '../AuthErrorMessage/AuthErrorMessage';
 
 const { Title } = Typography;
 
@@ -40,29 +41,9 @@ const CreatePost: React.FC = () => {
 
   if (!isLoggedIn) {
     return (
-      <Row justify="center">
-        <Col style={{ textAlign: 'center' }}>
-          <Typography>
-            <Title>Auth error</Title>
-          </Typography>
-          <Typography>
-            <Title level={5}>
-              You need to be logged in to create a new post
-            </Title>
-          </Typography>
-
-          <Row justify="center">
-            <Title level={5}>
-              <NavLink to="/">
-                <Space>
-                  <HomeOutlined />
-                  Return to home page
-                </Space>
-              </NavLink>
-            </Title>
-          </Row>
-        </Col>
-      </Row>
+      <AuthErrorMessage>
+        You need to be logged in to create a new post
+      </AuthErrorMessage>
     );
   }
   return (
