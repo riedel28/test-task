@@ -10,6 +10,7 @@ import displayDateTime from '../../helpers/displayDateTime';
 import dictionary from '../../dictionary';
 import { Post as PostType } from '../../types';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
+import NotFound from '../NotFound/NotFound';
 
 type Params = {
   id: string;
@@ -54,18 +55,7 @@ const ShowPost: React.FC = () => {
   };
 
   if (!post) {
-    return (
-      <div className="ion-text-center">
-        {error ? (
-          <h2>{dictionary[error.message]}</h2>
-        ) : (
-          <>
-            <h2>Post not found</h2>
-            <NavLink to="/">Go home</NavLink>
-          </>
-        )}
-      </div>
-    );
+    return <NotFound />;
   }
 
   return (
@@ -78,15 +68,15 @@ const ShowPost: React.FC = () => {
         <Row
           justify="space-between"
           align="middle"
-          style={{ margin: '-20px 0 20px' }}
+          style={{ marginBottom: '30px' }}
         >
           <Space>
-            <Title level={5} style={{ color: '#000033' }}>
+            <Paragraph style={{ color: '#000033' }}>
               {post.creator.displayName}&nbsp;&nbsp;·
-            </Title>
-            <Title level={5} style={{ color: '#000033' }}>
+            </Paragraph>
+            <Paragraph style={{ color: '#000033' }}>
               {displayDateTime(post.createDate)}
-            </Title>
+            </Paragraph>
           </Space>
           {isLoggedIn && (
             <Space>

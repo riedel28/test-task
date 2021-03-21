@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Typography, Divider, Modal, Space } from 'antd';
+import { Button, Typography, Divider, Modal, Space, Row } from 'antd';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { useSelector, useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
@@ -45,14 +45,16 @@ const NewsItem: React.FC<{ id: string }> = ({ id }) => {
   return (
     <article>
       <NavLink to={`/news/${id}`}>
-        <Title level={3}>{title}</Title>
+        <Title level={3} className="news-item-title">
+          {title}
+        </Title>
       </NavLink>
 
-      <div className="post">
-        <div className="post-meta">
-          <Text>{creator.displayName}</Text> ·{' '}
+      <Row justify="space-between" style={{ marginBottom: '20px' }}>
+        <Space>
+          <Text>{creator.displayName}</Text>·
           <Text>{displayDateTime(createDate)}</Text>
-        </div>
+        </Space>
 
         {isLoggedIn && (
           <Space direction="horizontal">
@@ -68,7 +70,7 @@ const NewsItem: React.FC<{ id: string }> = ({ id }) => {
             </Button>
           </Space>
         )}
-      </div>
+      </Row>
       <Paragraph>{shortenText(content)}</Paragraph>
       <Divider />
     </article>

@@ -41,28 +41,42 @@ const Header: React.FC = () => {
         mode="horizontal"
         selectedKeys={[currentMenuItem]}
         style={{ border: 'none' }}
+        className="menu"
       >
-        <Menu.Item key="/" icon={<HomeOutlined />}>
+        <Menu.Item key="/" icon={<HomeOutlined />} className="menu-item">
           <NavLink to="/">Home</NavLink>
         </Menu.Item>
-        <Menu.Item key="/news" icon={<ReadOutlined />}>
+        <Menu.Item key="/news" icon={<ReadOutlined />} className="menu-item">
           <NavLink to="/news">News</NavLink>
         </Menu.Item>
 
         {isLoggedIn && (
-          <Menu.Item key="news/new" icon={<FormOutlined />}>
+          <Menu.Item
+            key="news/new"
+            icon={<FormOutlined />}
+            className="menu-item"
+          >
             <NavLink to="/news/new">New post</NavLink>
           </Menu.Item>
         )}
       </Menu>
       <Menu mode="horizontal" style={{ border: 'none' }}>
         {!isLoggedIn ? (
-          <Menu.Item key="/login" onClick={onLogin} icon={<GoogleOutlined />}>
+          <Menu.Item
+            key="/login"
+            onClick={onLogin}
+            icon={<GoogleOutlined />}
+            className="menu-item"
+          >
             Log in with Google
           </Menu.Item>
         ) : (
           <Menu.SubMenu title={user?.name}>
-            <Menu.Item key="/profile" icon={<UserOutlined />}>
+            <Menu.Item
+              key="/profile"
+              icon={<UserOutlined />}
+              className="menu-item"
+            >
               <NavLink to="/profile">Profile</NavLink>
             </Menu.Item>
             <Menu.Item

@@ -4,7 +4,7 @@ import { EditOutlined } from '@ant-design/icons';
 import { useSelector, useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
-import Post from './Post';
+import NewsItem from './NewsItem';
 import { fetchFeed } from '../../actions/fetchFeed';
 import { getFeedPosts, getFeedError } from '../../selectors/feedSelectors';
 import dictionary from '../../dictionary';
@@ -56,7 +56,7 @@ const Feed: React.FC = () => {
           </Row>
         ) : (
           newsIds.map((id: string) => {
-            return <Post key={id} id={id} />;
+            return <NewsItem key={id} id={id} />;
           })
         )}
       </Col>
