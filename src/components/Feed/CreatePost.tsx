@@ -1,7 +1,6 @@
 import React from 'react';
-import { Row, Col, Typography, Form, message, Space } from 'antd';
-import { HomeOutlined } from '@ant-design/icons';
-import { NavLink, useHistory } from 'react-router-dom';
+import { Form, message } from 'antd';
+import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { createPost } from '../../actions/createPost';
@@ -9,8 +8,6 @@ import { getAuthStatus } from '../../selectors/authSelectors';
 import { Post } from '../../types';
 import PostForm from './PostForm';
 import AuthErrorMessage from '../AuthErrorMessage/AuthErrorMessage';
-
-const { Title } = Typography;
 
 const CreatePost: React.FC = () => {
   const [form] = Form.useForm();
