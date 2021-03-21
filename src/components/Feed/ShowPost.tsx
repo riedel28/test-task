@@ -5,9 +5,9 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { deletePost } from '../../actions/deletePost';
 import { getAuthStatus } from '../../selectors/authSelectors';
-import { getFeedPosts, getFeedError } from '../../selectors/feedSelectors';
+import { getFeedPosts } from '../../selectors/feedSelectors';
 import displayDateTime from '../../helpers/displayDateTime';
-import dictionary from '../../dictionary';
+
 import { Post as PostType } from '../../types';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import NotFound from '../NotFound/NotFound';
@@ -23,7 +23,7 @@ const ShowPost: React.FC = () => {
   const params = useParams<Params>();
   const posts = useSelector(getFeedPosts);
   const isLoggedIn = useSelector(getAuthStatus);
-  const error = useSelector(getFeedError);
+
   const post = posts.find((post) => post._id === params.id) as PostType;
   const dispatch = useDispatch();
   const history = useHistory();
