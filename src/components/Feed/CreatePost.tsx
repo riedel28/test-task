@@ -1,14 +1,5 @@
 import React from 'react';
-import {
-  Row,
-  Col,
-  Typography,
-  Form,
-  Input,
-  Button,
-  message,
-  Space
-} from 'antd';
+import { Row, Col, Typography, Form, message, Space } from 'antd';
 import { HomeOutlined } from '@ant-design/icons';
 import { NavLink, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -16,9 +7,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { createPost } from '../../actions/createPost';
 import { getAuthStatus } from '../../selectors/authSelectors';
 import { Post } from '../../types';
+import PostForm from './PostForm';
 
 const { Title } = Typography;
-const { TextArea } = Input;
 
 const CreatePost: React.FC = () => {
   const [form] = Form.useForm();
@@ -75,39 +66,7 @@ const CreatePost: React.FC = () => {
     );
   }
   return (
-    <Row style={{ paddingBottom: '30px' }}>
-      <Col span={12} offset={6}>
-        <Typography>
-          <Title style={{ color: '#000033' }}>Create new post</Title>
-        </Typography>
-        <Form form={form} layout="vertical" onFinish={handleSubmit}>
-          <Form.Item
-            label="Post title"
-            name="title"
-            rules={[{ required: true, message: "Post title can't be empty" }]}
-          >
-            <Input size="large" type="text" required />
-          </Form.Item>
-          <Form.Item
-            label="Post content"
-            name="content"
-            rules={[
-              { required: true, message: 'You should provide some content' }
-            ]}
-          >
-            <TextArea rows={10} />
-          </Form.Item>
-
-          <Form.Item>
-            <Row justify="end">
-              <Button type="primary" htmlType="submit" size="large">
-                Save
-              </Button>
-            </Row>
-          </Form.Item>
-        </Form>
-      </Col>
-    </Row>
+    <PostForm onSubmit={handleSubmit} form={form} title="Create new post" />
   );
 };
 
