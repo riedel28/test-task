@@ -41,7 +41,7 @@ const App: React.FC = () => {
             <PrivateRoute path="/news/edit/:id" component={EditPost} exact />
             <Route path="/login" component={Login} />
             <PrivateRoute path="/profile" component={Profile} />
-            <Route path="*" component={NotFound} />
+            <Route component={NotFound} />
           </Switch>
         </IonContent>
         <Footer />
