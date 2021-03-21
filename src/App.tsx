@@ -12,7 +12,6 @@ import Header from './components/Header/Header';
 import Feed from './components/Feed/Feed';
 import ShowPost from './components/Feed/ShowPost';
 import CreatePost from './components/Feed/CreatePost';
-import Login from './components/Login/Login';
 import Profile from './components/Profile/Profile';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import EditPost from './components/Feed/EditPost';
@@ -39,7 +38,6 @@ const App: React.FC = () => {
             <Route path="/news/new" component={CreatePost} exact />
             <Route path="/news/:id" component={ShowPost} exact />
             <PrivateRoute path="/news/edit/:id" component={EditPost} exact />
-            <Route path="/login" component={Login} />
             <PrivateRoute path="/profile" component={Profile} />
             <Route component={NotFound} />
           </Switch>
